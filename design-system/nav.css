@@ -33,7 +33,7 @@
 .anova-nav-toggle{display:none;background:none;border:none;font-size:20px;color:var(--text-1);cursor:pointer;padding:8px;}
 
 @media(max-width:980px){
-  .anova-nav-links{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;background:var(--white);flex-direction:column;align-items:stretch;justify-content:flex-start;padding:var(--s6) var(--s5);gap:var(--s2);overflow-y:auto;}
+  .anova-nav-links{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;z-index:200;background:var(--white);flex-direction:column;align-items:stretch;justify-content:flex-start;padding:var(--s6) var(--s5);gap:var(--s2);overflow-y:auto;}
   .anova-nav.mobile-open .anova-nav-links{display:flex;}
   .anova-nav-toggle{display:block;}
   .anova-nav-link{font-size:18px;padding:var(--s4) 0;border-bottom:1px solid var(--border);}
