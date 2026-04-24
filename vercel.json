@@ -1,0 +1,12 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/orquestrador.html", "destination": "/orquestrador", "permanent": true },
+    { "source": "/wealth-management.html", "destination": "/wealth-management", "permanent": true },
+    { "source": "/credito.html", "destination": "/credito", "permanent": true },
+    { "source": "/life-invest.html", "destination": "/life-invest", "permanent": true },
+    { "source": "/research.html", "destination": "/research", "permanent": true },
+    { "source": "/wealth-hubs.html", "destination": "/wealth-hubs", "permanent": true }
+  ]
+}
