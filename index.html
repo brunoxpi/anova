@@ -871,7 +871,9 @@ noscript{display:none;}
  <div class="field"><label class="field-label" for="f-nome">Nome completo</label><input class="input" id="f-nome" name="nome" type="text" required placeholder="Seu nome completo"></div>
  <div class="field"><label class="field-label" for="f-email">E-mail</label><input class="input" id="f-email" name="email" type="email" required placeholder="voce@empresa.com.br"></div>
  <div class="field"><label class="field-label" for="f-tel">Telefone / WhatsApp</label><input class="input" id="f-tel" name="tel" type="tel" placeholder="(00) 00000-0000"></div>
- <div class="field"><label class="field-label" for="f-seg">Segmento</label><select class="select" id="f-seg" name="segmento"><option value="">Selecione</option><option>Equipes e redes comerciais</option><option>Times distribuídos / parceiros</option><option>Franquias / B2B</option><option>Operação WhatsApp-first</option><option>Outro</option></select></div>
+ <div class="field"><label class="field-label" for="f-seg">Segmento</label><select class="select" id="f-seg" name="segmento"><option value="">Selecione</option><option>Rede de assessores / Corretora</option><option>Escritório de investimentos (EAI)</option><option>Multi-family office (MFO)</option><option>Distribuidora / Gestora</option><option>Banco / Instituição financeira</option><option>Correspondente bancário</option><option>Seguradora / Previdência</option><option>Franquia financeira</option><option>Outro</option></select></div>
+ <div class="field"><label class="field-label" for="f-cargo">Cargo</label><select class="select" id="f-cargo" name="cargo"><option value="">Selecione</option><option>Sócio / Fundador</option><option>Diretor Comercial</option><option>Gerente Comercial</option><option>Assessor de Investimentos</option><option>Consultor Financeiro</option><option>Gerente de Operações</option><option>Outro</option></select></div>
+ <div class="field"><label class="field-label" for="f-vendedores">Vendedores na equipe</label><select class="select" id="f-vendedores" name="vendedores"><option value="">Selecione</option><option>1 a 5</option><option>6 a 20</option><option>21 a 50</option><option>51 a 200</option><option>Mais de 200</option></select></div>
  <div class="field"><label class="field-label" for="f-msg">Mensagem</label><textarea class="textarea" id="f-msg" name="msg" rows="3" placeholder="Como podemos ajudar?"></textarea></div>
  <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:var(--s3);">Solicitar demonstração <span class="arr">→</span></button>
  </form>
@@ -980,7 +982,7 @@ noscript{display:none;}
  if(!form)return;
  form.addEventListener('submit',function(e){
  e.preventDefault();
- var data={nome:form.nome.value,email:form.email.value,tel:form.tel.value,segmento:form.segmento.value,msg:form.msg.value,page:'index',ts:new Date().toISOString()};
+ var data={nome:form.nome.value,email:form.email.value,tel:form.tel.value,segmento:form.segmento.value,cargo:form.cargo.value,vendedores:form.vendedores.value,msg:form.msg.value,page:'index',ts:new Date().toISOString()};
  window.location.href='https://wa.me/5511982647397?text=Ol%C3%A1%2C%20vim%20do%20site%20da%20Anova%20e%20tenho%20interesse%20em%20saber%20mais%20sobre%20a%20AnovaOS';
  });
 })();
