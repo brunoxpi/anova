@@ -1,0 +1,148 @@
+/* ═══════════════════════════════════════════════════════
+   ANOVA · CTA FORM (partial compartilhado)
+   Usado em todas as páginas de produto. Estilo dark-first
+   porque todos os CTAs ficam em section-dark / bg preto.
+   ═══════════════════════════════════════════════════════ */
+
+.anova-cta-form{
+  display:flex;flex-direction:column;gap:var(--s4,16px);
+  padding:var(--s6,32px);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--r-xl,20px);
+  max-width:640px;
+  width:100%;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+/* light surface (se for usada em bg claro, ex: Landing) */
+.anova-cta-form.is-light{
+  background:#FFFFFF;
+  border-color:rgba(10,10,10,.08);
+  box-shadow:0 1px 2px rgba(10,10,10,.04), 0 8px 32px rgba(10,10,10,.06);
+}
+
+.acf-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--s4,16px);
+}
+@media(max-width:560px){.acf-row{grid-template-columns:1fr;}}
+
+.acf-field{display:flex;flex-direction:column;gap:6px;}
+
+.acf-label{
+  font-family:var(--mono, ui-monospace, monospace);
+  font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.6);
+  display:flex;align-items:center;gap:6px;
+}
+.anova-cta-form.is-light .acf-label{color:var(--text-3,#767676);}
+
+.acf-opt{
+  font-size:9.5px;letter-spacing:.08em;text-transform:none;
+  color:rgba(255,255,255,.4);font-weight:400;
+}
+.anova-cta-form.is-light .acf-opt{color:rgba(10,10,10,.4);}
+
+.acf-input{
+  width:100%;
+  font-family:var(--font, system-ui, sans-serif);
+  font-size:15px;line-height:1.4;letter-spacing:-.005em;
+  color:#FFFFFF;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:10px;
+  padding:12px 14px;
+  transition:border-color .2s, background .2s, box-shadow .2s;
+  outline:none;
+  appearance:none;
+  -webkit-appearance:none;
+}
+.anova-cta-form.is-light .acf-input{
+  color:var(--text-1,#0A0A0A);
+  background:#FFFFFF;
+  border-color:rgba(10,10,10,.12);
+}
+.acf-input::placeholder{color:rgba(255,255,255,.35);}
+.anova-cta-form.is-light .acf-input::placeholder{color:rgba(10,10,10,.3);}
+
+.acf-input:hover{border-color:rgba(255,255,255,.28);}
+.anova-cta-form.is-light .acf-input:hover{border-color:rgba(10,10,10,.22);}
+
+.acf-input:focus{
+  border-color:rgba(255,255,255,.6);
+  background:rgba(255,255,255,.09);
+  box-shadow:0 0 0 3px rgba(255,255,255,.08);
+}
+.anova-cta-form.is-light .acf-input:focus{
+  border-color:var(--text-1,#0A0A0A);
+  box-shadow:0 0 0 3px rgba(10,10,10,.06);
+}
+
+.acf-textarea{resize:vertical;min-height:86px;font-family:var(--font, system-ui, sans-serif);}
+
+/* select custom caret */
+.acf-select{
+  background-image:linear-gradient(45deg, transparent 50%, rgba(255,255,255,.45) 50%),
+                   linear-gradient(135deg, rgba(255,255,255,.45) 50%, transparent 50%);
+  background-position:calc(100% - 18px) 19px, calc(100% - 13px) 19px;
+  background-size:5px 5px;
+  background-repeat:no-repeat;
+  padding-right:36px;
+}
+.anova-cta-form.is-light .acf-select{
+  background-image:linear-gradient(45deg, transparent 50%, rgba(10,10,10,.5) 50%),
+                   linear-gradient(135deg, rgba(10,10,10,.5) 50%, transparent 50%);
+}
+.acf-select option{background:#0A0A0A;color:#FFFFFF;}
+.anova-cta-form.is-light .acf-select option{background:#FFFFFF;color:#0A0A0A;}
+
+/* submit */
+.acf-submit{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;
+  padding:15px 22px;
+  border:none;cursor:pointer;
+  background:#FFFFFF;color:#0A0A0A;
+  border-radius:10px;
+  font-family:var(--font, system-ui, sans-serif);
+  font-size:15px;font-weight:600;letter-spacing:-.01em;
+  margin-top:var(--s2,8px);
+  transition:transform .15s ease, background .15s ease, box-shadow .15s ease;
+  box-shadow:0 2px 4px rgba(0,0,0,.2);
+}
+.anova-cta-form.is-light .acf-submit{
+  background:#0A0A0A;color:#FFFFFF;
+  box-shadow:0 1px 2px rgba(10,10,10,.12), 0 6px 20px rgba(10,10,10,.12);
+}
+.acf-submit:hover{transform:translateY(-1px);background:#F4F4F4;}
+.anova-cta-form.is-light .acf-submit:hover{background:#1A1A1A;}
+.acf-submit:active{transform:translateY(0);}
+.acf-submit-arr{transition:transform .2s;}
+.acf-submit:hover .acf-submit-arr{transform:translateX(3px);}
+
+.acf-submit[disabled],
+.acf-submit.is-sending{opacity:.7;cursor:progress;}
+.acf-submit.is-sent{background:#E8F5EE;color:#166534;}
+
+.acf-disclaimer{
+  font-family:var(--mono, ui-monospace, monospace);
+  font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+  text-align:center;margin-top:6px;
+  line-height:1.5;
+}
+.anova-cta-form.is-light .acf-disclaimer{color:rgba(10,10,10,.4);}
+
+/* inválido só depois de tentar enviar */
+.anova-cta-form.was-validated .acf-input:invalid{
+  border-color:#FF6B6B;
+  box-shadow:0 0 0 3px rgba(255,107,107,.12);
+}
+
+/* grid de 2 colunas da seção que contém o form */
+.acf-section-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--s8,64px);
+  align-items:start;
+}
+@media(max-width:900px){.acf-section-grid{grid-template-columns:1fr;gap:var(--s6,32px);}}

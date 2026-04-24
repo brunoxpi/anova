@@ -1,0 +1,1184 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crédito Multibanco · Anova</title>
+<meta name="description" content="A intenção do cliente entra no WhatsApp. O Orquestrador roteia para mais de 80 bancos e parceiros regulados. O especialista Anova devolve o melhor fluxo — taxa, parcela, CET, prazo ou liberação — em grupo, com trilha auditável.">
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="design-system/components.css">
+<link rel="stylesheet" href="design-system/nav.css">
+<link rel="stylesheet" href="design-system/sections.css">
+<link rel="stylesheet" href="design-system/editorial.css">
+<link rel="stylesheet" href="design-system/cta-form.css">
+<style>
+  /* ══════════════════════════════════════════════════════════
+     CRÉDITO · v2 · "Roteamento"
+     Motifs: tabular nums · ticker · tabela competitiva
+     ══════════════════════════════════════════════════════════ */
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text-1); font-feature-settings: 'tnum' 1, 'ss01' 1; }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 var(--s5); }
+
+  /* ─── Tipografia base ─────────────────────────────────── */
+  .ticker {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ticker::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--text-1);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  .section-dark .ticker { color: rgba(255,255,255,.55); }
+  .section-dark .ticker::before { background: var(--white); }
+  @keyframes pulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+  .ts {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: .08em;
+    color: var(--text-3);
+    font-feature-settings: 'tnum' 1;
+  }
+
+  /* ─── HERO ───────────────────────────────────────────── */
+  .hero {
+    padding: var(--s6) 0 var(--s7);
+    position: relative;
+  }
+  .hero-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--s5);
+    gap: var(--s5);
+    flex-wrap: wrap;
+  }
+  .hero-top {
+    display: grid;
+    grid-template-columns: 1.35fr .9fr;
+    gap: var(--s8);
+    align-items: end;
+    margin-bottom: var(--s6);
+  }
+  @media (max-width: 900px) {
+    .hero-top { grid-template-columns: 1fr; gap: var(--s6); }
+  }
+  .hero-portrait {
+    position: relative;
+    aspect-ratio: 4/5;
+    max-width: 420px;
+    width: 100%;
+    margin-left: auto;
+    overflow: hidden;
+    border-radius: var(--r-xl);
+    background: var(--gray-light);
+    filter: grayscale(100%) contrast(1.02);
+  }
+  .hero-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hero-portrait-cap {
+    position: absolute;
+    left: var(--s4);
+    bottom: var(--s4);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.85);
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(4px);
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+  .hero h1 {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(44px, 6.8vw, 88px);
+    line-height: .98;
+    letter-spacing: -.038em;
+    max-width: 18ch;
+    margin-bottom: 0;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--text-3);
+    font-weight: 400;
+  }
+  .hero-sub {
+    font-size: clamp(17px, 1.4vw, 21px);
+    line-height: 1.5;
+    color: var(--text-2);
+    max-width: 62ch;
+    margin-bottom: var(--s7);
+  }
+  .hero-sub a { border-bottom: 1px solid var(--h2); }
+  .hero-sub a:hover { border-bottom-color: var(--text-1); }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s3);
+    margin-bottom: var(--s8);
+  }
+  .btn-prime, .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 500;
+    transition: transform .2s, background .2s, border-color .2s;
+  }
+  .btn-prime {
+    background: var(--text-1);
+    color: var(--bg);
+  }
+  .btn-prime:hover { transform: translateY(-1px); }
+  .btn-prime .arrow { transition: transform .2s; }
+  .btn-prime:hover .arrow { transform: translateX(3px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-1);
+    border: 1px solid var(--border-hi);
+  }
+  .btn-ghost:hover { border-color: var(--text-1); }
+  .section-dark .btn-prime {
+    background: var(--bg);
+    color: var(--onyx);
+  }
+  .section-dark .btn-ghost {
+    color: var(--white);
+    border-color: rgba(255,255,255,.35);
+  }
+  .section-dark .btn-ghost:hover { border-color: var(--white); }
+
+  /* ─── Hero flow (Intenção → Orquestrador → Ecossistema → Fluxo) ── */
+  .flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    gap: 0;
+    align-items: stretch;
+    margin-top: var(--s5);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .flow-col {
+    padding: var(--s6) var(--s5);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .flow-col + .flow-arrow + .flow-col {
+    border-left: 1px dashed var(--border-hi);
+  }
+  .flow-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .flow-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    line-height: 1.2;
+    color: var(--text-1);
+  }
+  .flow-sub {
+    font-size: 13px;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+  .flow-arrow {
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-3);
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 20px;
+    position: relative;
+  }
+  .flow-arrow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, transparent 0 6px, var(--border-hi) 6px 7px);
+    top: 50%;
+    height: 1px;
+    left: 4px; right: 4px;
+  }
+  .flow-arrow span {
+    background: var(--bg);
+    padding: 0 6px;
+    position: relative;
+    z-index: 2;
+  }
+  @media (max-width: 880px) {
+    .flow { grid-template-columns: 1fr; }
+    .flow-arrow { display: none; }
+    .flow-col { border-bottom: 1px dashed var(--border-hi); border-left: none !important; }
+    .flow-col:last-child { border-bottom: none; }
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: var(--s6);
+    margin-top: var(--s5);
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  /* ─── Section scaffold ───────────────────────────────── */
+  .section {
+    padding: clamp(80px, 11vh, 140px) 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+  .section-alt { background: var(--gray-light); }
+  .section-dark { background: var(--onyx); color: var(--bg); border-top-color: rgba(255,255,255,.08); }
+  .section-dark .ts { color: rgba(255,255,255,.45); }
+
+  .sec-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--s7);
+    gap: var(--s5);
+    flex-wrap: wrap;
+  }
+  .sec-head .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    font-weight: 500;
+  }
+  .section-dark .sec-head .eyebrow { color: rgba(255,255,255,.5); }
+
+  .sec-h2 {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(32px, 4.6vw, 60px);
+    line-height: 1.02;
+    letter-spacing: -.03em;
+    max-width: 22ch;
+  }
+  .sec-h2 em {
+    font-style: normal;
+    color: var(--text-3);
+    font-weight: 400;
+  }
+  .section-dark .sec-h2 em { color: rgba(255,255,255,.5); }
+
+  .sec-lead {
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.55;
+    color: var(--text-2);
+    max-width: 62ch;
+  }
+  .section-dark .sec-lead { color: rgba(255,255,255,.72); }
+  .sec-lead a { border-bottom: 1px solid var(--h2); }
+  .section-dark .sec-lead a { border-bottom-color: rgba(255,255,255,.28); }
+
+  /* ─── §01 · Três problemas ───────────────────────────── */
+  .prob-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: var(--s7);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  @media (max-width: 880px) { .prob-grid { grid-template-columns: 1fr; } }
+  .prob {
+    padding: var(--s6) var(--s5);
+    border-left: 1px solid var(--border);
+  }
+  .prob:first-child { border-left: none; }
+  @media (max-width: 880px) {
+    .prob { border-left: none; border-top: 1px solid var(--border); }
+    .prob:first-child { border-top: none; }
+  }
+  .prob-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: var(--s5);
+  }
+  .prob h3 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    line-height: 1.25;
+    margin-bottom: var(--s3);
+    color: var(--text-1);
+  }
+  .prob p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-2);
+  }
+
+  /* ─── §02 · Pipeline (4 estações) ───────────────────── */
+  .pipeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: var(--s7);
+    position: relative;
+  }
+  .pipeline::before {
+    content: '';
+    position: absolute;
+    top: 42px;
+    left: 12%; right: 12%;
+    height: 1px;
+    background: rgba(255,255,255,.18);
+  }
+  .pipe-node {
+    padding: 0 var(--s3);
+  }
+  .pipe-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--onyx);
+    border: 2px solid var(--white);
+    margin: 0 auto var(--s3);
+    position: relative;
+    z-index: 2;
+  }
+  .pipe-dot--filled { background: var(--white); }
+  .pipe-step {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .05em;
+    color: var(--white);
+    margin-bottom: var(--s2);
+  }
+  .pipe-label {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    margin-bottom: var(--s4);
+  }
+  .pipe-node h3 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -.015em;
+    line-height: 1.2;
+    margin-bottom: var(--s3);
+    text-align: center;
+    color: var(--white);
+  }
+  .pipe-node p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(255,255,255,.7);
+    text-align: center;
+  }
+  @media (max-width: 880px) {
+    .pipeline { grid-template-columns: 1fr 1fr; row-gap: var(--s6); }
+    .pipeline::before { display: none; }
+  }
+  @media (max-width: 520px) { .pipeline { grid-template-columns: 1fr; } }
+
+  /* ─── §03 · Verticais ─────────────────────────────────── */
+  .vert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s4);
+    margin-top: var(--s7);
+  }
+  @media (max-width: 880px) { .vert-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .vert-grid { grid-template-columns: 1fr; } }
+
+  .vert {
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: var(--s6);
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    transition: border-color .2s, transform .2s;
+    position: relative;
+  }
+  .vert:hover { border-color: var(--text-1); transform: translateY(-2px); }
+  .vert-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: var(--s2);
+  }
+  .vert h3 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    line-height: 1.2;
+    color: var(--text-1);
+    margin-bottom: var(--s2);
+  }
+  .vert .sub {
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.55;
+    margin-bottom: var(--s3);
+  }
+  .vert .items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+  .vert .items li {
+    padding: var(--s3) 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-3);
+    letter-spacing: .02em;
+    border-bottom: 1px dashed var(--h0);
+  }
+  .vert .items li:last-child { border-bottom: none; }
+  .vert .reg {
+    position: absolute;
+    top: var(--s5);
+    right: var(--s5);
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    color: var(--text-1);
+    border: 1px solid var(--border-hi);
+    border-radius: 99px;
+    padding: 3px 8px;
+  }
+  .vert--soon { opacity: .85; }
+  .vert--soon .reg { border-color: var(--text-3); color: var(--text-3); }
+
+  /* ─── §04 · Tabela de critérios ───────────────────────── */
+  .crit-table {
+    margin-top: var(--s7);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+  }
+  .crit-row {
+    display: grid;
+    grid-template-columns: 1.3fr 1.5fr 1.2fr;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    transition: background .2s;
+  }
+  .crit-row:last-child { border-bottom: none; }
+  .crit-row:not(.crit-row--head):hover { background: rgba(255,255,255,.025); }
+  .crit-row > div {
+    padding: var(--s5) var(--s5);
+    font-size: 14px;
+    line-height: 1.5;
+    border-right: 1px solid rgba(255,255,255,.08);
+  }
+  .crit-row > div:last-child { border-right: none; }
+  .crit-row--head {
+    background: rgba(255,255,255,.03);
+  }
+  .crit-row--head > div {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    font-weight: 500;
+    padding: var(--s4) var(--s5);
+  }
+  .crit-crit {
+    color: var(--white);
+    font-weight: 600;
+    letter-spacing: -.005em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .crit-crit .mono {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(255,255,255,.45);
+    font-weight: 500;
+  }
+  .crit-when { color: rgba(255,255,255,.72); }
+  .crit-out {
+    color: var(--white);
+    font-weight: 500;
+    background: rgba(255,255,255,.04);
+  }
+  @media (max-width: 680px) {
+    .crit-row { grid-template-columns: 1fr; }
+    .crit-row > div { border-right: none; border-bottom: 1px dashed rgba(255,255,255,.08); }
+    .crit-row > div:last-child { border-bottom: none; }
+    .crit-row--head { display: none; }
+  }
+
+  /* ─── §05 · Rede · antes/depois ───────────────────────── */
+  .net {
+    margin-top: var(--s7);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .net-row {
+    display: grid;
+    grid-template-columns: 1.1fr 1.2fr 1.6fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .net-row:last-child { border-bottom: none; }
+  .net-row > div {
+    padding: var(--s5);
+    border-right: 1px solid var(--border);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .net-row > div:last-child { border-right: none; }
+  .net-row--head > div {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    background: var(--gray-light);
+    padding: var(--s4) var(--s5);
+    font-weight: 500;
+  }
+  .net-who { font-weight: 600; color: var(--text-1); }
+  .net-before { color: var(--text-3); text-decoration: line-through; text-decoration-color: var(--h2); }
+  .net-after { color: var(--text-1); font-weight: 500; background: var(--gray-light); }
+  @media (max-width: 680px) {
+    .net-row { grid-template-columns: 1fr; }
+    .net-row > div { border-right: none; border-bottom: 1px dashed var(--h1); }
+    .net-row > div:last-child { border-bottom: none; }
+    .net-row--head { display: none; }
+  }
+
+  /* ─── §06 · Ecossistema · ticker ─────────────────────── */
+  .eco-stat {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: var(--s7);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  @media (max-width: 680px) { .eco-stat { grid-template-columns: 1fr; } }
+  .eco-stat-col {
+    padding: var(--s6) var(--s5);
+    border-left: 1px solid var(--border);
+  }
+  .eco-stat-col:first-child { border-left: none; }
+  @media (max-width: 680px) {
+    .eco-stat-col { border-left: none; border-top: 1px solid var(--border); }
+    .eco-stat-col:first-child { border-top: none; }
+  }
+  .eco-stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: var(--s3);
+  }
+  .eco-stat-num {
+    font-family: var(--font);
+    font-size: clamp(40px, 4.5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -.035em;
+    line-height: 1;
+    color: var(--text-1);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: var(--s3);
+  }
+  .eco-stat-sub {
+    font-size: 13px;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  .eco-marquee {
+    margin-top: var(--s6);
+    overflow: hidden;
+    position: relative;
+    border-top: 1px dashed var(--border-hi);
+    border-bottom: 1px dashed var(--border-hi);
+    padding: var(--s5) 0;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .eco-track {
+    display: flex;
+    gap: var(--s6);
+    animation: ecoRun 48s linear infinite;
+    width: max-content;
+  }
+  .eco-track span {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .04em;
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+  .eco-track span.b {
+    color: var(--text-1);
+    font-weight: 600;
+  }
+  @keyframes ecoRun {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ─── §07 · CTA ───────────────────────────────────────── */
+  .cta-block {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--s8);
+    align-items: end;
+    margin-top: var(--s7);
+  }
+  @media (max-width: 880px) { .cta-block { grid-template-columns: 1fr; } }
+
+  .cta-h2 {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(40px, 5.8vw, 72px);
+    line-height: 1;
+    letter-spacing: -.035em;
+    color: var(--bg);
+    max-width: 18ch;
+  }
+  .cta-h2 em { color: rgba(255,255,255,.5); font-style: normal; font-weight: 400; }
+  .cta-side p {
+    color: rgba(255,255,255,.72);
+    font-size: 17px;
+    line-height: 1.55;
+    margin-bottom: var(--s5);
+  }
+  .cta-side a { border-bottom: 1px solid rgba(255,255,255,.3); }
+  .btn-prime-inv {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 26px;
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--onyx);
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 500;
+    transition: transform .2s;
+  }
+  .btn-prime-inv:hover { transform: translateY(-1px); }
+  .btn-prime-inv .arrow { transition: transform .2s; }
+  .btn-prime-inv:hover .arrow { transform: translateX(3px); }
+
+  /* ─── Reveal ──────────────────────────────────────────── */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  }
+  [data-reveal].is-in { opacity: 1; transform: translateY(0); }
+  [data-reveal][data-delay="1"] { transition-delay: .08s; }
+  [data-reveal][data-delay="2"] { transition-delay: .16s; }
+  [data-reveal][data-delay="3"] { transition-delay: .24s; }
+  [data-reveal][data-delay="4"] { transition-delay: .32s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    [data-reveal] { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body data-page="credito">
+
+<div id="anova-nav"></div>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-head">
+      <span class="ticker">Roteamento · Crédito Multibanco</span>
+      <span class="ts">Intenção → Fluxo</span>
+    </div>
+
+    <div class="hero-top" data-reveal>
+      <h1>
+        O crédito começa<br>na intenção.<br><em>Não na prateleira.</em>
+      </h1>
+    </div>
+
+    <p class="hero-sub" data-reveal data-delay="1">
+      A intenção do cliente entra no WhatsApp, onde a conversa já acontece. O <a href="orquestrador.html">Orquestrador</a> traduz essa intenção em critério, roteia para mais de 80 bancos e parceiros regulados, e o especialista Anova devolve o melhor fluxo — taxa, parcela, CET, prazo ou liberação — em grupo, com trilha auditável. Não é marketplace. Não é busca por preço. É consultiva multibanco com o capital do cliente no centro da mesa.
+    </p>
+
+    <div class="hero-cta" data-reveal data-delay="2">
+      <a href="#cta" class="btn-prime">Rodar a intenção no ecossistema <span class="arrow">→</span></a>
+      <a href="#como" class="btn-ghost">Como funciona</a>
+    </div>
+
+    <div class="flow" data-reveal data-delay="3">
+      <div class="flow-col">
+        <span class="flow-label">01 · Intenção</span>
+        <span class="flow-title">No WhatsApp</span>
+        <span class="flow-sub">Cliente pede. Originador abre o pedido no canal onde o relacionamento vive.</span>
+      </div>
+      <div class="flow-arrow"><span>→</span></div>
+      <div class="flow-col">
+        <span class="flow-label">02 · Orquestrador</span>
+        <span class="flow-title">Critério</span>
+        <span class="flow-sub">Taxa, parcela, CET, prazo ou liberação. O algoritmo traduz o objetivo em priorização.</span>
+      </div>
+      <div class="flow-arrow"><span>→</span></div>
+      <div class="flow-col">
+        <span class="flow-label">03 · Ecossistema</span>
+        <span class="flow-title">80+ instituições</span>
+        <span class="flow-sub">Bancos, financeiras, administradoras e seguradoras reguladas cotam a mesma operação.</span>
+      </div>
+      <div class="flow-arrow"><span>→</span></div>
+      <div class="flow-col">
+        <span class="flow-label">04 · Fluxo</span>
+        <span class="flow-title">Melhor saída</span>
+        <span class="flow-sub">Comparação lado a lado no grupo. Trilha auditável. Comissão rastreada por operação.</span>
+      </div>
+    </div>
+
+    <div class="hero-meta">
+      <span class="hero-meta-item">80+ parceiros regulados</span>
+      <span class="hero-meta-item">BACEN · SUSEP · ANS</span>
+      <span class="hero-meta-item">6 verticais · 1 camada</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ §01 · PROBLEMA ═══ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">01 · Problema estrutural</span>
+      <span class="ts">Três disfunções</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      A cotação de crédito<br>é <em>viciada</em> pelo<br>lado errado da mesa.
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      Quem cota crédito no Brasil costuma ser quem quer vender crédito. O gerente só oferece a prateleira do banco. O corretor só vende o consórcio dele. O originador monoproduto deixa a conversa adjacente — financiamento, seguro, proteção — evaporar. O cliente sai com a taxa que sobrou, não com a que caberia no objetivo.
+    </p>
+
+    <div class="prob-grid">
+      <div class="prob" data-reveal data-delay="1">
+        <div class="prob-num">P · 01</div>
+        <h3>O banker cota pelo banco.</h3>
+        <p>O gerente compara só o que mora dentro do próprio CNPJ. Fora disso, a resposta é "não temos" — e a melhor taxa fica em outra mesa.</p>
+      </div>
+      <div class="prob" data-reveal data-delay="2">
+        <div class="prob-num">P · 02</div>
+        <h3>Cotação pulverizada.</h3>
+        <p>Três janelas, três propostas avulsas, nenhuma comparação real. O cliente escolhe pela que respondeu primeiro, não pela que fazia sentido.</p>
+      </div>
+      <div class="prob" data-reveal data-delay="3">
+        <div class="prob-num">P · 03</div>
+        <h3>Originador monoproduto.</h3>
+        <p>Corretor fecha a casa, perde o financiamento. Consultor faz investimento, perde o consórcio. A relação existia. A receita ficou na mesa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §02 · COMO FUNCIONA ═══ -->
+<section id="como" class="section section-dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">02 · Como funciona</span>
+      <span class="ts">4 movimentos · 1 camada</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal style="color:var(--white);">
+      Captura. Roteamento.<br>Ecossistema. <em>Devolução.</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      Toda operação percorre os mesmos quatro movimentos — seja financiamento, consórcio, home equity, crédito PJ ou seguro. O que muda são os parceiros ativados; a arquitetura é a mesma.
+    </p>
+
+    <div class="pipeline">
+      <div class="pipe-node" data-reveal data-delay="1">
+        <div class="pipe-dot pipe-dot--filled"></div>
+        <div class="pipe-step">01</div>
+        <div class="pipe-label">Captura</div>
+        <h3>Intenção no canal do cliente</h3>
+        <p>O originador abre o pedido dentro do WhatsApp com cliente identificado e vertical escolhida. A intenção entra como dado estruturado — não como recado solto.</p>
+      </div>
+      <div class="pipe-node" data-reveal data-delay="2">
+        <div class="pipe-dot"></div>
+        <div class="pipe-step">02</div>
+        <div class="pipe-label">Roteamento</div>
+        <h3>Intenção vira critério</h3>
+        <p>Mensagem automatizada coleta o que falta — valor, prazo, garantias, objetivo. O Orquestrador converte em priorização: taxa, parcela, CET, prazo ou liberação.</p>
+      </div>
+      <div class="pipe-node" data-reveal data-delay="3">
+        <div class="pipe-dot"></div>
+        <div class="pipe-step">03</div>
+        <div class="pipe-label">Ecossistema</div>
+        <h3>80+ parceiros respondem</h3>
+        <p>Bancos, financeiras, administradoras e seguradoras cotam a mesma operação. BACEN, SUSEP e ANS embarcados na camada — não anexados por fora.</p>
+      </div>
+      <div class="pipe-node" data-reveal data-delay="4">
+        <div class="pipe-dot pipe-dot--filled"></div>
+        <div class="pipe-step">04</div>
+        <div class="pipe-label">Devolução</div>
+        <h3>Especialista conduz</h3>
+        <p>Comparação lado a lado, recomendação orientada ao objetivo, liberação acompanhada. Tudo no grupo. Comissão rastreada por operação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §03 · VERTICAIS ═══ -->
+<section id="verticais" class="section section-alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">03 · Verticais</span>
+      <span class="ts">6 intenções · 1 fluxo</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      Seis intenções.<br>Um ecossistema.<br><em>O mesmo fluxo.</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      O mesmo cliente que aloca patrimônio pela <a href="life-invest.html">Life Invest</a> pergunta sobre financiamento, home equity, consórcio, seguro e crédito PJ na mesma conversa. As seis verticais rodam na mesma camada — independentemente da vertical, a trilha e a governança são idênticas.
+    </p>
+
+    <div class="vert-grid">
+      <div class="vert" data-reveal data-delay="1">
+        <span class="reg">BACEN</span>
+        <div class="vert-num">V · 01</div>
+        <h3>Financiamento</h3>
+        <p class="sub">Imóvel e veículo, com propostas múltiplas lado a lado — taxa, parcela, CET e prazo comparáveis antes da assinatura.</p>
+        <ul class="items">
+          <li>Imobiliário</li>
+          <li>Veículos</li>
+        </ul>
+      </div>
+      <div class="vert" data-reveal data-delay="2">
+        <span class="reg">BACEN</span>
+        <div class="vert-num">V · 02</div>
+        <h3>Consórcio</h3>
+        <p class="sub">Para quem quer conquistar sem pagar juros. Comparação entre administradoras sérias, em grupos ativos.</p>
+        <ul class="items">
+          <li>Imóveis</li>
+          <li>Veículos</li>
+          <li>Serviços</li>
+        </ul>
+      </div>
+      <div class="vert" data-reveal data-delay="3">
+        <span class="reg">BACEN</span>
+        <div class="vert-num">V · 03</div>
+        <h3>Home Equity</h3>
+        <p class="sub">Empréstimo com garantia de imóvel ou veículo. Taxa substancialmente menor que crédito pessoal — o bem fica com o cliente.</p>
+        <ul class="items">
+          <li>Garantia de imóvel</li>
+          <li>Garantia de veículo</li>
+        </ul>
+      </div>
+      <div class="vert" data-reveal data-delay="1">
+        <span class="reg">BACEN</span>
+        <div class="vert-num">V · 04</div>
+        <h3>Crédito PJ</h3>
+        <p class="sub">Crédito orientado ao objetivo — capital de giro, antecipação, expansão. Bancos competem pela operação, não pelo cliente.</p>
+        <ul class="items">
+          <li>Capital de giro</li>
+          <li>Antecipação de recebíveis</li>
+          <li>Expansão</li>
+        </ul>
+      </div>
+      <div class="vert" data-reveal data-delay="2">
+        <span class="reg">SUSEP</span>
+        <div class="vert-num">V · 05</div>
+        <h3>Seguro e Previdência</h3>
+        <p class="sub">Proteção e planejamento longo integrados ao multibanco. Consultiva de proteção junto ao planejamento patrimonial.</p>
+        <ul class="items">
+          <li>Vida</li>
+          <li>Residencial</li>
+          <li>Previdência privada</li>
+        </ul>
+      </div>
+      <div class="vert vert--soon" data-reveal data-delay="3">
+        <span class="reg">ANS · em roadmap</span>
+        <div class="vert-num">V · 06</div>
+        <h3>Plano de Saúde</h3>
+        <p class="sub">Próxima vertical integrada. Operadoras reguladas pela ANS, cotação comparativa pelo perfil da família ou empresa.</p>
+        <ul class="items">
+          <li>PF familiar</li>
+          <li>PJ empresarial</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §04 · CRITÉRIO ═══ -->
+<section class="section section-dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">04 · Critério de priorização</span>
+      <span class="ts">O que orienta a cotação</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal style="color:var(--white);">
+      Cotamos pelo<br>objetivo real.<br><em>Não pela prateleira.</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      A pergunta não é "qual banco tem?" — é "o que o cliente precisa?". O Orquestrador traduz o objetivo em critério, e o critério em priorização entre as 80+ instituições conectadas.
+    </p>
+
+    <div class="crit-table" data-reveal data-delay="2">
+      <div class="crit-row crit-row--head">
+        <div>Critério</div>
+        <div>Quando o algoritmo prioriza</div>
+        <div>O que o cliente recebe</div>
+      </div>
+      <div class="crit-row">
+        <div class="crit-crit"><span>Melhor taxa</span><span class="mono">T</span></div>
+        <div class="crit-when">Cliente quer o menor custo de juros.</div>
+        <div class="crit-out">Ranking por taxa nominal, CET ao lado.</div>
+      </div>
+      <div class="crit-row">
+        <div class="crit-crit"><span>Parcela menor</span><span class="mono">P</span></div>
+        <div class="crit-when">Cliente tem restrição de fluxo mensal.</div>
+        <div class="crit-out">Ranking por parcela, alongando prazo se couber.</div>
+      </div>
+      <div class="crit-row">
+        <div class="crit-crit"><span>Menor CET</span><span class="mono">C</span></div>
+        <div class="crit-when">Cliente quer a operação mais barata no custo efetivo.</div>
+        <div class="crit-out">Ranking por CET, incluindo tarifas e seguros embutidos.</div>
+      </div>
+      <div class="crit-row">
+        <div class="crit-crit"><span>Prazo mais longo</span><span class="mono">H</span></div>
+        <div class="crit-when">Cliente precisa alongar o passivo.</div>
+        <div class="crit-out">Ranking por horizonte máximo de liquidação.</div>
+      </div>
+      <div class="crit-row">
+        <div class="crit-crit"><span>Liberação rápida</span><span class="mono">L</span></div>
+        <div class="crit-when">Cliente precisa executar com urgência.</div>
+        <div class="crit-out">Ranking por tempo até liberação do recurso.</div>
+      </div>
+    </div>
+
+    <p style="margin-top:var(--s6);font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.14em;" data-reveal>
+      Cliente escolhe · Anova conduz · Banco compete
+    </p>
+  </div>
+</section>
+
+<!-- ═══ §05 · REDE ═══ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">05 · Rede de originadores</span>
+      <span class="ts">Antes → Depois</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      Monoproduto<br>vira <em>multinegócios.</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      Capilaridade já existia. A Anova plugou na mesma camada — o especialista da casa cuida da cotação, o originador mantém o relacionamento, e a receita adjacente deixa de evaporar.
+    </p>
+
+    <div class="net" data-reveal data-delay="2">
+      <div class="net-row net-row--head">
+        <div>Atuação</div>
+        <div>Antes</div>
+        <div>Depois</div>
+      </div>
+      <div class="net-row">
+        <div class="net-who">Corretor de imóvel</div>
+        <div class="net-before">Ganhava só na venda da casa.</div>
+        <div class="net-after">Casa + financiamento + home equity + seguro residencial.</div>
+      </div>
+      <div class="net-row">
+        <div class="net-who">Vendedor de consórcio</div>
+        <div class="net-before">Ganhava só no consórcio.</div>
+        <div class="net-after">Consórcio + cross-sell multibanco da rede.</div>
+      </div>
+      <div class="net-row">
+        <div class="net-who">Consultor de investimento</div>
+        <div class="net-before">Ganhava só na alocação.</div>
+        <div class="net-after">Alocação + crédito + proteção + crédito PJ.</div>
+      </div>
+      <div class="net-row">
+        <div class="net-who">Advocacia · contabilidade</div>
+        <div class="net-before">Perdia para quem fechava crédito ao lado.</div>
+        <div class="net-after">Novo braço operacional sem construir estrutura.</div>
+      </div>
+      <div class="net-row">
+        <div class="net-who">Cliente</div>
+        <div class="net-before">Cotava um banco por vez.</div>
+        <div class="net-after">Cotação de 80+ instituições num grupo único.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §06 · ECOSSISTEMA ═══ -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">06 · Ecossistema regulado</span>
+      <span class="ts">BACEN · SUSEP · ANS</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      O ecossistema<br>que responde<br><em>toda intenção.</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      Mais de 80 bancos, financeiras, administradoras e seguradoras conectados ao Orquestrador. Regulação embarcada na camada — não anexada por fora. O ecossistema cresce por operação: cada parceiro que entra amplia o espaço de resposta para o próximo pedido.
+    </p>
+
+    <div class="eco-stat">
+      <div class="eco-stat-col" data-reveal data-delay="1">
+        <div class="eco-stat-label">Instituições</div>
+        <div class="eco-stat-num">80+</div>
+        <div class="eco-stat-sub">Bancos, financeiras, administradoras e seguradoras conectadas.</div>
+      </div>
+      <div class="eco-stat-col" data-reveal data-delay="2">
+        <div class="eco-stat-label">Reguladores</div>
+        <div class="eco-stat-num">3</div>
+        <div class="eco-stat-sub">BACEN para bancário, SUSEP para seguros, ANS para saúde.</div>
+      </div>
+      <div class="eco-stat-col" data-reveal data-delay="3">
+        <div class="eco-stat-label">Verticais ativas</div>
+        <div class="eco-stat-num">5<span style="color:var(--text-3);font-weight:400;">&nbsp;+&nbsp;1</span></div>
+        <div class="eco-stat-sub">Cinco em produção. Saúde em roadmap, regulação ANS.</div>
+      </div>
+    </div>
+
+    <div class="eco-marquee" data-reveal data-delay="4" aria-label="Parceiros de crédito">
+      <div class="eco-track">
+        <span class="b">BTG Pactual</span><span>·</span>
+        <span class="b">Itaú</span><span>·</span>
+        <span class="b">Bradesco</span><span>·</span>
+        <span class="b">Santander</span><span>·</span>
+        <span class="b">Banco do Brasil</span><span>·</span>
+        <span class="b">Caixa</span><span>·</span>
+        <span class="b">C6 Bank</span><span>·</span>
+        <span class="b">Inter</span><span>·</span>
+        <span class="b">Banrisul</span><span>·</span>
+        <span class="b">CashMe</span><span>·</span>
+        <span class="b">Aminter</span><span>·</span>
+        <span class="b">+ 70 parceiros</span><span>·</span>
+        <!-- loop -->
+        <span class="b">BTG Pactual</span><span>·</span>
+        <span class="b">Itaú</span><span>·</span>
+        <span class="b">Bradesco</span><span>·</span>
+        <span class="b">Santander</span><span>·</span>
+        <span class="b">Banco do Brasil</span><span>·</span>
+        <span class="b">Caixa</span><span>·</span>
+        <span class="b">C6 Bank</span><span>·</span>
+        <span class="b">Inter</span><span>·</span>
+        <span class="b">Banrisul</span><span>·</span>
+        <span class="b">CashMe</span><span>·</span>
+        <span class="b">Aminter</span><span>·</span>
+        <span class="b">+ 70 parceiros</span><span>·</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §07 · CTA ═══ -->
+<section id="cta" class="section section-dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">07 · Próximo passo</span>
+      <span class="ts">Originador · parceiro · cliente</span>
+    </div>
+
+    <div class="cta-block">
+      <h2 class="cta-h2" data-reveal>
+        Traga a intenção.<br>A Anova devolve<br><em>o melhor fluxo.</em>
+      </h2>
+      <div class="cta-side" data-reveal data-delay="1">
+        <p>
+          Entre como originador, como parceiro monoproduto ou como cliente. Em minutos, o <a href="orquestrador.html">Orquestrador</a> captura a intenção, conecta ao ecossistema de 80+ parceiros regulados e o especialista conduz até a execução — no mesmo grupo do WhatsApp, com trilha auditável.
+        </p>
+        <div id="anova-cta-form" data-product="credito"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="anova-footer"></div>
+
+<script src="js/shell.js?v=20260425b" defer></script>
+<script>
+  // ─── Reveal on scroll ─────────────────────────────────
+  (function () {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+  })();
+</script>
+</body>
+</html>

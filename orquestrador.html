@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orquestrador · Sistema Operacional Conversacional dentro do WhatsApp</title>
+<meta name="description" content="O Orquestrador vive dentro da API oficial do WhatsApp Business. Login regulado, HITL nativo, trilha imutável. Seis verticais em um canal só.">
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="design-system/components.css">
+<link rel="stylesheet" href="design-system/sections.css">
+<link rel="stylesheet" href="design-system/nav.css">
+<link rel="stylesheet" href="design-system/editorial.css">
+<link rel="stylesheet" href="design-system/cta-form.css">
+<style>
+  /* ═══════════════════════════════════════════════════════
+     ORQUESTRADOR · sistema editorial herdado + simulação WA
+     ═══════════════════════════════════════════════════════ */
+  :root{
+    --wa-bg:#ECE5DD;
+    --wa-header:#075E54;
+    --wa-bubble-out:#DCF8C6;
+    --wa-bubble-in:#FFFFFF;
+    --wa-tick:#34B7F1;
+    --wa-green:#25D366;
+    --wa-green-btn:#00A884;
+    --wa-text:#111b21;
+    --wa-text-meta:#667781;
+    --wa-chat-bg:#E5DDD5;
+  }
+
+  /* ── HERO ── */
+  .orq-hero{padding:calc(64px + var(--s7)) 0 var(--s7);position:relative;overflow:hidden;}
+  .orq-hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s8);align-items:center;}
+  @media(max-width:980px){.orq-hero-grid{grid-template-columns:1fr;gap:var(--s7);}}
+  .orq-hero h1{font-size:clamp(44px,6.4vw,84px);line-height:.96;letter-spacing:-.035em;font-weight:800;margin:var(--s4) 0 var(--s5);}
+  .orq-hero h1 em{font-style:normal;color:var(--text-3);}
+  .orq-hero .hero-sub{font-size:clamp(16px,1.35vw,19px);color:var(--text-2);line-height:1.6;max-width:54ch;margin-bottom:var(--s6);}
+  .orq-hero-meta{display:flex;flex-wrap:wrap;gap:var(--s5);margin-top:var(--s6);padding-top:var(--s5);border-top:1px solid var(--border);}
+  .orq-hero-meta span{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);display:flex;align-items:center;gap:var(--s2);}
+  .orq-hero-meta span::before{content:"";width:6px;height:6px;background:var(--text-1);border-radius:50%;}
+
+  /* ── PHONE MOCKUP ── */
+  .phone-stage{position:relative;display:flex;justify-content:center;align-items:center;padding:var(--s5) 0;}
+  .phone{
+    width:320px;height:640px;
+    background:#0a0a0a;border-radius:40px;
+    padding:10px;position:relative;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,.35), 0 0 0 2px #1a1a1a, inset 0 0 0 2px #2a2a2a;
+  }
+  .phone::before{
+    content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:100px;height:22px;background:#0a0a0a;border-radius:0 0 14px 14px;z-index:3;
+  }
+  .phone-screen{
+    width:100%;height:100%;
+    background:var(--wa-chat-bg);
+    border-radius:32px;overflow:hidden;
+    display:flex;flex-direction:column;
+    position:relative;
+  }
+
+  /* WA Header */
+  .wa-header{
+    background:var(--wa-header);
+    padding:28px 14px 10px;
+    display:flex;align-items:center;gap:10px;color:#fff;flex-shrink:0;
+  }
+  .wa-back{font-size:18px;opacity:.85;}
+  .wa-ava{
+    width:36px;height:36px;border-radius:50%;
+    background:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:800;color:var(--wa-header);font-size:14px;
+    letter-spacing:-.04em;
+  }
+  .wa-name-box{flex:1;min-width:0;}
+  .wa-name{font-weight:600;font-size:14px;line-height:1.2;}
+  .wa-status{font-size:11px;opacity:.8;}
+  .wa-icons{display:flex;gap:14px;opacity:.85;font-size:16px;}
+
+  /* Chat area */
+  .wa-chat{
+    flex:1;overflow:hidden;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,.04), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(0,0,0,.03), transparent 40%);
+    background-color:var(--wa-chat-bg);
+    padding:10px 10px 14px;
+    display:flex;flex-direction:column;gap:6px;
+    position:relative;
+  }
+
+  /* Date separator */
+  .wa-date{
+    align-self:center;background:rgba(225,245,254,.92);
+    padding:4px 10px;border-radius:6px;
+    font-size:10.5px;color:var(--wa-text-meta);font-weight:500;
+    box-shadow:0 1px 0 rgba(0,0,0,.08);
+  }
+  .wa-system{
+    align-self:center;background:rgba(255,241,200,.9);
+    padding:5px 12px;border-radius:6px;max-width:88%;
+    font-size:10.5px;color:#6a5200;text-align:center;line-height:1.35;
+    box-shadow:0 1px 0 rgba(0,0,0,.06);
+  }
+
+  /* Bubbles */
+  .wa-bubble{
+    max-width:78%;padding:6px 10px 18px;border-radius:8px;
+    font-size:13px;line-height:1.4;color:var(--wa-text);
+    position:relative;box-shadow:0 1px 0.5px rgba(0,0,0,.13);
+    opacity:0;transform:translateY(8px);
+    transition:opacity .45s ease, transform .45s ease;
+    word-wrap:break-word;
+  }
+  .wa-bubble.visible{opacity:1;transform:translateY(0);}
+  .wa-bubble.in{background:var(--wa-bubble-in);border-top-left-radius:2px;align-self:flex-start;}
+  .wa-bubble.out{background:var(--wa-bubble-out);border-top-right-radius:2px;align-self:flex-end;}
+  .wa-bubble strong{font-weight:600;}
+  .wa-bubble .time{
+    position:absolute;bottom:3px;right:8px;
+    font-size:9.5px;color:var(--wa-text-meta);
+    display:flex;align-items:center;gap:3px;
+  }
+  .wa-bubble.out .time::after{content:"✓✓";color:var(--wa-tick);font-size:11px;}
+
+  /* Inline action buttons (reply buttons) */
+  .wa-actions{
+    display:flex;flex-direction:column;gap:2px;
+    margin:6px -10px -18px;
+    border-top:1px solid #ECECEC;
+  }
+  .wa-action{
+    padding:10px;text-align:center;
+    color:var(--wa-green-btn);font-weight:500;font-size:13px;
+    border-top:1px solid #ECECEC;
+    cursor:pointer;transition:background .2s;
+  }
+  .wa-action:first-child{border-top:none;}
+  .wa-action.hit{background:#E8F5F1;}
+
+  /* Flow modal (Confirmação de identidade) */
+  .wa-flow{
+    align-self:flex-start;width:85%;
+    background:#fff;border-radius:8px;
+    overflow:hidden;margin-top:4px;
+    box-shadow:0 1px 0.5px rgba(0,0,0,.13), 0 2px 8px rgba(0,0,0,.08);
+    opacity:0;transform:translateY(8px);
+    transition:opacity .45s ease, transform .45s ease;
+  }
+  .wa-flow.visible{opacity:1;transform:translateY(0);}
+  .wf-head{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 12px;border-bottom:1px solid #ECECEC;
+    font-size:12px;font-weight:600;color:#333;
+  }
+  .wf-head .x{color:#999;font-size:14px;font-weight:400;}
+  .wf-bar{height:3px;background:#F0F0F0;}
+  .wf-bar-fill{height:100%;background:var(--wa-green-btn);transition:width 1s ease;}
+  .wf-body{padding:14px;background:#FAFAFA;}
+  .wf-icon{
+    width:48px;height:48px;margin:0 auto 10px;
+    background:var(--wa-green-btn);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:22px;
+  }
+  .wf-title{font-size:13px;font-weight:600;text-align:center;margin-bottom:4px;color:#333;}
+  .wf-desc{font-size:11.5px;color:#666;text-align:left;margin-bottom:10px;line-height:1.5;}
+  .wf-input{
+    padding:10px 12px;border:1px solid #DDD;border-radius:6px;
+    background:#fff;letter-spacing:8px;font-size:16px;
+    color:#333;font-family:monospace;
+    text-align:center;
+  }
+  .wf-input .dot{opacity:0;animation:typeIn .4s forwards;}
+  .wf-foot{padding:10px 14px;background:#fff;border-top:1px solid #ECECEC;}
+  .wf-submit{
+    width:100%;padding:11px;background:var(--wa-green-btn);
+    color:#fff;border:none;border-radius:6px;
+    font-size:13px;font-weight:600;cursor:pointer;
+  }
+  .wf-brand{
+    padding:8px 14px;text-align:center;
+    font-size:10px;color:#999;background:#fff;border-top:1px solid #F5F5F5;
+  }
+
+  /* Carousel cards (product selection) */
+  .wa-carousel{
+    display:flex;gap:6px;padding:4px 0;overflow-x:hidden;
+    opacity:0;transform:translateY(8px);transition:opacity .45s ease, transform .45s ease;
+  }
+  .wa-carousel.visible{opacity:1;transform:translateY(0);}
+  .cc{
+    flex:0 0 120px;background:#fff;border-radius:8px;overflow:hidden;
+    box-shadow:0 1px 0.5px rgba(0,0,0,.13);
+  }
+  .cc-img{height:70px;display:flex;align-items:center;justify-content:center;font-size:28px;}
+  .cc-body{padding:8px;}
+  .cc-desc{font-size:11px;color:#333;line-height:1.35;}
+  .cc-btn{
+    padding:9px;text-align:center;color:var(--wa-green-btn);
+    font-size:11.5px;font-weight:600;
+    border-top:1px solid #ECECEC;
+  }
+
+  /* Link block + group CTA */
+  .wa-link{
+    background:#F0F0F0;border-radius:6px;padding:6px 10px;margin-top:6px;
+    font-size:11px;color:#3675D6;word-break:break-all;
+  }
+  .wa-link-btn{
+    margin-top:6px;padding:10px;text-align:center;background:#F7F7F7;
+    border-radius:6px;font-size:13px;font-weight:500;color:var(--wa-green-btn);
+  }
+
+  /* Group invite card */
+  .wa-gh{background:#075E54;padding:28px 14px 10px;display:flex;align-items:center;gap:10px;color:#fff;flex-shrink:0;}
+  .wa-gi{width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;}
+  .ginvite{
+    align-self:center;background:#fff;width:88%;
+    border-radius:10px;padding:16px;text-align:center;margin-top:12px;
+    box-shadow:0 1px 0.5px rgba(0,0,0,.13);
+    opacity:0;transform:translateY(8px);
+    transition:opacity .45s ease, transform .45s ease;
+  }
+  .ginvite.visible{opacity:1;transform:translateY(0);}
+  .ginvite-ico{
+    width:56px;height:56px;margin:0 auto 10px;
+    background:#FFF3F7;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ginvite h4{font-size:14px;font-weight:600;margin-bottom:6px;color:#111;line-height:1.3;}
+  .ginvite .sub{font-size:11px;color:#666;margin-bottom:4px;}
+  .ginvite .desc{font-size:11px;color:#333;font-weight:500;margin-bottom:10px;line-height:1.4;}
+  .ginvite .tag{
+    font-size:10.5px;background:#F0F9F4;color:#075E54;
+    padding:6px 10px;border-radius:6px;display:inline-block;line-height:1.4;
+  }
+
+  /* Typing indicator */
+  .typing{
+    align-self:flex-start;background:var(--wa-bubble-in);
+    padding:10px 14px;border-radius:8px;
+    border-top-left-radius:2px;display:flex;gap:3px;
+    opacity:0;transition:opacity .3s ease;
+    box-shadow:0 1px 0.5px rgba(0,0,0,.13);
+  }
+  .typing.visible{opacity:1;}
+  .typing span{
+    width:6px;height:6px;background:var(--wa-text-meta);border-radius:50%;
+    animation:typingPulse 1.2s ease-in-out infinite;
+  }
+  .typing span:nth-child(2){animation-delay:.15s;}
+  .typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes typingPulse{
+    0%,60%,100%{opacity:.3;transform:translateY(0);}
+    30%{opacity:1;transform:translateY(-3px);}
+  }
+
+  /* Stage controls */
+  .stage-progress{
+    position:absolute;bottom:-48px;left:50%;transform:translateX(-50%);
+    display:flex;gap:6px;
+  }
+  .stage-dot{
+    width:28px;height:3px;border-radius:2px;background:var(--border);
+    transition:background .4s;
+  }
+  .stage-dot.active{background:var(--text-1);}
+  .stage-dot.done{background:var(--text-2);}
+
+  .stage-label{
+    position:absolute;top:-44px;left:0;
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--text-3);
+    display:flex;align-items:center;gap:var(--s2);
+  }
+  .stage-label::before{
+    content:"";width:6px;height:6px;background:var(--wa-green);border-radius:50%;
+    box-shadow:0 0 0 4px rgba(37,211,102,.2);
+    animation:signal-pulse 2s ease-in-out infinite;
+  }
+  @keyframes signal-pulse{
+    0%,100%{box-shadow:0 0 0 4px rgba(37,211,102,.2);}
+    50%{box-shadow:0 0 0 8px rgba(37,211,102,0);}
+  }
+
+  .stage-replay{
+    position:absolute;top:-44px;right:0;
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--text-2);
+    border:1px solid var(--border);border-radius:99px;padding:6px 14px;
+    cursor:pointer;transition:border-color .2s,color .2s,background .2s;background:transparent;
+  }
+  .stage-replay:hover{border-color:var(--text-1);color:var(--text-1);background:var(--bg-alt);}
+
+  /* ── PILARES grid (dark) ── */
+  .pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:var(--s7);border:1px solid var(--charcoal);border-radius:var(--r-xl);overflow:hidden;}
+  @media(max-width:880px){.pillar-grid{grid-template-columns:1fr;}}
+  .pillar{padding:var(--s6);border-right:1px solid var(--charcoal);position:relative;transition:background .3s;}
+  .pillar:last-child{border-right:none;}
+  @media(max-width:880px){.pillar{border-right:none;border-bottom:1px solid var(--charcoal);}.pillar:last-child{border-bottom:none;}}
+  .pillar:hover{background:#1a1a1a;}
+  .pillar-num{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--silver);margin-bottom:var(--s4);display:flex;align-items:center;justify-content:space-between;}
+  .pillar-num strong{color:var(--white);font-weight:700;}
+  .pillar h3{color:var(--white);font-size:20px;letter-spacing:-.015em;margin-bottom:var(--s4);line-height:1.25;}
+  .pillar p{color:var(--silver);font-size:14px;line-height:1.65;}
+
+  /* ── VERTICALS table ── */
+  .verts{border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;margin-top:var(--s7);}
+  .vert-row{display:grid;grid-template-columns:60px 1fr 1.6fr 180px;gap:0;border-top:1px solid var(--border);transition:background .2s;}
+  .vert-row:first-child{border-top:none;}
+  .vert-row.head{background:var(--bg-alt);font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);}
+  .vert-row:not(.head):hover{background:var(--bg-alt);}
+  .vert-row > div{padding:16px 18px;display:flex;align-items:center;}
+  .vert-row > div:not(:last-child){border-right:1px solid var(--border);}
+  .vert-num{font-family:var(--mono);font-weight:700;color:var(--text-2);font-size:12px;letter-spacing:.12em;}
+  .vert-name{font-weight:700;font-size:15px;}
+  .vert-desc{font-size:13px;color:var(--text-2);line-height:1.5;}
+  .vert-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--text-3);text-transform:uppercase;}
+  @media(max-width:880px){
+    .vert-row{grid-template-columns:60px 1fr;}
+    .vert-row > div:nth-child(3),
+    .vert-row > div:nth-child(4){grid-column:1/-1;border-right:none;border-top:1px dashed var(--border);}
+    .vert-row > div:nth-child(3){padding-top:6px;}
+    .vert-row.head > div:nth-child(3),
+    .vert-row.head > div:nth-child(4){display:none;}
+  }
+
+  /* ── NOT-VS-IS ── */
+  .niv{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;margin-top:var(--s7);position:relative;}
+  @media(max-width:780px){.niv{grid-template-columns:1fr;}}
+  .niv-col{padding:var(--s6);position:relative;}
+  .niv-col:first-child{border-right:1px solid var(--border);background:var(--bg-alt);}
+  @media(max-width:780px){.niv-col:first-child{border-right:none;border-bottom:1px solid var(--border);}}
+  .niv-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:var(--s4);display:flex;align-items:center;gap:var(--s3);}
+  .niv-label strong{color:var(--text-1);font-weight:700;}
+  .niv-col:last-child .niv-label strong{color:var(--text-1);}
+  .niv-col h3{font-size:22px;letter-spacing:-.02em;margin-bottom:var(--s4);line-height:1.2;}
+  .niv-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--s3);}
+  .niv-col li{font-size:14px;color:var(--text-2);line-height:1.6;padding-left:22px;position:relative;}
+  .niv-col li::before{content:"";position:absolute;left:0;top:8px;width:14px;height:1px;background:var(--text-3);}
+  .niv-col:last-child li{color:var(--text-1);}
+  .niv-col:last-child li::before{background:var(--text-1);height:2px;}
+
+  /* ── CTA dark ── */
+  .cta-final{padding:var(--s8) 0;}
+  .cta-final h2{font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-.03em;color:var(--white);font-weight:800;max-width:16ch;margin-bottom:var(--s6);}
+</style>
+</head>
+<body data-page="orquestrador">
+
+<div id="anova-nav"></div>
+<noscript>
+  <nav style="padding:16px;background:#F8F8F8;border-bottom:1px solid #CCC;font-family:sans-serif;font-size:13px;">
+    <a href="Landing Page.html" style="margin-right:16px;">Anova OS</a>
+    <a href="orquestrador.html">Orquestrador</a>
+  </nav>
+</noscript>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero orq-hero">
+  <div class="container">
+    <div class="orq-hero-grid">
+      <div data-reveal="up">
+        <span class="eyebrow">00 · Orquestrador · Sistema Operacional Conversacional</span>
+        <h1><strong>A conversa</strong> do cliente vira <em>operação auditada.</em></h1>
+        <p class="hero-sub">O Orquestrador vive <strong>dentro</strong> da API oficial do WhatsApp Business. Cada mensagem tem identidade. Cada decisão tem timestamp. Cada execução deixa trilha imutável. HITL em ações sensíveis. Seis verticais reguladas no canal onde o cliente já está.</p>
+        <div class="hero-cta">
+          <a href="#cta" class="btn btn-primary btn-lg">Ver em ação <span class="arr">→</span></a>
+          <a href="#pilares" class="btn btn-outline btn-lg">Arquitetura operacional</a>
+        </div>
+        <div class="orq-hero-meta">
+          <span>API oficial Meta</span>
+          <span>HITL nativo</span>
+          <span>Trilha imutável</span>
+        </div>
+      </div>
+
+      <div class="phone-stage" data-reveal="left" data-delay="2">
+        <span class="stage-label" id="stageLabel">Etapa 01 · Acesso</span>
+        <button class="stage-replay" id="stageReplay" type="button">↻ Replay</button>
+        <div class="phone">
+          <div class="phone-screen" id="phoneScreen">
+            <!-- Content injected by JS -->
+          </div>
+        </div>
+        <div class="stage-progress" id="stageProgress"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ 01 · O QUE É ═══ -->
+<section id="sobre" class="section section-alt" data-chapter="01 / 05">
+  <div class="container">
+    <span class="eyebrow" data-reveal>01 · O que é</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:26ch;"><strong>Não é chatbot.</strong> É um sistema operacional.</h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);max-width:64ch;">O Orquestrador é a camada que transforma intenção em execução dentro do WhatsApp. O cliente manda uma mensagem, dispara um processo regulado. A operação fica registrada. O compliance enxerga. O backoffice recebe. Ninguém trocou de aplicativo.</p>
+
+    <div class="niv" data-reveal="up" data-delay="2">
+      <div class="niv-col">
+        <div class="niv-label"><strong>Chatbot</strong> · o que se vende por aí</div>
+        <h3>Script em cima do WhatsApp.</h3>
+        <ul>
+          <li>Camada de automação desplugada dos sistemas reais</li>
+          <li>Gera intenção sem executar operação</li>
+          <li>Sem identidade regulada do cliente</li>
+          <li>Sem trilha auditável das decisões</li>
+          <li>Atendente humano recebe contexto truncado</li>
+        </ul>
+      </div>
+      <div class="niv-col">
+        <div class="niv-label"><strong>Orquestrador</strong> · sistema operacional</div>
+        <h3>Infraestrutura dentro da API oficial.</h3>
+        <ul>
+          <li>Integrado ao CRM, backoffice, custódia e compliance</li>
+          <li>Intenção vira ordem executada em tempo real</li>
+          <li>Login regulado nativo do Meta Business</li>
+          <li>Timestamp e assinatura em cada decisão</li>
+          <li>HITL aciona especialista com contexto integral</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 · TRÊS PILARES ═══ -->
+<section id="pilares" class="section section-dark" data-chapter="02 / 05">
+  <div class="container">
+    <span class="eyebrow" data-reveal>02 · Arquitetura</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:24ch;color:var(--white);"><strong>Três</strong> princípios. Uma camada operacional.</h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);max-width:62ch;">A arquitetura não foi feita pra parecer segura. Foi feita pra ser auditada. Cada pilar carrega uma exigência de regulador, banco, parceiro e cliente.</p>
+
+    <div class="pillar-grid">
+      <div class="pillar" data-reveal="up">
+        <div class="pillar-num"><strong>P · 01</strong><span>Identidade</span></div>
+        <h3>Login regulado</h3>
+        <p>O acesso passa pela API oficial Meta Business com confirmação biométrica ou CPF. O cliente entra autenticado. Nenhuma ação sensível roda sem identidade verificada.</p>
+      </div>
+      <div class="pillar" data-reveal="up" data-delay="1">
+        <div class="pillar-num"><strong>P · 02</strong><span>Supervisão</span></div>
+        <h3>HITL nativo</h3>
+        <p>Human in the loop não é exceção, é parte do desenho. Operações sensíveis pausam automaticamente até aprovação humana com trilha de quem decidiu, quando e com qual contexto.</p>
+      </div>
+      <div class="pillar" data-reveal="up" data-delay="2">
+        <div class="pillar-num"><strong>P · 03</strong><span>Trilha</span></div>
+        <h3>Auditoria imutável</h3>
+        <p>Cada mensagem, carga útil, decisão e ação fica gravada em registro imutável. Compliance e regulador abrem o histórico inteiro sem pedir exports. Versão única da verdade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 · VERTICAIS ═══ -->
+<section id="verticais" class="section" data-chapter="03 / 05">
+  <div class="container">
+    <span class="eyebrow" data-reveal>03 · Verticais reguladas</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:26ch;"><strong>Seis</strong> operações reguladas. Um canal só.</h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);max-width:60ch;">O cliente não precisa baixar app, fazer login em portal, ou acessar plataforma separada. Tudo roda no WhatsApp que ele já tem aberto, cada vertical com sua estrutura regulatória preservada.</p>
+
+    <div class="verts" data-reveal="up" data-delay="2">
+      <div class="vert-row head">
+        <div>#</div>
+        <div>Vertical</div>
+        <div>O que acontece no canal</div>
+        <div>Órgão</div>
+      </div>
+      <div class="vert-row">
+        <div class="vert-num">01</div>
+        <div class="vert-name">Investimentos</div>
+        <div class="vert-desc">Abertura de conta, alocação, rebalanceamento e movimentação de carteira com assinatura e confirmação regulada.</div>
+        <div class="vert-tag">CVM · Multi-custódia</div>
+      </div>
+      <div class="vert-row">
+        <div class="vert-num">02</div>
+        <div class="vert-name">Crédito</div>
+        <div class="vert-desc">Contratação de crédito colateralizado e consignado com leitura de documentos e aprovação via HITL no mesmo chat.</div>
+        <div class="vert-tag">BACEN · Colateral</div>
+      </div>
+      <div class="vert-row">
+        <div class="vert-num">03</div>
+        <div class="vert-name">Seguros</div>
+        <div class="vert-desc">Cotação, proposta e contratação de vida, saúde e previdência com formulário oficial dentro do canal.</div>
+        <div class="vert-tag">SUSEP · ANS</div>
+      </div>
+      <div class="vert-row">
+        <div class="vert-num">04</div>
+        <div class="vert-name">Câmbio</div>
+        <div class="vert-desc">Compra e venda de moeda estrangeira, remessa internacional e hedge cambial com cotação em tempo real.</div>
+        <div class="vert-tag">BACEN · FX</div>
+      </div>
+      <div class="vert-row">
+        <div class="vert-num">05</div>
+        <div class="vert-name">Previdência</div>
+        <div class="vert-desc">Abertura e aportes em plano previdenciário, com escolha de perfil e acompanhamento da carteira.</div>
+        <div class="vert-tag">SUSEP</div>
+      </div>
+      <div class="vert-row">
+        <div class="vert-num">06</div>
+        <div class="vert-name">Relacionamento</div>
+        <div class="vert-desc">Agendamento com especialista, suporte regulado, pesquisas de suitability e acompanhamento comercial.</div>
+        <div class="vert-tag">LGPD · Compliance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 · MANIFESTO ═══ -->
+<section class="section section-alt" data-chapter="04 / 05">
+  <div class="container" style="max-width:880px;">
+    <span class="eyebrow" data-reveal>04 · Manifesto operacional</span>
+    <div style="border-top:1px solid var(--text-1);border-bottom:1px solid var(--text-1);padding:var(--s7) 0;margin:var(--s6) 0;" data-reveal="up" data-delay="1">
+      <div style="font-size:clamp(24px,3vw,38px);line-height:1.3;letter-spacing:-.02em;font-weight:500;max-width:28ch;">
+        Governança não é departamento.<br><em style="font-style:normal;font-weight:700;background:linear-gradient(180deg, transparent 60%, rgba(0,0,0,.08) 60%);padding:0 2px;">É arquitetura.</em>
+      </div>
+      <div style="font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);margin-top:var(--s5);display:flex;align-items:center;gap:var(--s3);">
+        <span style="width:40px;height:1px;background:var(--text-3);"></span>
+        Princípio fundador · Orquestrador
+      </div>
+    </div>
+    <p class="lead" data-reveal="up" data-delay="2" style="max-width:60ch;">Para o cliente, é apenas conversa. Para a rede, é operação regulada com trilha. A diferença está em como a camada foi construída, não em como ela aparece na tela.</p>
+  </div>
+</section>
+
+<!-- ═══ 05 · CTA ═══ -->
+<section id="cta" class="section section-dark cta-final">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Próximo passo</span>
+    <div class="cta-block" style="margin-top:var(--s5);">
+      <h2 class="cta-h2" data-reveal>
+        <strong>Ver</strong><br>o Orquestrador<br><em>rodando.</em>
+      </h2>
+      <div class="cta-side" data-reveal data-delay="1">
+        <p>Trinta minutos pra mostrar o fluxo completo dentro do seu ambiente. Sem slide. Canal real, números reais, operação real.</p>
+        <div id="anova-cta-form" data-product="orquestrador"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="anova-footer"></div>
+
+<script src="js/shell.js?v=20260425b" defer></script>
+<script src="js/motion.js" defer></script>
+
+<!-- ═══ WHATSAPP SIMULATION ENGINE ═══ -->
+<script>
+(function(){
+  const screen = document.getElementById('phoneScreen');
+  const progressEl = document.getElementById('stageProgress');
+  const stageLabel = document.getElementById('stageLabel');
+  const replayBtn = document.getElementById('stageReplay');
+  if(!screen) return;
+
+  const scenes = [
+    { id:1, label:'Etapa 01 · Acesso regulado', duration:8500, render:sceneLogin },
+    { id:2, label:'Etapa 02 · Seleção de produto', duration:8000, render:sceneProduct },
+    { id:3, label:'Etapa 03 · Proposta enviada', duration:7500, render:sceneProposal },
+    { id:4, label:'Etapa 04 · Grupo regulado criado', duration:7500, render:sceneGroup }
+  ];
+
+  // Build progress dots
+  scenes.forEach((_,i)=>{
+    const d = document.createElement('div');
+    d.className = 'stage-dot';
+    progressEl.appendChild(d);
+  });
+  const dots = progressEl.querySelectorAll('.stage-dot');
+
+  let currentIdx = 0;
+  let timeouts = [];
+  let running = false;
+
+  function clearTimeouts(){
+    timeouts.forEach(t=>clearTimeout(t));
+    timeouts = [];
+  }
+  function delay(fn,ms){
+    const t = setTimeout(fn,ms);
+    timeouts.push(t);
+    return t;
+  }
+
+  function header(name, status, isGroup){
+    const ava = isGroup ? '👥' : 'A';
+    const avaCls = isGroup ? 'wa-gi' : 'wa-ava';
+    const headerCls = isGroup ? 'wa-gh' : 'wa-header';
+    return `
+      <div class="${headerCls}">
+        <span class="wa-back">‹</span>
+        <div class="${avaCls}">${ava}</div>
+        <div class="wa-name-box">
+          <div class="wa-name">${name}</div>
+          <div class="wa-status">${status}</div>
+        </div>
+        <div class="wa-icons"><span>📞</span><span>⋮</span></div>
+      </div>`;
+  }
+
+  function scene(html, extras){
+    return `${html}<div class="wa-chat" id="chat">${extras||''}</div>`;
+  }
+
+  function revealSeq(selectors, stepMs){
+    selectors.forEach((sel,i)=>{
+      delay(()=>{
+        const el = typeof sel === 'string' ? document.querySelector(sel) : sel;
+        if(el) el.classList.add('visible');
+      }, i * stepMs);
+    });
+  }
+
+  // ── SCENE 1: login flow ──
+  function sceneLogin(){
+    screen.innerHTML = `
+      ${header('Anova Investimentos','online',false)}
+      <div class="wa-chat" id="chat">
+        <div class="wa-date">HOJE</div>
+        <div class="wa-bubble out" id="b1">acesso<div class="time">10:30</div></div>
+        <div class="typing" id="typing"><span></span><span></span><span></span></div>
+        <div class="wa-bubble in" id="b2" style="display:none;">
+          <strong>Confirmar acesso</strong><br>
+          Pra segurança dos seus dados, confirme sua identidade.
+          <div class="wa-actions">
+            <div class="wa-action" id="actBtn">🔐 Confirmar acesso</div>
+          </div>
+          <div class="time">10:30</div>
+        </div>
+        <div class="wa-flow" id="flow">
+          <div class="wf-head"><span>Confirmação de identidade</span><span class="x">✕</span></div>
+          <div class="wf-bar"><div class="wf-bar-fill" id="bar" style="width:0%;"></div></div>
+          <div class="wf-body">
+            <div class="wf-icon">🛡️</div>
+            <div class="wf-title">Confirme sua identidade</div>
+            <div class="wf-desc">Digite os 4 primeiros números do seu CPF pra continuar com segurança.</div>
+            <div class="wf-input" id="cpfInput">
+              <span class="dot" id="d0">•</span><span class="dot" id="d1">•</span><span class="dot" id="d2">•</span><span class="dot" id="d3">•</span>
+            </div>
+          </div>
+          <div class="wf-foot"><button class="wf-submit">Confirmar</button></div>
+          <div class="wf-brand">Gerenciada por Anova Investimentos · <span style="color:var(--wa-green-btn)">Saiba mais</span></div>
+        </div>
+      </div>`;
+
+    // Step choreography
+    delay(()=>document.getElementById('b1').classList.add('visible'), 300);
+    delay(()=>document.getElementById('typing').classList.add('visible'), 1000);
+    delay(()=>{
+      document.getElementById('typing').remove();
+      const b2 = document.getElementById('b2');
+      b2.style.display='block';
+      requestAnimationFrame(()=>b2.classList.add('visible'));
+    }, 2800);
+    delay(()=>document.getElementById('actBtn').classList.add('hit'), 4200);
+    delay(()=>document.getElementById('flow').classList.add('visible'), 4700);
+    delay(()=>document.getElementById('bar').style.width='66%', 5100);
+    // Type dots one by one
+    ['d0','d1','d2','d3'].forEach((id,i)=>{
+      delay(()=>{
+        const d = document.getElementById(id);
+        if(d){ d.style.opacity='1'; d.style.color='#333'; }
+      }, 5800 + i*250);
+    });
+    delay(()=>{
+      const bar = document.getElementById('bar');
+      if(bar) bar.style.width='100%';
+    }, 7200);
+  }
+
+  // ── SCENE 2: product carousel ──
+  function sceneProduct(){
+    screen.innerHTML = `
+      ${header('Anova Investimentos','online',false)}
+      <div class="wa-chat" id="chat">
+        <div class="wa-bubble in" id="b1">
+          Você selecionou <strong>🛡️ Proteção e Benefício</strong>.<br><br>
+          Escolha o tipo de produto:
+          <div class="time">10:32</div>
+        </div>
+        <div class="wa-carousel" id="carousel">
+          <div class="cc">
+            <div class="cc-img" style="background:#0a0a0a;color:#fff;">🛡️</div>
+            <div class="cc-body"><div class="cc-desc">Cobertura em vida e em caso de morte.</div></div>
+            <div class="cc-btn">↗ Seguro de Vida</div>
+          </div>
+          <div class="cc">
+            <div class="cc-img" style="background:#E8E8E8;">🏥</div>
+            <div class="cc-body"><div class="cc-desc">Acesso a planos com rede credenciada.</div></div>
+            <div class="cc-btn">↗ Plano de Saúde</div>
+          </div>
+          <div class="cc">
+            <div class="cc-img" style="background:#075E54;color:#fff;">📈</div>
+            <div class="cc-body"><div class="cc-desc">Previdência privada com escolha de perfil.</div></div>
+            <div class="cc-btn">↗ Previdência</div>
+          </div>
+        </div>
+        <div class="wa-bubble out" id="b2" style="display:none;">
+          Seguro de Vida<div class="time">10:33</div>
+        </div>
+        <div class="typing" id="typing2"><span></span><span></span><span></span></div>
+        <div class="wa-bubble in" id="b3" style="display:none;">
+          Perfeito! Vou montar uma proposta personalizada com base no seu perfil. <strong>Aguarde alguns instantes…</strong>
+          <div class="time">10:33</div>
+        </div>
+      </div>`;
+
+    delay(()=>document.getElementById('b1').classList.add('visible'), 300);
+    delay(()=>document.getElementById('carousel').classList.add('visible'), 1300);
+    delay(()=>{
+      const cc = document.querySelectorAll('#carousel .cc');
+      if(cc[0]) cc[0].style.boxShadow='0 0 0 2px var(--wa-green-btn)';
+    }, 3000);
+    delay(()=>{
+      const b2 = document.getElementById('b2');
+      b2.style.display='block';
+      requestAnimationFrame(()=>b2.classList.add('visible'));
+    }, 3800);
+    delay(()=>document.getElementById('typing2').classList.add('visible'), 4600);
+    delay(()=>{
+      document.getElementById('typing2').remove();
+      const b3 = document.getElementById('b3');
+      b3.style.display='block';
+      requestAnimationFrame(()=>b3.classList.add('visible'));
+    }, 6000);
+  }
+
+  // ── SCENE 3: proposal sent ──
+  function sceneProposal(){
+    screen.innerHTML = `
+      ${header('Anova Investimentos','online',false)}
+      <div class="wa-chat" id="chat">
+        <div class="typing" id="typing3"><span></span><span></span><span></span></div>
+        <div class="wa-bubble in" id="b1" style="display:none;">
+          ✅ <strong>Proposta enviada com sucesso!</strong><br><br>
+          Clique abaixo pra participar do grupo regulado e dar continuidade ao atendimento.
+          <div class="wa-link">https://chat.whatsapp.com/JlPo1Yi…</div>
+          <div class="wa-link-btn">👥 Participar do grupo</div>
+          <div class="time">16:52</div>
+        </div>
+        <div class="wa-bubble out" id="b2" style="display:none;">
+          Obrigado!<div class="time">16:53</div>
+        </div>
+      </div>`;
+
+    delay(()=>document.getElementById('typing3').classList.add('visible'), 300);
+    delay(()=>{
+      const t = document.getElementById('typing3');
+      if(t) t.remove();
+      const b1 = document.getElementById('b1');
+      b1.style.display='block';
+      requestAnimationFrame(()=>b1.classList.add('visible'));
+    }, 2200);
+    delay(()=>{
+      const btn = document.querySelector('.wa-link-btn');
+      if(btn) btn.style.background='#E8F5F1';
+    }, 4800);
+    delay(()=>{
+      const b2 = document.getElementById('b2');
+      b2.style.display='block';
+      requestAnimationFrame(()=>b2.classList.add('visible'));
+    }, 5800);
+  }
+
+  // ── SCENE 4: group invite ──
+  function sceneGroup(){
+    screen.innerHTML = `
+      ${header('Seguro de Vida · Bruno','4 participantes',true)}
+      <div class="wa-chat" id="chat">
+        <div class="wa-date">QUI., 12 DE MAR.</div>
+        <div class="wa-system">Anova Investimentos usa um serviço seguro da Meta pra gerenciar esta conversa.</div>
+        <div class="ginvite" id="gi">
+          <div class="ginvite-ico">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="#E91E63">
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+          </div>
+          <h4>Você entrou usando um link de convite</h4>
+          <div class="sub">Grupo criado automaticamente pelo Orquestrador</div>
+          <div class="desc">Atendimento Seguro de Vida · Bruno</div>
+          <div class="tag">🏷 4 participantes: cliente, especialista, BPO e Orquestrador</div>
+        </div>
+        <div class="wa-bubble in" id="bs" style="display:none;">
+          <strong>Rogério · Especialista Anova</strong><br>
+          Olá Bruno! Vi sua proposta. Posso te ajudar com qualquer ajuste nos valores de cobertura. Me diz como prefere seguir.
+          <div class="time">14:28</div>
+        </div>
+      </div>`;
+
+    delay(()=>document.getElementById('gi').classList.add('visible'), 500);
+    delay(()=>{
+      const bs = document.getElementById('bs');
+      bs.style.display='block';
+      requestAnimationFrame(()=>bs.classList.add('visible'));
+    }, 3200);
+  }
+
+  // ── Orchestration ──
+  function showScene(idx){
+    clearTimeouts();
+    const s = scenes[idx];
+    stageLabel.textContent = s.label;
+    dots.forEach((d,i)=>{
+      d.classList.toggle('active', i===idx);
+      d.classList.toggle('done', i<idx);
+    });
+    s.render();
+    // queue next
+    delay(()=>{
+      if(!running) return;
+      const next = (idx + 1) % scenes.length;
+      showScene(next);
+    }, s.duration);
+  }
+
+  function start(){
+    running = true;
+    showScene(0);
+  }
+
+  function stop(){
+    running = false;
+    clearTimeouts();
+  }
+
+  // Start when phone is visible
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting && !running){ start(); }
+      else if(!e.isIntersecting && running){ stop(); }
+    });
+  },{threshold:.25});
+  io.observe(document.querySelector('.phone-stage'));
+
+  // Manual replay
+  replayBtn.addEventListener('click', ()=>{
+    stop();
+    setTimeout(start, 100);
+  });
+})();
+</script>
+</body>
+</html>

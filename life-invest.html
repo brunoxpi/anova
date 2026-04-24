@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Life Invest · Anova</title>
+<meta name="description" content="60 segundos de áudio. 5 minutos. Uma proposta institucional com 50.000 simulações Monte Carlo, calibrada pelas teses da Research e pronta para execução multibanco.">
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="design-system/components.css">
+<link rel="stylesheet" href="design-system/sections.css">
+<link rel="stylesheet" href="design-system/editorial.css">
+<link rel="stylesheet" href="design-system/cta-form.css">
+<link rel="stylesheet" href="design-system/nav.css">
+<style>
+  /* ══════════════════════════════════════════════════════════
+     LIFE INVEST · v3 · "Transmissão"
+     Motifs: timestamps mono · waveform · pipeline editorial
+     ══════════════════════════════════════════════════════════ */
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text-1); font-feature-settings: 'tnum' 1, 'ss01' 1; }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 var(--s5); }
+  .wrap-tight { max-width: 1080px; margin: 0 auto; padding: 0 var(--s5); }
+
+  /* ─── Tipografia base ─────────────────────────────────── */
+  .ticker {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ticker::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--text-1);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+  .ts {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: .08em;
+    color: var(--text-3);
+    font-feature-settings: 'tnum' 1;
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--border);
+    width: 100%;
+  }
+
+  /* ─── HERO ───────────────────────────────────────────── */
+  .hero {
+    padding: clamp(96px, 14vh, 160px) 0 var(--s8);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--s7);
+    gap: var(--s5);
+    flex-wrap: wrap;
+  }
+  .hero-head .ts { color: var(--text-3); }
+
+  .hero h1 {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(44px, 7.2vw, 96px);
+    line-height: .98;
+    letter-spacing: -.038em;
+    max-width: 16ch;
+    margin-bottom: var(--s6);
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--text-3);
+    font-weight: 400;
+  }
+  .hero h1 .num {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hero-sub {
+    font-size: clamp(17px, 1.4vw, 21px);
+    line-height: 1.5;
+    color: var(--text-2);
+    max-width: 62ch;
+    margin-bottom: var(--s7);
+  }
+  .hero-sub a { border-bottom: 1px solid var(--h2); }
+  .hero-sub a:hover { border-bottom-color: var(--text-1); }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s3);
+    margin-bottom: var(--s8);
+  }
+  .btn-prime, .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -.005em;
+    transition: transform .2s, background .2s, color .2s, border-color .2s;
+  }
+  .btn-prime {
+    background: var(--text-1);
+    color: var(--bg);
+  }
+  .btn-prime:hover { transform: translateY(-1px); }
+  .btn-prime .arrow { transition: transform .2s; }
+  .btn-prime:hover .arrow { transform: translateX(3px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-1);
+    border: 1px solid var(--border-hi);
+  }
+  .btn-ghost:hover { border-color: var(--text-1); }
+
+  /* ─── Transmission strip (hero visual) ─────────────── */
+  .trans-strip {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: var(--s5) 0;
+    align-items: center;
+  }
+  .trans-col {
+    padding: 0 var(--s5);
+    position: relative;
+  }
+  .trans-col + .trans-col { border-left: 1px solid var(--border); }
+  .trans-col .ts-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--s3);
+  }
+  .trans-col .ts-label span:first-child {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .trans-col .ts-label span:last-child {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-1);
+    font-weight: 500;
+  }
+  .trans-col .cap {
+    font-size: 13px;
+    color: var(--text-2);
+    line-height: 1.45;
+  }
+
+  /* Waveform */
+  .wave {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 48px;
+    margin-bottom: var(--s3);
+  }
+  .wave .bar {
+    width: 3px;
+    background: var(--text-1);
+    border-radius: 2px;
+    animation: waveBar 1.4s ease-in-out infinite;
+    opacity: .85;
+  }
+  @keyframes waveBar {
+    0%, 100% { transform: scaleY(.2); }
+    50%      { transform: scaleY(1); }
+  }
+
+  /* Pipeline (middle col) */
+  .pipe {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: var(--s3);
+    height: 48px;
+  }
+  .pipe-node {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--text-1);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .pipe-node--ghost {
+    background: transparent;
+    border: 1.5px solid var(--text-1);
+  }
+  .pipe-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-hi);
+    position: relative;
+    overflow: hidden;
+  }
+  .pipe-line::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -30%;
+    width: 30%; height: 100%;
+    background: linear-gradient(90deg, transparent, var(--text-1), transparent);
+    animation: pipeFlow 2.4s linear infinite;
+  }
+  @keyframes pipeFlow {
+    from { left: -30%; }
+    to   { left: 100%; }
+  }
+
+  /* Document lines (right col) */
+  .doc {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 48px;
+    justify-content: center;
+    margin-bottom: var(--s3);
+  }
+  .doc-line {
+    height: 2px;
+    background: var(--text-1);
+    border-radius: 1px;
+    opacity: 0;
+    animation: docReveal .4s ease-out forwards;
+  }
+  .doc-line:nth-child(1) { width: 100%; animation-delay: .6s; }
+  .doc-line:nth-child(2) { width: 75%;  animation-delay: .9s; }
+  .doc-line:nth-child(3) { width: 90%;  animation-delay: 1.2s; }
+  .doc-line:nth-child(4) { width: 60%;  animation-delay: 1.5s; }
+  .doc-line:nth-child(5) { width: 85%;  animation-delay: 1.8s; }
+  .doc-line:nth-child(6) { width: 40%;  animation-delay: 2.1s; }
+  @keyframes docReveal {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: .85; transform: translateX(0); }
+  }
+
+  @media (max-width: 760px) {
+    .trans-strip { grid-template-columns: 1fr; }
+    .trans-col + .trans-col { border-left: none; border-top: 1px solid var(--border); padding-top: var(--s5); margin-top: var(--s4); }
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: var(--s6);
+    margin-top: var(--s5);
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+
+  /* ─── Section scaffold ───────────────────────────────── */
+  .section {
+    padding: clamp(80px, 11vh, 140px) 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+  .section-alt { background: var(--gray-light); }
+  .section-dark { background: var(--onyx); color: var(--bg); }
+  .section-dark .ts { color: rgba(255,255,255,.45); }
+
+  .sec-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--s7);
+    gap: var(--s5);
+    flex-wrap: wrap;
+  }
+  .sec-head .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    font-weight: 500;
+  }
+  .section-dark .sec-head .eyebrow { color: rgba(255,255,255,.5); }
+
+  .sec-h2 {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(32px, 4.6vw, 60px);
+    line-height: 1.02;
+    letter-spacing: -.03em;
+    max-width: 22ch;
+  }
+  .sec-h2 em {
+    font-style: normal;
+    color: var(--text-3);
+    font-weight: 400;
+  }
+  .section-dark .sec-h2 em { color: rgba(255,255,255,.5); }
+
+  .sec-lead {
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.55;
+    color: var(--text-2);
+    max-width: 62ch;
+  }
+  .section-dark .sec-lead { color: rgba(255,255,255,.72); }
+  .sec-lead a { border-bottom: 1px solid var(--h2); }
+  .section-dark .sec-lead a { border-bottom-color: rgba(255,255,255,.28); }
+
+  /* ─── §01 · Pipeline (4 estações) ─────────────────── */
+  .stations {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: var(--s7);
+    position: relative;
+  }
+  .stations::before {
+    content: '';
+    position: absolute;
+    top: 42px;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: var(--border-hi);
+  }
+  .station {
+    padding: 0 var(--s3);
+    position: relative;
+  }
+  .station-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--text-1);
+    margin: 0 auto var(--s3);
+    position: relative;
+    z-index: 2;
+  }
+  .station-dot--filled { background: var(--text-1); }
+  .section-alt .station-dot { background: var(--gray-light); }
+  .station-ts {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .05em;
+    color: var(--text-1);
+    margin-bottom: var(--s2);
+  }
+  .station-label {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: var(--s4);
+  }
+  .station h3 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -.015em;
+    line-height: 1.2;
+    margin-bottom: var(--s3);
+    text-align: center;
+  }
+  .station p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-2);
+    text-align: center;
+  }
+  @media (max-width: 880px) {
+    .stations { grid-template-columns: 1fr 1fr; row-gap: var(--s6); }
+    .stations::before { display: none; }
+  }
+  @media (max-width: 520px) {
+    .stations { grid-template-columns: 1fr; }
+  }
+
+  /* ─── §02 · Antes / Depois ──────────────────────────── */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: var(--s7);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .compare-col {
+    padding: var(--s7) var(--s6);
+  }
+  .compare-col + .compare-col {
+    border-left: 1px solid var(--border);
+  }
+  .compare-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--s6);
+    padding-bottom: var(--s4);
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-head .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .compare-head .dur {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    color: var(--text-1);
+  }
+  .compare-col--before .dur { color: var(--text-3); }
+  .compare-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .compare-list li {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: var(--s4);
+    padding: var(--s3) 0;
+    font-size: 14px;
+    line-height: 1.5;
+    border-bottom: 1px dashed var(--h0);
+  }
+  .compare-list li:last-child { border-bottom: none; }
+  .compare-list .time {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: .05em;
+    padding-top: 2px;
+  }
+  .compare-col--before .compare-list .task {
+    color: var(--text-3);
+    text-decoration: line-through;
+    text-decoration-color: var(--h2);
+  }
+  .compare-col--after .compare-list .task {
+    color: var(--text-1);
+    font-weight: 500;
+  }
+  @media (max-width: 760px) {
+    .compare { grid-template-columns: 1fr; }
+    .compare-col + .compare-col { border-left: none; border-top: 1px solid var(--border); }
+  }
+
+  /* ─── §03 · Anatomia do PDF ─────────────────────────── */
+  .anatomy {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--s8);
+    margin-top: var(--s7);
+    align-items: start;
+  }
+  @media (max-width: 880px) { .anatomy { grid-template-columns: 1fr; } }
+
+  .doc-mock {
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    background: var(--bg);
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,.02), 0 20px 40px -24px rgba(0,0,0,.08);
+  }
+  .doc-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .doc-section-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-1);
+    letter-spacing: -.005em;
+  }
+  .doc-section-head::before {
+    content: '›';
+    color: var(--text-3);
+    font-weight: 400;
+    font-size: 13px;
+  }
+  .doc-section img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+  }
+  .doc-mock-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .doc-mock-head .logo {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text-1);
+  }
+  .doc-mock-head .meta {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-3);
+    letter-spacing: .08em;
+  }
+  .doc-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -.015em;
+    line-height: 1.15;
+    color: var(--text-1);
+  }
+  .doc-sub {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-top: 4px;
+  }
+  .doc-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .doc-block .ln {
+    height: 3px;
+    background: var(--dust);
+    border-radius: 1px;
+  }
+  .doc-block .ln.sh { width: 65%; }
+  .doc-block .ln.md { width: 88%; }
+  .doc-block .ln.lg { width: 100%; }
+  .doc-block .ln.dk { background: var(--text-3); }
+
+  .doc-chart {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .doc-chart-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .doc-chart svg { width: 100%; height: 56px; }
+
+  .doc-callout {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: var(--text-1);
+    background: rgba(255, 255, 255, .55);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    backdrop-filter: blur(14px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, .75);
+    border-radius: 999px;
+    padding: 6px 12px;
+    z-index: 2;
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, .04),
+      0 8px 22px -8px rgba(0, 0, 0, .14),
+      inset 0 1px 0 rgba(255, 255, 255, .6);
+    transition: transform .3s var(--ease-out), box-shadow .3s var(--ease-out);
+  }
+  .doc-callout:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, .06),
+      0 14px 32px -10px rgba(0, 0, 0, .2),
+      inset 0 1px 0 rgba(255, 255, 255, .7);
+  }
+  .doc-callout::before {
+    content: '';
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--text-1);
+    margin-right: 7px;
+    vertical-align: 1px;
+  }
+  .doc-callout--1 { top: 20px; right: 18px; }
+  .doc-callout--2 { top: 32%; right: 18px; }
+  .doc-callout--3 { bottom: 24%; right: 18px; }
+
+  .anatomy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--border);
+  }
+  .anatomy-list li {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: var(--s4);
+    padding: var(--s4) 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .anatomy-list .idx {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: .05em;
+    padding-top: 2px;
+  }
+  .anatomy-list .copy {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-1);
+  }
+  .anatomy-list .copy strong {
+    font-weight: 600;
+  }
+  .anatomy-list .copy .sub {
+    display: block;
+    font-size: 13px;
+    color: var(--text-3);
+    margin-top: 4px;
+    line-height: 1.45;
+  }
+
+  /* ─── §04 · Research proof ─────────────────────────── */
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s5);
+    margin-top: var(--s7);
+    max-width: 880px;
+  }
+  @media (max-width: 760px) { .proof-grid { grid-template-columns: 1fr; } }
+
+  .proof-card {
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: var(--s6);
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    transition: border-color .2s, transform .2s;
+  }
+  .proof-card:hover {
+    border-color: var(--text-1);
+    transform: translateY(-2px);
+  }
+  .proof-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .proof-num {
+    font-size: clamp(36px, 4.5vw, 52px);
+    font-weight: 700;
+    letter-spacing: -.035em;
+    line-height: 1;
+    color: var(--text-1);
+    font-variant-numeric: tabular-nums;
+  }
+  .proof-sub {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-2);
+    margin-top: var(--s2);
+  }
+
+  /* ─── §05 · CTA ─────────────────────────────────────── */
+  .cta-block {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--s8);
+    align-items: end;
+    margin-top: var(--s7);
+  }
+  @media (max-width: 880px) { .cta-block { grid-template-columns: 1fr; } }
+
+  .cta-h2 {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(40px, 5.8vw, 72px);
+    line-height: 1;
+    letter-spacing: -.035em;
+    color: var(--bg);
+    max-width: 18ch;
+  }
+  .cta-h2 em { color: rgba(255,255,255,.5); font-style: normal; font-weight: 400; }
+  .cta-side p {
+    color: rgba(255,255,255,.72);
+    font-size: 17px;
+    line-height: 1.55;
+    margin-bottom: var(--s5);
+  }
+  .cta-side a { border-bottom: 1px solid rgba(255,255,255,.3); }
+  .btn-prime-inv {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 26px;
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--onyx);
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 500;
+    transition: transform .2s;
+  }
+  .btn-prime-inv:hover { transform: translateY(-1px); }
+  .btn-prime-inv .arrow { transition: transform .2s; }
+  .btn-prime-inv:hover .arrow { transform: translateX(3px); }
+
+  /* ─── Reveal ──────────────────────────────────────── */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  }
+  [data-reveal].is-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  [data-reveal][data-delay="1"] { transition-delay: .08s; }
+  [data-reveal][data-delay="2"] { transition-delay: .16s; }
+  [data-reveal][data-delay="3"] { transition-delay: .24s; }
+  [data-reveal][data-delay="4"] { transition-delay: .32s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    [data-reveal] { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body data-page="life-invest">
+
+<div id="anova-nav"></div>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="wrap">
+
+    <div class="hero-head">
+      <span class="ticker">Transmissão · Life Invest</span>
+      <span class="ts">00:00 → 05:00</span>
+    </div>
+
+    <h1 data-reveal>
+      <span class="num">60</span> segundos de áudio.<br>
+      <span class="num">5</span> minutos.<br>
+      Uma proposta <em>institucional.</em>
+    </h1>
+
+    <p class="hero-sub" data-reveal data-delay="1">
+      Cada proposta montada à mão é tempo tirado do cliente. O Life Invest enquadra o perfil, consulta o mercado secundário em tempo real e alinha com as teses ativas da <a href="research.html">Research</a>. O resultado chega no WhatsApp do cliente em menos de 5 minutos: PDF institucional com plano de alocação, 50.000 simulações Monte Carlo e três cenários. A execução vai direto para o <a href="wealth-management.html">multibanco</a>. O consultor fica com o que importa — o relacionamento.
+    </p>
+
+    <div class="hero-cta" data-reveal data-delay="2">
+      <a href="#ver" class="btn-prime">Ver rodando com um caso real <span class="arrow">→</span></a>
+      <a href="#pipeline" class="btn-ghost">Como funciona</a>
+    </div>
+
+    <!-- Transmission strip -->
+    <div class="trans-strip" data-reveal data-delay="3">
+      <div class="trans-col">
+        <div class="ts-label"><span>Entrada</span><span>00:00</span></div>
+        <div class="wave" id="hero-wave"></div>
+        <div class="cap">Áudio de 60s descrevendo o cliente.</div>
+      </div>
+      <div class="trans-col">
+        <div class="ts-label"><span>Processamento</span><span>00:60 → 04:30</span></div>
+        <div class="pipe">
+          <div class="pipe-node"></div>
+          <div class="pipe-line"></div>
+          <div class="pipe-node pipe-node--ghost"></div>
+          <div class="pipe-line"></div>
+          <div class="pipe-node pipe-node--ghost"></div>
+          <div class="pipe-line"></div>
+          <div class="pipe-node"></div>
+        </div>
+        <div class="cap">Enquadramento · Mercado · Research · Monte Carlo.</div>
+      </div>
+      <div class="trans-col">
+        <div class="ts-label"><span>Saída</span><span>05:00</span></div>
+        <div class="doc">
+          <div class="doc-line"></div>
+          <div class="doc-line"></div>
+          <div class="doc-line"></div>
+          <div class="doc-line"></div>
+          <div class="doc-line"></div>
+          <div class="doc-line"></div>
+        </div>
+        <div class="cap">PDF institucional no WhatsApp do cliente.</div>
+      </div>
+    </div>
+
+    <div class="hero-meta">
+      <span class="hero-meta-item">Áudio → PDF em &lt;5 min</span>
+      <span class="hero-meta-item">50.000 simulações Monte Carlo</span>
+      <span class="hero-meta-item">BTG · XP · Avenue · Safra · IBKR</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ §01 · PIPELINE ═══ -->
+<section id="pipeline" class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">01 · Pipeline</span>
+      <span class="ts">00:00 — 05:00</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      Áudio. Análise.<br>Proposta. <em>Execução.</em>
+    </h2>
+
+    <div class="stations">
+      <div class="station" data-reveal data-delay="1">
+        <div class="station-dot station-dot--filled"></div>
+        <div class="station-ts">00:00</div>
+        <div class="station-label">Captura</div>
+        <h3>Áudio do consultor</h3>
+        <p>O representante descreve o cliente em um áudio de 60 segundos: perfil de risco, objetivos de vida, patrimônio declarado, horizonte. Nenhuma planilha. Nenhum formulário.</p>
+      </div>
+      <div class="station" data-reveal data-delay="2">
+        <div class="station-dot"></div>
+        <div class="station-ts">00:60</div>
+        <div class="station-label">Análise</div>
+        <h3>Processamento + Research</h3>
+        <p>Life Invest enquadra no perfil proprietário Anova, consulta o mercado secundário em tempo real e alinha com as teses ativas da Research — metodologia que antecipou Argentina 2023, Chile e Colômbia 2025, dólar e Selic 2025.</p>
+      </div>
+      <div class="station" data-reveal data-delay="3">
+        <div class="station-dot"></div>
+        <div class="station-ts">03:00</div>
+        <div class="station-label">Composição</div>
+        <h3>50.000 simulações</h3>
+        <p>Para cada perfil testamos dezenas de milhares de cenários de mercado antes de sugerir a alocação. Volatilidade histórica calculada, três cenários construídos — pessimista, médio e otimista.</p>
+      </div>
+      <div class="station" data-reveal data-delay="4">
+        <div class="station-dot station-dot--filled"></div>
+        <div class="station-ts">05:00</div>
+        <div class="station-label">Entrega</div>
+        <h3>PDF + Execução</h3>
+        <p>O PDF institucional chega ao WhatsApp do cliente. Aprovado, o consultor executa via multibanco. Carteiras de renda variável passam a rodar automatizadas seguindo as teses da Research.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §02 · ANTES / DEPOIS ═══ -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">02 · O problema</span>
+      <span class="ts">Antes — Depois</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      Proposta bem feita<br>levava <em>um dia.</em><br>Às vezes dois.
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      Planilha. Pesquisa de mercado. Formatação. PDF manual. Horas que deveriam estar com o cliente iam para dentro de um arquivo — e se o cliente não aprovasse, começava do zero. O Life Invest nasceu dentro desse problema. A proposta que era artesanato passa a ser sistema.
+    </p>
+
+    <div class="compare" data-reveal data-delay="2">
+      <div class="compare-col compare-col--before">
+        <div class="compare-head">
+          <span class="label">Antes · Manual</span>
+          <span class="dur">≈ 8h</span>
+        </div>
+        <ul class="compare-list">
+          <li><span class="time">00:00</span><span class="task">Abrir planilha e montar estrutura</span></li>
+          <li><span class="time">01:30</span><span class="task">Pesquisar mercado secundário produto a produto</span></li>
+          <li><span class="time">03:00</span><span class="task">Enquadrar perfil de risco na mão</span></li>
+          <li><span class="time">04:30</span><span class="task">Calcular volatilidade e cenários</span></li>
+          <li><span class="time">06:00</span><span class="task">Formatar o PDF, revisar, ajustar</span></li>
+          <li><span class="time">08:00</span><span class="task">Enviar — se o cliente pedir mudança, volta ao início</span></li>
+        </ul>
+      </div>
+      <div class="compare-col compare-col--after">
+        <div class="compare-head">
+          <span class="label">Depois · Life Invest</span>
+          <span class="dur">5 min</span>
+        </div>
+        <ul class="compare-list">
+          <li><span class="time">00:00</span><span class="task">Áudio de 60s descrevendo o cliente</span></li>
+          <li><span class="time">00:60</span><span class="task">Enquadramento no perfil Anova, automático</span></li>
+          <li><span class="time">01:30</span><span class="task">Consulta ao mercado secundário em tempo real</span></li>
+          <li><span class="time">02:30</span><span class="task">Alinhamento com as teses ativas da Research</span></li>
+          <li><span class="time">03:30</span><span class="task">50.000 simulações Monte Carlo + 3 cenários</span></li>
+          <li><span class="time">05:00</span><span class="task">PDF institucional no WhatsApp do cliente</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §03 · ANATOMIA DO PDF ═══ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">03 · O que o PDF entrega</span>
+      <span class="ts">Anatomia · 1 documento</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      Cinquenta mil cenários.<br>Três conclusões.<br><em>Um PDF.</em>
+    </h2>
+
+    <div class="anatomy">
+      <div class="doc-mock" data-reveal data-delay="1">
+        <div class="doc-mock-head">
+          <span class="logo">Anova · Life Invest</span>
+          <span class="meta">PROP-2504-0921 · 05:00</span>
+        </div>
+
+        <div>
+          <div class="doc-title">Plano de Alocação Estratégica</div>
+          <div class="doc-sub">Perfil moderado · Horizonte 5 anos</div>
+        </div>
+
+        <div class="doc-section">
+          <div class="doc-section-head">Alocação por carteira</div>
+          <img src="assets/life-invest-alocacao.png" alt="Alocação por carteira: 38% ANR Strategy, 22% ANR Prev Pro BR, 10% ANR Prev Pro USA, 30% ANR Renda Fixa · R$ 500.000,00 · Profissional em Ascensão">
+        </div>
+
+        <div class="doc-section">
+          <div class="doc-section-head">Histórico de rentabilidade</div>
+          <img src="assets/life-invest-rentabilidade.png" alt="Histórico de rentabilidade: Portfólio vs CDI, Fev/24 – Abr/26, chegando a ~70%">
+        </div>
+
+        <span class="doc-callout doc-callout--1">01 · Perfil</span>
+        <span class="doc-callout doc-callout--2">02 · Alocação</span>
+        <span class="doc-callout doc-callout--3">03 · Rentabilidade</span>
+      </div>
+
+      <div data-reveal data-delay="2">
+        <ul class="anatomy-list">
+          <li>
+            <span class="idx">01</span>
+            <span class="copy"><strong>Plano estratégico de alocação</strong> por classe de ativo
+              <span class="sub">Divisão clara, justificada e auditável.</span>
+            </span>
+          </li>
+          <li>
+            <span class="idx">02</span>
+            <span class="copy"><strong>50.000+ simulações Monte Carlo</strong>
+              <span class="sub">Dezenas de milhares de cenários testados por perfil antes da sugestão.</span>
+            </span>
+          </li>
+          <li>
+            <span class="idx">03</span>
+            <span class="copy"><strong>Três cenários</strong> — pessimista, médio, otimista
+              <span class="sub">O cliente entende o range de resultado antes de aprovar.</span>
+            </span>
+          </li>
+          <li>
+            <span class="idx">04</span>
+            <span class="copy"><strong>Volatilidade histórica</strong> da carteira proposta
+              <span class="sub">Não é promessa. É comportamento medido.</span>
+            </span>
+          </li>
+          <li>
+            <span class="idx">05</span>
+            <span class="copy"><strong>Divisão multibanco</strong> por classe e instituição
+              <span class="sub">BTG, XP, Avenue, Safra, IBKR — onde faz mais sentido.</span>
+            </span>
+          </li>
+          <li>
+            <span class="idx">06</span>
+            <span class="copy"><strong>Calibrado pelas teses ativas</strong> da Research
+              <span class="sub">Cada proposta carrega a convicção que move R$ 2Bi sob operação.</span>
+            </span>
+          </li>
+          <li>
+            <span class="idx">07</span>
+            <span class="copy"><strong>Pronto para execução</strong> sem revisão manual
+              <span class="sub">Aprovado, vai direto para o multibanco.</span>
+            </span>
+          </li>
+          <li>
+            <span class="idx">08</span>
+            <span class="copy"><strong>Renda variável automatizada</strong> pós-execução
+              <span class="sub">Carteiras rodam seguindo as teses da Research em tempo real.</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §04 · RESEARCH ═══ -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">04 · Por que a alocação funciona</span>
+      <span class="ts">Research · desde 2020</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      A tese não vem de<br>um modelo genérico.<br><em>Vem da Research.</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      O Life Invest não decide alocação sozinho. Cada proposta é calibrada pelas teses ativas da <a href="research.html">Research</a> — metodologia preditiva construída desde 2020 por Paulo Martins e Pedro Pivotto. A mesma análise que antecipou Argentina 2023, Chile e Colômbia 2025, dólar e Selic 2025. O consultor entrega uma proposta fundamentada. O cliente recebe o mesmo fundamento que move R$ 2Bi sob operação.
+    </p>
+
+    <div class="proof-grid">
+      <div class="proof-card" data-reveal data-delay="1">
+        <div class="proof-label">Sob operação</div>
+        <div class="proof-num">R$ 2Bi</div>
+        <div class="proof-sub">O mesmo fundamento que calibra cada proposta já está em operação hoje.</div>
+      </div>
+      <div class="proof-card" data-reveal data-delay="2">
+        <div class="proof-label">Cobertura editorial</div>
+        <div class="proof-num">3 veículos</div>
+        <div class="proof-sub">Valor Econômico, Valor Invest e Estadão cobriram a metodologia.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §05 · CTA ═══ -->
+<section id="ver" class="section section-dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">05 · Ver em ação</span>
+      <span class="ts">Demo · 15 min</span>
+    </div>
+
+    <div class="cta-block">
+      <h2 class="cta-h2" data-reveal>
+        Ver o Life Invest<br>rodando com<br><em>um caso real.</em>
+      </h2>
+      <div class="cta-side" data-reveal data-delay="1">
+        <p>
+          Áudio de entrada. PDF de saída. Cinco minutos. A gente mostra ao vivo com um caso real — enquadramento de perfil, tese da <a href="research.html">Research</a>, 50.000 simulações, execução via <a href="wealth-management.html">multibanco</a>. Do áudio ao PDF, sem corte.
+        </p>
+        <div id="anova-cta-form" data-product="life-invest"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="anova-footer"></div>
+
+<script src="js/shell.js?v=20260425b" defer></script>
+<script>
+  // ─── Hero waveform (32 bars, individual animation timing) ──
+  (function () {
+    const wave = document.getElementById('hero-wave');
+    if (!wave) return;
+    const n = 34;
+    // Pseudo-random but stable heights
+    const seeds = [.35,.82,.5,.92,.28,.72,.45,.65,.9,.38,.55,.78,.42,.88,.48,.7,.32,.85,.58,.75,.42,.6,.95,.35,.68,.5,.82,.45,.72,.38,.58,.9,.5,.72];
+    for (let i = 0; i < n; i++) {
+      const b = document.createElement('div');
+      b.className = 'bar';
+      b.style.height = (12 + seeds[i] * 28) + 'px';
+      b.style.animationDelay = (i * .05) + 's';
+      b.style.animationDuration = (1.2 + seeds[i] * .6).toFixed(2) + 's';
+      wave.appendChild(b);
+    }
+  })();
+
+  // ─── Reveal on scroll ──────────────────────────────────
+  (function () {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+  })();
+</script>
+</body>
+</html>

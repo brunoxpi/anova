@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seja uma Hub Anova · O modelo que devolve 40 a 70% da receita</title>
+<meta name="description" content="Pra sócios de escritório, consultores independentes e MFOs. Opere gestão patrimonial multibanco sobre a stack Anova e vire o repasse de 8-12% pra 40-70% — sem construir tecnologia, compliance ou backoffice.">
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="design-system/components.css">
+<link rel="stylesheet" href="design-system/sections.css">
+<link rel="stylesheet" href="design-system/nav.css">
+<link rel="stylesheet" href="design-system/editorial.css">
+<link rel="stylesheet" href="design-system/cta-form.css">
+<style>
+  /* ═══════════════════════════════════════════════════════
+     SEJA UMA HUB · sistema editorial refeito
+     Foco: inversão numérica + narrativa do escritório
+     ═══════════════════════════════════════════════════════ */
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text-1);}
+  a{color:inherit;text-decoration:none;}
+  .container{max-width:1200px;margin:0 auto;padding:0 var(--s5);}
+
+  /* ── Tipografia editorial ── */
+  h1,h2,h3{font-family:var(--font);letter-spacing:-.025em;line-height:1.02;font-weight:700;}
+  h1{font-size:clamp(48px,7.2vw,104px);letter-spacing:-.045em;line-height:.95;font-weight:800;}
+  h2{font-size:clamp(32px,4.6vw,58px);letter-spacing:-.03em;line-height:1.02;}
+  h3{font-size:22px;letter-spacing:-.015em;line-height:1.2;}
+  .lead{font-size:clamp(16px,1.35vw,19px);color:var(--text-2);line-height:1.6;max-width:62ch;}
+  em{font-style:normal;color:var(--text-3);font-weight:300;}
+
+  /* ── HERO ── */
+  .ph-hero{
+    padding:calc(80px + var(--s6)) 0 var(--s8);
+    position:relative;overflow:hidden;
+    background:
+      radial-gradient(ellipse 60% 40% at 80% 0%, rgba(10,10,10,.04), transparent 60%),
+      var(--bg);
+  }
+  .ph-hero-eyebrow{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--text-3);
+    display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s6);
+  }
+  .ph-hero-eyebrow::before{
+    content:"";width:40px;height:1px;background:var(--text-3);
+  }
+  .ph-hero h1{max-width:18ch;margin-bottom:var(--s6);}
+  .ph-hero h1 .flip{display:inline-block;position:relative;white-space:nowrap;}
+  .ph-hero h1 .flip .old{
+    text-decoration:line-through;
+    text-decoration-thickness:5px;
+    text-decoration-color:rgba(10,10,10,.22);
+    color:var(--text-3);font-weight:400;
+  }
+  .ph-hero h1 .flip .new{
+    background:linear-gradient(180deg, transparent 60%, rgba(10,10,10,.10) 60%);
+    padding:0 2px;
+  }
+  .ph-hero .sub{
+    font-size:clamp(15.5px,1.25vw,18px);color:var(--text-2);line-height:1.6;
+    max-width:58ch;margin-bottom:var(--s6);
+  }
+  .ph-hero .sub a{border-bottom:1px solid var(--border-hi);transition:border-color .2s;}
+  .ph-hero .sub a:hover{border-bottom-color:var(--text-1);}
+  .ph-hero .sub strong{color:var(--text-1);font-weight:700;}
+  .ph-hero-ctas{display:flex;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s7);}
+
+  /* Hero meta row (substitui tension-bar; inversion está no h1) */
+  .hero-meta-row{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--text-1);
+    padding-top:var(--s5);
+    gap:var(--s4);
+  }
+  @media(max-width:680px){.hero-meta-row{grid-template-columns:repeat(2,1fr);}}
+  .hero-meta-row > div{
+    display:flex;flex-direction:column;gap:6px;
+    border-left:1px solid var(--border);
+    padding-left:var(--s3);
+  }
+  .hero-meta-row > div:first-child{border-left:none;padding-left:0;}
+  @media(max-width:680px){
+    .hero-meta-row > div:nth-child(3){border-left:none;padding-left:0;}
+  }
+  .hm-label{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--text-3);
+  }
+  .hm-val{
+    font-family:var(--font);font-size:clamp(22px,2.2vw,30px);
+    font-weight:700;letter-spacing:-.028em;color:var(--text-1);line-height:1;
+  }
+  .hm-val-accent{position:relative;display:inline-block;}
+  .hm-val-accent::after{
+    content:"o repasse tradicional";
+    display:block;font-family:var(--mono);font-size:9.5px;font-weight:500;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);
+    margin-top:4px;
+  }
+
+  /* ── TICKER (confiança) ── */
+  .ph-ticker{
+    padding:var(--s5) 0;
+    border-bottom:1px solid var(--border);
+    background:var(--bg);
+    overflow:hidden;position:relative;
+  }
+  .ph-ticker-inner{
+    display:flex;gap:var(--s6);align-items:center;
+    animation:scroll-x 38s linear infinite;
+    white-space:nowrap;
+  }
+  .ph-ticker-inner span{
+    font-family:var(--mono);font-size:12px;letter-spacing:.1em;
+    color:var(--text-3);text-transform:uppercase;
+    display:flex;align-items:center;gap:var(--s3);
+  }
+  .ph-ticker-inner span::after{
+    content:"·";font-size:16px;color:var(--dust);
+  }
+  @keyframes scroll-x{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* ── STATEMENT ── */
+  .statement{
+    padding:var(--s10) 0;background:var(--bg-alt);
+    position:relative;
+  }
+  .statement-quote{
+    font-family:var(--font);font-weight:500;
+    font-size:clamp(28px,3.6vw,48px);
+    letter-spacing:-.025em;line-height:1.2;
+    max-width:22ch;color:var(--text-1);
+    text-wrap:balance;
+  }
+  .statement-quote em{color:var(--text-3);font-weight:300;}
+  .statement-cap{
+    display:flex;align-items:center;gap:var(--s3);
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--text-3);
+    margin-top:var(--s6);
+  }
+  .statement-cap::before{
+    content:"";width:40px;height:1px;background:var(--text-3);
+  }
+
+  /* ── THE MATH ── */
+  .math-sec{padding:var(--s10) 0;background:var(--bg);}
+  .math-grid{
+    display:grid;
+    grid-template-columns:1fr 1.3fr;
+    gap:var(--s8);margin-top:var(--s7);
+    align-items:start;
+  }
+  @media(max-width:900px){.math-grid{grid-template-columns:1fr;gap:var(--s6);}}
+
+  .math-rail{
+    position:sticky;top:var(--s6);
+    padding:var(--s6);
+    border:1px solid var(--text-1);
+    border-radius:var(--r-xl);
+    background:var(--bg);
+  }
+  @media(max-width:900px){.math-rail{position:static;}}
+  .math-rail-title{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--text-3);margin-bottom:var(--s4);
+  }
+  .math-rail-main{
+    font-family:var(--font);font-size:clamp(60px,8vw,110px);
+    font-weight:800;letter-spacing:-.045em;line-height:.9;
+    color:var(--text-1);
+    display:flex;align-items:flex-start;
+  }
+  .math-rail-main sub{
+    font-size:.34em;font-weight:600;letter-spacing:-.015em;
+    color:var(--text-3);margin-top:.15em;margin-left:.1em;
+    vertical-align:baseline;
+  }
+  .math-rail-sub{
+    font-size:14px;color:var(--text-2);line-height:1.55;
+    margin-top:var(--s5);padding-top:var(--s5);
+    border-top:1px solid var(--border);
+  }
+  .math-rail-note{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--text-3);
+    margin-top:var(--s5);padding-top:var(--s4);
+    border-top:1px dashed var(--border);
+  }
+
+  .math-rows{display:flex;flex-direction:column;gap:0;}
+  .math-row{
+    padding:var(--s6) 0;
+    border-bottom:1px solid var(--border);
+    display:grid;grid-template-columns:140px 1fr;gap:var(--s5);
+    align-items:start;
+  }
+  @media(max-width:680px){.math-row{grid-template-columns:1fr;gap:var(--s4);}}
+  .math-row:last-child{border-bottom:none;}
+  .math-row-num{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+    color:var(--text-3);text-transform:uppercase;padding-top:10px;
+    display:flex;flex-direction:column;gap:6px;
+    border-top:2px solid var(--text-1);
+    align-self:start;
+  }
+  .math-row-body h3 em{color:var(--text-3);font-weight:300;font-style:normal;}
+  .math-row-body h3{
+    font-size:clamp(22px,2.3vw,30px);font-weight:700;
+    letter-spacing:-.022em;margin-bottom:var(--s4);
+    line-height:1.15;max-width:22ch;
+  }
+  .math-row-body p{
+    font-size:15.5px;color:var(--text-2);line-height:1.65;
+    max-width:56ch;
+  }
+  /* swap (before → after horizontal) */
+  .swap{
+    display:grid;grid-template-columns:1fr auto 1fr;
+    gap:var(--s4);align-items:stretch;
+    margin-top:var(--s6);
+    padding:var(--s5);
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    border-radius:var(--r-lg);
+  }
+  @media(max-width:640px){.swap{grid-template-columns:1fr;gap:var(--s3);padding:var(--s4);}}
+  .swap-col{display:flex;flex-direction:column;gap:var(--s2);}
+  .swap-col-after{
+    padding-left:var(--s4);border-left:1px solid var(--border);
+  }
+  @media(max-width:640px){
+    .swap-col-after{padding-left:0;border-left:none;padding-top:var(--s3);border-top:1px solid var(--border);}
+  }
+  .swap-tag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--text-3);
+  }
+  .swap-col-after .swap-tag{color:var(--text-1);}
+  .swap-num{
+    font-family:var(--font);font-size:clamp(28px,3.2vw,42px);
+    font-weight:700;letter-spacing:-.03em;line-height:1;
+    color:var(--text-3);
+  }
+  .swap-col-after .swap-num{color:var(--text-1);font-weight:800;}
+  .swap-num span{font-size:.55em;font-weight:500;letter-spacing:-.01em;margin-left:2px;color:inherit;opacity:.7;}
+  .swap-col p{font-size:13px;color:var(--text-2);line-height:1.5;max-width:32ch;}
+  .swap-arrow{
+    align-self:center;font-family:var(--mono);
+    color:var(--text-3);font-size:20px;
+  }
+  @media(max-width:640px){.swap-arrow{display:none;}}
+
+  /* ── STACK INCLUÍDA (diagrama) ── */
+  .stack-sec{padding:var(--s10) 0;background:var(--text-1);color:var(--white);}
+  .stack-sec .lead{color:rgba(255,255,255,.7);max-width:58ch;}
+  .stack-sec h2{color:var(--white);}
+  .stack-sec em{color:rgba(255,255,255,.45);}
+  .stack-visual{
+    margin-top:var(--s7);
+    display:grid;
+    grid-template-columns:180px 1fr;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:var(--r-xl);
+    overflow:hidden;
+  }
+  @media(max-width:800px){.stack-visual{grid-template-columns:1fr;}}
+  .stack-core{
+    padding:var(--s6) var(--s5);
+    background:rgba(255,255,255,.04);
+    border-right:1px solid rgba(255,255,255,.15);
+    display:flex;flex-direction:column;justify-content:center;gap:var(--s3);
+    position:relative;
+  }
+  @media(max-width:800px){.stack-core{border-right:none;border-bottom:1px solid rgba(255,255,255,.15);}}
+  .stack-core-label{
+    font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;color:rgba(255,255,255,.45);
+  }
+  .stack-core-you{
+    font-family:var(--font);font-size:28px;font-weight:700;letter-spacing:-.025em;
+    line-height:1.05;
+  }
+  .stack-core-sub{
+    font-size:13px;color:rgba(255,255,255,.55);line-height:1.5;
+  }
+  .stack-layers{display:flex;flex-direction:column;}
+  .stack-group-label{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:rgba(255,255,255,.35);
+    padding:var(--s4) var(--s5) var(--s3);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.02);
+  }
+  .stack-group-label-alt{border-top:1px solid rgba(255,255,255,.15);}
+  .stack-layer{
+    display:grid;grid-template-columns:44px 1fr auto;gap:var(--s4);
+    align-items:center;
+    padding:var(--s4) var(--s5);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    transition:background .25s;
+  }
+  .stack-layer:last-child{border-bottom:none;}
+  .stack-layer:hover{background:rgba(255,255,255,.04);}
+  .stack-layer.is-prime{padding:var(--s5);}
+  .stack-layer.is-sec{padding:var(--s3) var(--s5);grid-template-columns:44px 1fr 1.6fr;}
+  @media(max-width:640px){.stack-layer.is-sec{grid-template-columns:40px 1fr;}}
+  .stack-layer-num{
+    font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.04em;
+    color:rgba(255,255,255,.4);
+  }
+  .is-prime .stack-layer-num{color:rgba(255,255,255,.7);font-size:15px;}
+  .stack-layer-body h4{
+    font-size:15.5px;font-weight:700;color:var(--white);
+    letter-spacing:-.01em;line-height:1.3;margin-bottom:2px;
+  }
+  .is-prime .stack-layer-body h4{font-size:17px;margin-bottom:4px;}
+  .stack-layer-body h4 a{
+    border-bottom:1px solid rgba(255,255,255,.25);
+    transition:border-color .2s;
+  }
+  .stack-layer-body h4 a:hover{border-bottom-color:var(--white);}
+  .stack-layer-body p{
+    font-size:13px;color:rgba(255,255,255,.6);line-height:1.45;max-width:52ch;
+  }
+  .stack-layer-inline{
+    font-size:13px;color:rgba(255,255,255,.55);line-height:1.45;
+    font-family:var(--font);
+  }
+  @media(max-width:640px){.stack-layer-inline{grid-column:1/-1;margin-top:2px;}}
+  .stack-layer-tag{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:rgba(255,255,255,.5);
+    padding:4px 10px;border:1px solid rgba(255,255,255,.18);
+    border-radius:99px;white-space:nowrap;
+  }
+  @media(max-width:640px){
+    .stack-layer.is-prime{grid-template-columns:40px 1fr;}
+    .stack-layer.is-prime .stack-layer-tag{grid-column:1/-1;justify-self:start;margin-top:6px;}
+  }
+
+  /* ── AUDIENCE (para quem) ── */
+  .aud-sec{padding:var(--s10) 0;background:var(--bg);}
+  .aud-cards{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    margin-top:var(--s7);border:1px solid var(--border);
+    border-radius:var(--r-xl);overflow:hidden;
+  }
+  @media(max-width:900px){.aud-cards{grid-template-columns:1fr;}}
+  .aud-card{
+    padding:var(--s7) var(--s6);
+    border-right:1px solid var(--border);
+    background:var(--bg);
+    position:relative;display:flex;flex-direction:column;gap:var(--s4);
+    min-height:380px;
+    transition:background .25s;
+  }
+  .aud-card:last-child{border-right:none;}
+  @media(max-width:900px){
+    .aud-card{border-right:none;border-bottom:1px solid var(--border);min-height:auto;}
+    .aud-card:last-child{border-bottom:none;}
+  }
+  .aud-card:hover{background:var(--bg-alt);}
+  .aud-card-tag{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--text-3);
+    display:flex;align-items:center;gap:var(--s3);
+  }
+  .aud-card-tag::before{
+    content:"";width:6px;height:6px;background:var(--text-1);border-radius:50%;
+  }
+  .aud-card h3{
+    font-size:clamp(22px,2vw,28px);font-weight:700;
+    letter-spacing:-.025em;line-height:1.15;max-width:22ch;
+  }
+  .aud-card h3 em{color:var(--text-3);font-weight:300;font-style:normal;}
+  .aud-card p{
+    font-size:14.5px;color:var(--text-2);line-height:1.6;
+  }
+  .aud-card p a{border-bottom:1px solid var(--border-hi);}
+  .aud-card p a:hover{border-bottom-color:var(--text-1);}
+  .aud-card-foot{
+    margin-top:auto;padding-top:var(--s4);
+    border-top:1px dashed var(--border);
+    font-size:13px;color:var(--text-1);line-height:1.45;
+  }
+  .aud-card-foot span{
+    display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--text-3);margin-bottom:4px;
+  }
+
+  /* ── STEPS (como começar) ── */
+  .steps-sec{padding:var(--s10) 0;background:var(--bg-alt);}
+  .steps-rail{
+    margin-top:var(--s7);
+    display:grid;grid-template-columns:repeat(4,1fr);
+    gap:0;border-top:1px solid var(--text-1);
+    border-bottom:1px solid var(--text-1);
+  }
+  @media(max-width:900px){.steps-rail{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.steps-rail{grid-template-columns:1fr;}}
+  .step{
+    padding:var(--s6) var(--s5);
+    border-right:1px solid var(--border);
+    position:relative;background:var(--bg);
+  }
+  .step:last-child{border-right:none;}
+  @media(max-width:900px){
+    .step:nth-child(2n){border-right:none;}
+    .step:nth-child(-n+2){border-bottom:1px solid var(--border);}
+  }
+  @media(max-width:560px){
+    .step{border-right:none;border-bottom:1px solid var(--border);}
+    .step:last-child{border-bottom:none;}
+  }
+  .step-num{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+    color:var(--text-3);text-transform:uppercase;
+    display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s5);
+  }
+  .step-num strong{
+    color:var(--text-1);font-weight:700;font-size:14px;letter-spacing:-.02em;
+  }
+  .step h3{
+    font-size:18px;font-weight:700;letter-spacing:-.015em;
+    margin-bottom:var(--s3);line-height:1.25;
+  }
+  .step p{
+    font-size:14px;color:var(--text-2);line-height:1.55;
+  }
+
+  /* ── FAQ editorial ── */
+  .faq-sec{padding:var(--s10) 0;background:var(--bg);}
+  .faq-list{
+    margin-top:var(--s7);
+    border-top:1px solid var(--text-1);
+  }
+  .faq-item{
+    border-bottom:1px solid var(--border);
+    transition:background .2s;
+  }
+  .faq-item:hover{background:var(--bg-alt);}
+  .faq-q{
+    width:100%;background:none;border:none;cursor:pointer;
+    text-align:left;padding:var(--s5) 0;
+    font-family:var(--font);font-size:clamp(17px,1.6vw,22px);
+    font-weight:600;letter-spacing:-.015em;color:var(--text-1);
+    display:flex;justify-content:space-between;align-items:center;gap:var(--s5);
+  }
+  .faq-q::after{
+    content:"+";font-family:var(--mono);font-size:24px;font-weight:400;
+    color:var(--text-3);transition:transform .3s ease, color .2s;
+  }
+  .faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--text-1);}
+  .faq-a{
+    max-height:0;overflow:hidden;
+    transition:max-height .4s ease, padding .4s ease;
+  }
+  .faq-item.open .faq-a{max-height:400px;padding-bottom:var(--s6);}
+  .faq-a p{
+    font-size:15.5px;color:var(--text-2);line-height:1.65;max-width:64ch;
+  }
+
+  /* ── CTA FINAL ── */
+  .cta-sec{
+    padding:var(--s10) 0;background:var(--text-1);color:var(--white);
+    position:relative;overflow:hidden;
+  }
+  .cta-sec::before{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.06) 1px, transparent 0);
+    background-size:32px 32px;
+    pointer-events:none;
+  }
+  .cta-inner{position:relative;z-index:1;}
+  .cta-eyebrow{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;
+    text-transform:uppercase;color:rgba(255,255,255,.55);
+    display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s6);
+  }
+  .cta-eyebrow::before{content:"";width:40px;height:1px;background:rgba(255,255,255,.4);}
+  .cta-sec h2{
+    color:var(--white);font-size:clamp(44px,6vw,84px);
+    letter-spacing:-.04em;line-height:.98;font-weight:800;max-width:18ch;
+  }
+  .cta-sec h2 em{color:rgba(255,255,255,.4);font-weight:300;}
+  .cta-sec p{
+    color:rgba(255,255,255,.7);font-size:clamp(16px,1.35vw,19px);
+    line-height:1.6;max-width:56ch;margin-top:var(--s6);
+  }
+  .cta-sec p strong{color:var(--white);}
+  .cta-actions{
+    display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s7);
+  }
+  .cta-primary{
+    background:var(--white);color:var(--text-1);
+    padding:16px 28px;border-radius:var(--r-md);
+    font-weight:700;font-size:15px;letter-spacing:-.01em;
+    display:inline-flex;align-items:center;gap:var(--s3);
+    transition:transform .2s, background .2s;
+  }
+  .cta-primary:hover{background:var(--gray-light);transform:translateX(2px);}
+  .cta-outline{
+    border:1px solid rgba(255,255,255,.3);color:var(--white);
+    padding:16px 28px;border-radius:var(--r-md);
+    font-weight:500;font-size:15px;letter-spacing:-.01em;
+    transition:border-color .2s;
+  }
+  .cta-outline:hover{border-color:var(--white);}
+  .cta-trust{
+    display:flex;flex-wrap:wrap;gap:var(--s5);
+    margin-top:var(--s7);padding-top:var(--s6);
+    border-top:1px solid rgba(255,255,255,.15);
+  }
+  .cta-trust span{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:rgba(255,255,255,.5);
+    display:flex;align-items:center;gap:var(--s2);
+  }
+  .cta-trust span::before{
+    content:"";width:4px;height:4px;background:var(--white);border-radius:50%;
+    opacity:.5;
+  }
+</style>
+</head>
+<body data-page="wealth-hubs">
+
+<div id="anova-nav"></div>
+<noscript>
+  <nav style="padding:16px;background:#F8F8F8;border-bottom:1px solid #CCC;font-family:sans-serif;font-size:13px;">
+    <a href="Landing Page.html" style="margin-right:16px;">Anova OS</a>
+    <a href="wealth-hubs.html">Seja uma Hub</a>
+  </nav>
+</noscript>
+
+<!-- ═══ HERO ═══ -->
+<header class="ph-hero">
+  <div class="container">
+    <div class="ph-hero-eyebrow" data-reveal>Seja uma Hub · Escritórios · Consultores · MFOs</div>
+    <h1 data-reveal="up">
+      <span class="flip"><span class="old">8–12%</span></span>
+      do que você <em>produz.</em><br>
+      <span class="flip"><span class="new">40–70%</span></span>
+      do que você <em>entrega.</em>
+    </h1>
+    <p class="sub" data-reveal="up" data-delay="1">
+      Você captou o cliente. Você carrega a relação. A assessoria tradicional te devolveu 8 a 12%. Opere como uma <strong>Hub Anova</strong> sobre <a href="wealth-management.html">gestão patrimonial multibanco</a>, <a href="research.html">Research</a>, <a href="life-invest.html">Life Invest</a>, <a href="orquestrador.html">Orquestrador</a>, crédito, backoffice e compliance — e fique com <strong>40 a 70% da receita gerada.</strong>
+    </p>
+    <div class="ph-hero-ctas" data-reveal="up" data-delay="2">
+      <a href="#cta" class="btn btn-primary btn-lg">Agendar diagnóstico <span class="arr">→</span></a>
+      <a href="#math" class="btn btn-outline btn-lg">Ver o modelo</a>
+    </div>
+
+    <div class="hero-meta-row" data-reveal="up" data-delay="3">
+      <div><span class="hm-label">Sob operação</span><span class="hm-val">R$ 2 Bi</span></div>
+      <div><span class="hm-label">Instituições</span><span class="hm-val">7</span></div>
+      <div><span class="hm-label">Cred. crédito</span><span class="hm-val">80+</span></div>
+      <div><span class="hm-label">Repasse</span><span class="hm-val hm-val-accent">3–6×</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ TICKER · instituições conectadas ═══ -->
+<section class="ph-ticker" aria-label="Instituições conectadas">
+  <div class="ph-ticker-inner">
+    <span>BTG Pactual</span><span>XP Investimentos</span><span>Avenue</span><span>Safra</span><span>BTG Global</span><span>XP Internacional</span><span>Interactive Brokers</span><span>Prudential</span>
+    <span>BTG Pactual</span><span>XP Investimentos</span><span>Avenue</span><span>Safra</span><span>BTG Global</span><span>XP Internacional</span><span>Interactive Brokers</span><span>Prudential</span>
+  </div>
+</section>
+
+<!-- ═══ STATEMENT ═══ -->
+<section class="statement">
+  <div class="container">
+    <div data-reveal="up">
+      <p class="statement-quote">
+        Você faz o trabalho.<br>
+        <em>O modelo captura o resultado.</em><br>
+        É hora de inverter.
+      </p>
+      <div class="statement-cap">Tese fundadora · Anova Hubs</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE MATH ═══ -->
+<section id="math" class="math-sec">
+  <div class="container">
+    <span class="eyebrow" data-reveal>01 · O que muda no seu bolso</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:22ch;"><strong>Mesma</strong> base. <em>Resultado econômico outro.</em></h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);">
+      Trếs eixos onde o modelo de Hub muda o resultado do escritório. Sem promessa de captação, sem projeção futurista — só repasse, custo e autonomia comparados ao que você roda hoje.
+    </p>
+
+    <div class="math-grid">
+      <aside class="math-rail" data-reveal="up" data-delay="2">
+        <div class="math-rail-title">Repasse combinado em contrato</div>
+        <div class="math-rail-main">40–70<sub>%</sub></div>
+        <div class="math-rail-sub">Da receita que a Hub gera retorna pra você. O número exato depende do mix — volume, perfil, verticais e escopo. Definido no diagnóstico.</div>
+        <div class="math-rail-note">3–6× o repasse tradicional</div>
+      </aside>
+
+      <div class="math-rows">
+        <div class="math-row" data-reveal="up">
+          <div class="math-row-num">Eixo 01 · Repasse</div>
+          <div class="math-row-body">
+            <h3>Da receita que <em>você</em> gerou, quanto volta pra você?</h3>
+            <p>A assessoria tradicional devolve 8 a 12% do que o escritório produziu. O modelo captura o valor porque cobra pelo risco regulatório, monetiza o cliente via rebate e transforma o escritório em ponta barata de distribuição.</p>
+            <div class="swap">
+              <div class="swap-col">
+                <span class="swap-tag">Antes</span>
+                <div class="swap-num">8–12<span>%</span></div>
+                <p>Repasse combinado na assessoria tradicional.</p>
+              </div>
+              <div class="swap-arrow" aria-hidden="true">→</div>
+              <div class="swap-col swap-col-after">
+                <span class="swap-tag">Como Hub</span>
+                <div class="swap-num">40–70<span>%</span></div>
+                <p>Combinado em contrato, calibrado no diagnóstico.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="math-row" data-reveal="up">
+          <div class="math-row-num">Eixo 02 · Custo</div>
+          <div class="math-row-body">
+            <h3>Quanto custa <em>operar</em> — e quem paga?</h3>
+            <p>No modelo herdado, o escritório ainda paga a conta das peças que a plataforma não entrega: CRM, research, compliance, TI. No modo independente puro, tudo isso vira seu problema. Como Hub, a stack vem junta — nenhuma camada extra pra construir ou manter.</p>
+            <div class="swap">
+              <div class="swap-col">
+                <span class="swap-tag">Antes</span>
+                <div class="swap-num">≥10<span> itens</span></div>
+                <p>CRM, research, sistemas, esteira regulatória — pagos por fora.</p>
+              </div>
+              <div class="swap-arrow" aria-hidden="true">→</div>
+              <div class="swap-col swap-col-after">
+                <span class="swap-tag">Como Hub</span>
+                <div class="swap-num">0<span> extra</span></div>
+                <p>Backoffice, research, Life Invest, Orquestrador, crédito e compliance incluídos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="math-row" data-reveal="up">
+          <div class="math-row-num">Eixo 03 · Autonomia</div>
+          <div class="math-row-body">
+            <h3>De quem é o cliente no fim do mês?</h3>
+            <p>O cliente é da plataforma na assessoria tradicional — você só opera. No independente, você tem total autonomia com tudo no seu colo. Como Hub, cliente, marca e relação são seus — a Anova opera só a camada de infraestrutura.</p>
+            <div class="swap">
+              <div class="swap-col">
+                <span class="swap-tag">Antes</span>
+                <div class="swap-num">Da plataforma</div>
+                <p>Você opera sob a marca dela. Sai do modelo, perde o cliente.</p>
+              </div>
+              <div class="swap-arrow" aria-hidden="true">→</div>
+              <div class="swap-col swap-col-after">
+                <span class="swap-tag">Como Hub</span>
+                <div class="swap-num">Seu</div>
+                <p>Cliente, marca, relação e contrato continuam seus. A Anova não aparece na frente.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══ STACK INCLUÍDA ═══ -->
+<section class="stack-sec">
+  <div class="container">
+    <span class="eyebrow" data-reveal style="color:rgba(255,255,255,.55);">02 · O que vem junto</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:22ch;"><strong>Oito</strong> camadas. <em>Uma marca.</em> A sua.</h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);">
+      Tudo que um escritório precisa pra operar gestão patrimonial moderna — sem construir, sem contratar, sem manter. A stack é nossa. O escritório é seu.
+    </p>
+
+    <div class="stack-visual" data-reveal="up" data-delay="2">
+      <div class="stack-core">
+        <div class="stack-core-label">Seu escritório</div>
+        <div class="stack-core-you">Cliente<br>Relação<br>Marca</div>
+        <div class="stack-core-sub">Nenhuma dessas três muda de dono.</div>
+      </div>
+      <div class="stack-layers">
+        <div class="stack-group-label">Camadas motor</div>
+        <div class="stack-layer is-prime">
+          <div class="stack-layer-num">01</div>
+          <div class="stack-layer-body">
+            <h4><a href="wealth-management.html">Gestão patrimonial multibanco</a></h4>
+            <p>BTG, XP, Avenue, Safra, BTG Global, XP Int, IBKR — multi-custódia real.</p>
+          </div>
+          <span class="stack-layer-tag">R$ 2 Bi</span>
+        </div>
+        <div class="stack-layer is-prime">
+          <div class="stack-layer-num">02</div>
+          <div class="stack-layer-body">
+            <h4><a href="research.html">Anova Research</a></h4>
+            <p>Casa de análise proprietária. Metodologia Wyckoff reescrita em software.</p>
+          </div>
+          <span class="stack-layer-tag">Sinal preditivo</span>
+        </div>
+        <div class="stack-layer is-prime">
+          <div class="stack-layer-num">03</div>
+          <div class="stack-layer-body">
+            <h4><a href="life-invest.html">Life Invest</a></h4>
+            <p>Áudio → PDF institucional em 5min, com 50k simulações Monte Carlo.</p>
+          </div>
+          <span class="stack-layer-tag">Motor de planos</span>
+        </div>
+        <div class="stack-layer is-prime">
+          <div class="stack-layer-num">04</div>
+          <div class="stack-layer-body">
+            <h4><a href="orquestrador.html">Orquestrador WhatsApp</a></h4>
+            <p>Atendimento conversacional governado dentro da API oficial Meta.</p>
+          </div>
+          <span class="stack-layer-tag">HITL nativo</span>
+        </div>
+
+        <div class="stack-group-label stack-group-label-alt">Infra operacional</div>
+        <div class="stack-layer is-sec">
+          <div class="stack-layer-num">05</div>
+          <div class="stack-layer-body">
+            <h4>Backoffice unificado</h4>
+          </div>
+          <p class="stack-layer-inline">Clientes, operações, comissões e pipeline em uma tela.</p>
+        </div>
+        <div class="stack-layer is-sec">
+          <div class="stack-layer-num">06</div>
+          <div class="stack-layer-body">
+            <h4><a href="credito.html">Crédito multibanco</a></h4>
+          </div>
+          <p class="stack-layer-inline">80+ parceiros regulados cotando taxa e prazo lado a lado.</p>
+        </div>
+        <div class="stack-layer is-sec">
+          <div class="stack-layer-num">07</div>
+          <div class="stack-layer-body">
+            <h4>Compliance embutido</h4>
+          </div>
+          <p class="stack-layer-inline">CVM, SUSEP, ANS, BACEN — audit-by-design na execução.</p>
+        </div>
+        <div class="stack-layer is-sec">
+          <div class="stack-layer-num">08</div>
+          <div class="stack-layer-body">
+            <h4>Governança contínua</h4>
+          </div>
+          <p class="stack-layer-inline">Time dedicado no onboarding e depois. Gente, não ticket.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PARA QUEM ═══ -->
+<section class="aud-sec">
+  <div class="container">
+    <span class="eyebrow" data-reveal>03 · Para quem faz sentido</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:22ch;"><strong>Pra</strong> quem já opera e quer <em>mudar de patamar.</em></h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);">
+      Anova Hubs não é pra quem tá começando. É pra quem já tem operação, base e leu onde o modelo atual fura. A estrutura faz o trabalho já feito valer mais.
+    </p>
+
+    <div class="aud-cards">
+      <article class="aud-card" data-reveal="up">
+        <div class="aud-card-tag">Sócio de escritório</div>
+        <h3>5 a 50 assessores, <em>crescimento travado.</em></h3>
+        <p>Você roda dentro de assessoria tradicional e bateu teto — receita por assessor parada, repasse sem subir, custo de operação só crescendo. O modelo te travou, não a sua capacidade.</p>
+        <div class="aud-card-foot"><span>Ganho principal</span>Multiplica o repasse sem trocar de base.</div>
+      </article>
+      <article class="aud-card" data-reveal="up" data-delay="1">
+        <div class="aud-card-tag">Consultor independente</div>
+        <h3>Carteira própria, <em>estrutura inexistente.</em></h3>
+        <p>Você atende clientes sofisticados, carrega relação forte — mas opera improvisando entre sistemas. Precisa de backoffice, <a href="research.html">research</a>, compliance e tecnologia sem construir nada.</p>
+        <div class="aud-card-foot"><span>Ganho principal</span>Stack pronta em semanas, sem CTO.</div>
+      </article>
+      <article class="aud-card" data-reveal="up" data-delay="2">
+        <div class="aud-card-tag">Multi-family office</div>
+        <h3>Premium de ponta, <em>gargalo operacional.</em></h3>
+        <p>Família, sucessão, offshore, consolidação. Serviço premium já entregue — mas a infra operacional consome margem e atenção que deveriam ir pra estratégia.</p>
+        <div class="aud-card-foot"><span>Ganho principal</span>Escala sem custo marginal.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMO COMEÇAR ═══ -->
+<section class="steps-sec">
+  <div class="container">
+    <span class="eyebrow" data-reveal>04 · Como começar</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:22ch;"><strong>Diagnóstico.</strong> Proposta. <em>Contrato.</em> Operação.</h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);">
+      Quatro etapas. Sem mistério. O primeiro encontro é análise da sua operação, não pitch. Você sai com um número, não com uma apresentação.
+    </p>
+
+    <div class="steps-rail" data-reveal="up" data-delay="2">
+      <div class="step">
+        <div class="step-num"><strong>01</strong>Diagnóstico</div>
+        <h3>Leitura honesta do escritório.</h3>
+        <p>Olhamos sua base, modelo atual de repasse e onde o modelo trava o crescimento. Você sai com leitura fique ou não fique.</p>
+      </div>
+      <div class="step">
+        <div class="step-num"><strong>02</strong>Proposta</div>
+        <h3>Repasse e escopo na mesa.</h3>
+        <p>Apresentamos o repasse específico da sua operação (40–70%, caso a caso) e a projeção de como o escritório fica dentro do modelo.</p>
+      </div>
+      <div class="step">
+        <div class="step-num"><strong>03</strong>Contrato</div>
+        <h3>Sem letra miúda sobre marca.</h3>
+        <p>Responsabilidades claras. Onboarding técnico: acessos, identidade visual, compliance, migração e conexão com as custódias.</p>
+      </div>
+      <div class="step">
+        <div class="step-num"><strong>04</strong>Operação</div>
+        <h3>Time dedicado, suporte contínuo.</h3>
+        <p>Entrada em operação com suporte Anova nas primeiras semanas. O suporte não vai embora depois tá lá quando o mercado vira.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="faq-sec">
+  <div class="container" style="max-width:960px;">
+    <span class="eyebrow" data-reveal>05 · Perguntas frequentes</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:24ch;"><strong>Dúvidas</strong> que <em>sócio traz</em> pra mesa.</h2>
+
+    <div class="faq-list" data-reveal="up" data-delay="1">
+      <div class="faq-item">
+        <button class="faq-q">O que define se meu repasse vai ser 40% ou 70%?</button>
+        <div class="faq-a"><p>Depende do mix: volume sob gestão, perfil dos clientes, verticais que você vai operar e escopo de suporte. O diagnóstico define o número com precisão pra sua operação não é número tabelado, é combinado em contrato.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Meu cliente vira cliente da Anova?</button>
+        <div class="faq-a"><p>Não. A relação comercial, a marca visível e o contato direto continuam seus. A Anova opera a camada de infraestrutura (backoffice, research, compliance, multi-custódia) e aparece nos contratos necessários à regulação. O cliente continua sendo seu, com a sua marca na frente o contrato de parceria é explícito sobre isso.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Preciso ter CNPJ, licenciamento ou estrutura mínima?</button>
+        <div class="faq-a"><p>Dependendo do perfil, caminhos diferentes: sócio com estrutura entra como Hub; consultor individual entra via unidade credenciada. A parte regulatória é tratada no diagnóstico não existe um único "formato mínimo". A gente adapta a estrutura da Hub ao marco regulatório, não o contrário.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Quanto tempo leva pra entrar em operação?</button>
+        <div class="faq-a"><p>Algumas semanas após o contrato: acessos, identidade, migração de clientes e conexão com custódias. Escritórios menores entram antes; estruturas maiores levam mais por ter mais peças pra migrar. Cronograma definido no diagnóstico.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">E se eu quiser sair da parceria depois?</button>
+        <div class="faq-a"><p>Contratos têm regras claras de saída, combinadas antes da assinatura. Seus clientes continuam seus, a marca continua sua. A camada Anova sai de cena, você migra pra onde quiser. Sem captura de cliente, sem retenção abusiva a parceria só faz sentido enquanto gera valor pra você.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">E se meu escritório é pequeno demais?</button>
+        <div class="faq-a"><p>Depende do perfil, não do tamanho. O diagnóstico responde isso com clareza. Se não fizer sentido pros dois lados, a gente diz na primeira conversa.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA FINAL ═══ -->
+<section id="cta" class="cta-sec">
+  <div class="container cta-inner">
+    <div class="cta-eyebrow">Próximo passo · Diagnóstico do escritório</div>
+    <h2 data-reveal="up"><strong>Vire</strong> o repasse. <em>Mantenha</em> o que já funciona.</h2>
+    <p data-reveal="up" data-delay="1">
+      Uma conversa. A gente olha sua operação, entende o número e responde se faz sentido seguir. <strong>Sem pitch, sem obrigação.</strong> Você sai com proposta concreta não com apresentação genérica. Se não fizer sentido pros dois lados, a gente diz na primeira conversa.
+    </p>
+    <div class="cta-actions" data-reveal="up" data-delay="2" style="justify-content:center;margin-top:var(--s6);">
+      <div id="anova-cta-form" data-product="wealth-hubs"></div>
+    </div>
+    <div class="cta-trust">
+      <span>Repasse combinado em contrato</span>
+      <span>Stack completa incluída</span>
+      <span>Cliente, marca e relação · seus</span>
+    </div>
+  </div>
+</section>
+
+<div id="anova-footer"></div>
+
+<script src="js/shell.js?v=20260425b" defer></script>
+<script src="js/motion.js" defer></script>
+<script>
+  // FAQ toggle
+  document.querySelectorAll('.faq-q').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      btn.parentElement.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>

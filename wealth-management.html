@@ -1,0 +1,1403 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gestão Patrimonial · Anova</title>
+<meta name="description" content="Multi-custódia real, research proprietária e remuneração atrelada ao seu resultado. Seu patrimônio continua na sua conta, em 7 instituições no Brasil e nos EUA. Sem rebate. Sem spread.">
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="design-system/components.css">
+<link rel="stylesheet" href="design-system/nav.css">
+<link rel="stylesheet" href="design-system/sections.css">
+<link rel="stylesheet" href="design-system/editorial.css">
+<link rel="stylesheet" href="design-system/cta-form.css">
+<style>
+  /* ══════════════════════════════════════════════════════════
+     GESTÃO PATRIMONIAL · v2 · "Custódia"
+     ══════════════════════════════════════════════════════════ */
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text-1); font-feature-settings: 'tnum' 1, 'ss01' 1; }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 var(--s5); }
+
+  /* ─── Marker / ticker / ts ───────────────────────────── */
+  .ticker {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ticker::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--text-1);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  .section-dark .ticker { color: rgba(255,255,255,.55); }
+  .section-dark .ticker::before { background: var(--white); }
+  @keyframes pulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+  .ts {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: .08em;
+    color: var(--text-3);
+  }
+  .section-dark .ts { color: rgba(255,255,255,.45); }
+
+  /* ─── HERO ────────────────────────────────────────────── */
+  .hero {
+    padding: var(--s6) 0 var(--s7);
+    position: relative;
+  }
+  .hero-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--s5);
+    gap: var(--s5);
+    flex-wrap: wrap;
+  }
+  .hero-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+    gap: var(--s7);
+    align-items: center;
+    margin-bottom: var(--s7);
+  }
+  @media (max-width: 900px) {
+    .hero-top { grid-template-columns: 1fr; gap: var(--s6); }
+  }
+  .hero-top-copy { min-width: 0; }
+  .hero-portrait {
+    position: relative;
+    aspect-ratio: 4/5;
+    width: 100%;
+    max-width: 460px;
+    margin-left: auto;
+    overflow: hidden;
+    border-radius: var(--r-xl);
+    background: var(--gray-light);
+    filter: grayscale(100%) contrast(1.02);
+    isolation: isolate;
+  }
+  .hero-portrait::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,.05) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 55%, rgba(0,0,0,.78) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 0;
+  }
+
+  /* Editorial overlays on portrait */
+  .portrait-tick {
+    position: absolute;
+    top: var(--s4); left: var(--s4);
+    z-index: 2;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 10px;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(6px);
+    border-radius: 99px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-1);
+    font-weight: 500;
+  }
+  .portrait-tick::before {
+    content: ""; width: 6px; height: 6px;
+    background: var(--text-1); border-radius: 50%;
+    animation: portraitPulse 2s ease-in-out infinite;
+  }
+  @keyframes portraitPulse {
+    0%, 100% { opacity: .35; transform: scale(.8); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  .portrait-badge {
+    position: absolute;
+    top: var(--s4); right: var(--s4);
+    z-index: 2;
+    display: flex; flex-direction: column;
+    padding: 10px 12px;
+    background: rgba(10,10,10,.88);
+    backdrop-filter: blur(8px);
+    border-radius: var(--r-md);
+    color: var(--white);
+    text-align: right;
+  }
+  .portrait-badge .p-num {
+    font-family: var(--font);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1;
+  }
+  .portrait-badge .p-num small {
+    font-size: 11px;
+    font-weight: 600;
+    opacity: .7;
+    margin-left: 2px;
+  }
+  .portrait-badge .p-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: .7;
+    margin-top: 4px;
+  }
+
+  .portrait-quote {
+    position: absolute;
+    left: var(--s4); right: var(--s4);
+    bottom: var(--s4);
+    z-index: 2;
+    color: var(--white);
+  }
+  .portrait-quote q {
+    display: block;
+    font-family: var(--font);
+    font-size: clamp(14px, 1.3vw, 17px);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -.01em;
+    text-wrap: balance;
+    quotes: "\201C" "\201D";
+  }
+  .portrait-quote q::before { content: open-quote; margin-right: 2px; }
+  .portrait-quote q::after { content: close-quote; margin-left: 2px; }
+  .portrait-quote .q-who {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.75);
+  }
+  .portrait-quote .q-who::before {
+    content: ""; width: 20px; height: 1px;
+    background: rgba(255,255,255,.5);
+  }
+  .hero h1 {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(44px, 6.8vw, 88px);
+    line-height: .98;
+    letter-spacing: -.038em;
+    max-width: 18ch;
+    margin-bottom: 0;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--text-3);
+    font-weight: 400;
+  }
+  .hero-sub {
+    font-size: clamp(17px, 1.4vw, 21px);
+    line-height: 1.5;
+    color: var(--text-2);
+    max-width: 62ch;
+    margin-bottom: var(--s7);
+  }
+  .hero-sub a { border-bottom: 1px solid var(--h2); }
+  .hero-sub a:hover { border-bottom-color: var(--text-1); }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s3);
+    margin-bottom: var(--s8);
+  }
+  .btn-prime, .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 500;
+    transition: transform .2s, background .2s, border-color .2s;
+  }
+  .btn-prime { background: var(--text-1); color: var(--bg); }
+  .btn-prime:hover { transform: translateY(-1px); }
+  .btn-prime .arrow { transition: transform .2s; }
+  .btn-prime:hover .arrow { transform: translateX(3px); }
+  .btn-ghost { background: transparent; color: var(--text-1); border: 1px solid var(--border-hi); }
+  .btn-ghost:hover { border-color: var(--text-1); }
+  .section-dark .btn-prime { background: var(--bg); color: var(--onyx); }
+  .section-dark .btn-ghost { color: var(--white); border-color: rgba(255,255,255,.35); }
+  .section-dark .btn-ghost:hover { border-color: var(--white); }
+
+  /* ─── Hero stats (4 numbers) ─────────────────────────── */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: var(--s5);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-stat {
+    padding: var(--s6) var(--s5);
+    border-left: 1px dashed var(--border-hi);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .hero-stat:first-child { border-left: none; }
+  .hero-stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .hero-stat-num {
+    font-family: var(--font);
+    font-size: clamp(32px, 3.8vw, 44px);
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: 1;
+    color: var(--text-1);
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-stat-num small { font-size: .55em; color: var(--text-3); font-weight: 500; }
+  .hero-stat-sub {
+    font-size: 13px;
+    color: var(--text-2);
+    line-height: 1.45;
+  }
+  @media (max-width: 880px) {
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .hero-stats { grid-template-columns: 1fr; }
+    .hero-stat { border-left: none; border-top: 1px dashed var(--border-hi); }
+    .hero-stat:first-child { border-top: none; }
+  }
+
+  /* ─── Section ─────────────────────────────────────────── */
+  .section {
+    padding: clamp(80px, 11vh, 140px) 0;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+  .section-alt { background: var(--gray-light); }
+  .section-dark { background: var(--onyx); color: var(--bg); border-top-color: rgba(255,255,255,.08); }
+
+  .sec-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--s7);
+    gap: var(--s5);
+    flex-wrap: wrap;
+  }
+  .sec-head .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    font-weight: 500;
+  }
+  .section-dark .sec-head .eyebrow { color: rgba(255,255,255,.5); }
+
+  .sec-h2 {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(32px, 4.8vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -.03em;
+    max-width: 22ch;
+  }
+  .sec-h2 em {
+    font-style: normal;
+    color: var(--text-3);
+    font-weight: 400;
+  }
+  .section-dark .sec-h2 em { color: rgba(255,255,255,.5); }
+  .sec-lead {
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.55;
+    color: var(--text-2);
+    max-width: 62ch;
+  }
+  .section-dark .sec-lead { color: rgba(255,255,255,.72); }
+  .sec-lead a { border-bottom: 1px solid var(--h2); }
+  .section-dark .sec-lead a { border-bottom-color: rgba(255,255,255,.28); }
+
+  /* ─── §01 · Problema (3 cards editoriais) ─────────────── */
+  .prob-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: var(--s7);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  @media (max-width: 880px) { .prob-grid { grid-template-columns: 1fr; } }
+  .prob {
+    padding: var(--s6) var(--s5);
+    border-left: 1px solid var(--border);
+  }
+  .prob:first-child { border-left: none; }
+  @media (max-width: 880px) {
+    .prob { border-left: none; border-top: 1px solid var(--border); }
+    .prob:first-child { border-top: none; }
+  }
+  .prob-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: var(--s5);
+  }
+  .prob h3 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    line-height: 1.25;
+    margin-bottom: var(--s3);
+    color: var(--text-1);
+  }
+  .prob p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-2);
+  }
+
+  /* ─── §02 · Como operamos (5 camadas vertical) ─────── */
+  .layers {
+    margin-top: var(--s7);
+    border-top: 1px solid rgba(255,255,255,.14);
+  }
+  .layer {
+    display: grid;
+    grid-template-columns: 80px 1.2fr 1.6fr 200px;
+    gap: var(--s5);
+    padding: var(--s6) 0;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    align-items: start;
+  }
+  .layer:last-child { border-bottom: 1px solid rgba(255,255,255,.14); }
+  .layer-idx {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.45);
+    font-weight: 500;
+    padding-top: 6px;
+  }
+  .layer-title {
+    font-family: var(--font);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -.018em;
+    line-height: 1.2;
+    color: var(--white);
+  }
+  .layer-desc {
+    font-size: 15px;
+    line-height: 1.55;
+    color: rgba(255,255,255,.72);
+  }
+  .layer-desc a { color: var(--white); border-bottom: 1px solid rgba(255,255,255,.3); }
+  .layer-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    font-weight: 500;
+    padding-top: 10px;
+    text-align: right;
+  }
+  @media (max-width: 880px) {
+    .layer { grid-template-columns: 60px 1fr; gap: var(--s4); }
+    .layer-desc, .layer-tag { grid-column: 2; text-align: left; padding-top: 0; }
+    .layer-tag { color: rgba(255,255,255,.45); margin-top: -4px; }
+  }
+
+  /* ─── §03 · Alinhamento (list + chart) ────────────── */
+  .align-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: var(--s7);
+    margin-top: var(--s7);
+    align-items: stretch;
+  }
+  @media (max-width: 880px) { .align-grid { grid-template-columns: 1fr; } }
+
+  .align-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid rgba(255,255,255,.16);
+  }
+  .align-list li {
+    padding: var(--s6) 0;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--s5);
+    align-items: start;
+  }
+  .align-list li:last-child { border-bottom: 1px solid rgba(255,255,255,.16); }
+  .align-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    font-weight: 500;
+    padding-top: 3px;
+  }
+  .align-text {
+    font-size: 16px;
+    line-height: 1.55;
+    color: rgba(255,255,255,.88);
+  }
+  @media (max-width: 640px) {
+    .align-list li { grid-template-columns: 1fr; gap: var(--s3); }
+  }
+
+  .align-card {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: var(--r-xl);
+    padding: var(--s6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s4);
+  }
+  .align-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s3);
+    flex-wrap: wrap;
+  }
+  .align-card-eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    font-weight: 500;
+  }
+  .align-card-ts {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(255,255,255,.45);
+  }
+  .align-chart {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .align-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s4);
+    margin-top: var(--s3);
+    padding-top: var(--s4);
+    border-top: 1px dashed rgba(255,255,255,.14);
+  }
+  .align-legend > div {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(255,255,255,.75);
+    letter-spacing: .04em;
+  }
+  .align-legend .dot {
+    width: 16px; height: 2px;
+    flex-shrink: 0;
+    background: var(--white);
+  }
+  .align-legend .dot--dash {
+    background: repeating-linear-gradient(90deg, rgba(255,255,255,.55) 0 4px, transparent 4px 8px);
+    height: 2px;
+  }
+  .align-legend .dot--fill {
+    width: 16px; height: 10px;
+    background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.03));
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 2px;
+  }
+  .align-foot {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.55;
+    color: rgba(255,255,255,.55);
+    letter-spacing: .02em;
+  }
+
+  /* ─── §04 · Comparação estrutural (tabela 4 col) ──── */
+  .comp {
+    margin-top: var(--s7);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .comp-row {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr 1fr 1.15fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .comp-row:last-child { border-bottom: none; }
+  .comp-row > div {
+    padding: var(--s5);
+    font-size: 14px;
+    line-height: 1.5;
+    border-right: 1px solid var(--border);
+  }
+  .comp-row > div:last-child { border-right: none; }
+  .comp-row--head > div {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    background: var(--gray-light);
+    padding: var(--s4) var(--s5);
+    font-weight: 500;
+  }
+  .comp-row--head > div.anova {
+    background: var(--onyx);
+    color: var(--white);
+  }
+  .comp-crit {
+    font-weight: 600;
+    color: var(--text-1);
+    letter-spacing: -.005em;
+  }
+  .comp-cell { color: var(--text-2); }
+  .comp-anova { background: var(--gray-light); color: var(--text-1); font-weight: 500; }
+  @media (max-width: 880px) {
+    .comp-row { grid-template-columns: 1fr 1fr; }
+    .comp-row > div:nth-child(odd) { border-right: 1px solid var(--border); }
+    .comp-row > div:nth-child(even) { border-right: none; }
+    .comp-row--head { display: none; }
+    .comp-row > div::before {
+      content: attr(data-label);
+      display: block;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 6px;
+    }
+  }
+
+  /* ─── §05 · Custódia (ticker + partners grid) ────── */
+  .cust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s3);
+    margin-top: var(--s7);
+  }
+  @media (max-width: 880px) { .cust-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .cust-grid { grid-template-columns: 1fr; } }
+  .cust {
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--s5);
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color .2s, transform .2s;
+  }
+  .cust:hover { border-color: var(--text-1); transform: translateY(-2px); }
+  .cust-flag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .cust-name {
+    font-family: var(--font);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -.015em;
+    color: var(--text-1);
+  }
+  .cust-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: .02em;
+  }
+
+  /* ─── §06 · Não é fundo ────────────────────────────── */
+  .nofund-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s5);
+    margin-top: var(--s7);
+  }
+  @media (max-width: 880px) { .nofund-grid { grid-template-columns: 1fr; } }
+  .nofund {
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: var(--r-xl);
+    padding: var(--s6);
+    background: rgba(255,255,255,.02);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+  }
+  .nofund-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    margin-bottom: var(--s3);
+  }
+  .nofund h3 {
+    font-family: var(--font);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    line-height: 1.25;
+    color: var(--white);
+  }
+  .nofund p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(255,255,255,.72);
+  }
+
+  /* ─── §07 · Para quem (3 perfis) ────────────────────── */
+  .aud-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s5);
+    margin-top: var(--s7);
+  }
+  @media (max-width: 880px) { .aud-grid { grid-template-columns: 1fr; } }
+  .aud {
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: var(--s6);
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    transition: border-color .2s, transform .2s;
+  }
+  .aud:hover { border-color: var(--text-1); transform: translateY(-2px); }
+  .aud-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: var(--s3);
+  }
+  .aud h3 {
+    font-family: var(--font);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    line-height: 1.25;
+    color: var(--text-1);
+  }
+  .aud p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-2);
+  }
+
+  /* ─── §08 · FAQ ─────────────────────────────────────── */
+  .faq {
+    margin-top: var(--s7);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    max-width: 820px;
+  }
+  .faq details {
+    border-top: 1px solid var(--border);
+    padding: var(--s5) 0;
+  }
+  .faq details:last-child { border-bottom: 1px solid var(--border); }
+  .faq summary {
+    cursor: pointer;
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--text-1);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s4);
+    letter-spacing: -.01em;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: '+';
+    font-family: var(--mono);
+    font-size: 20px;
+    color: var(--text-3);
+    font-weight: 400;
+    transition: transform .2s;
+    line-height: 1;
+  }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p {
+    margin-top: var(--s4);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-2);
+    max-width: 72ch;
+  }
+
+  /* ─── §09 · CTA ─────────────────────────────────────── */
+  .cta-block {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--s8);
+    align-items: end;
+    margin-top: var(--s7);
+  }
+  @media (max-width: 880px) { .cta-block { grid-template-columns: 1fr; } }
+  .cta-h2 {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: clamp(40px, 5.8vw, 72px);
+    line-height: 1;
+    letter-spacing: -.035em;
+    color: var(--bg);
+    max-width: 16ch;
+  }
+  .cta-h2 em { color: rgba(255,255,255,.5); font-style: normal; font-weight: 400; }
+  .cta-side p {
+    color: rgba(255,255,255,.72);
+    font-size: 17px;
+    line-height: 1.55;
+    margin-bottom: var(--s5);
+  }
+  .cta-side a { border-bottom: 1px solid rgba(255,255,255,.3); }
+  .btn-prime-inv {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 26px;
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--onyx);
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 500;
+    transition: transform .2s;
+  }
+  .btn-prime-inv:hover { transform: translateY(-1px); }
+  .btn-prime-inv .arrow { transition: transform .2s; }
+  .btn-prime-inv:hover .arrow { transform: translateX(3px); }
+
+  /* ─── Reveal ──────────────────────────────────────────── */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  }
+  [data-reveal].is-in { opacity: 1; transform: translateY(0); }
+  [data-reveal][data-delay="1"] { transition-delay: .08s; }
+  [data-reveal][data-delay="2"] { transition-delay: .16s; }
+  [data-reveal][data-delay="3"] { transition-delay: .24s; }
+  [data-reveal][data-delay="4"] { transition-delay: .32s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    [data-reveal] { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body data-page="wealth-management">
+
+<div id="anova-nav"></div>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-head">
+      <span class="ticker">Gestão Patrimonial · Multi-custódia</span>
+      <span class="ts">Estrutura → Alinhamento</span>
+    </div>
+
+    <div class="hero-top" data-reveal>
+      <div class="hero-top-copy">
+        <h1>
+          Seu patrimônio<br>merece a estrutura<br><em>alinhada a seus interesses.</em>
+        </h1>
+      </div>
+      <div class="hero-portrait" data-reveal data-delay="1" style="width:400px;height:400px;">
+        <img src="assets/img/hero-wealth-portrait.png" alt="Cliente sênior em consulta via WhatsApp" loading="eager" style="object-fit:cover;">
+        <span class="portrait-tick">Ao vivo · WhatsApp</span>
+        <div class="portrait-badge">
+          <div class="p-num">R$ 2<small>Bi</small></div>
+          <div class="p-label">Sob operação</div>
+        </div>
+        <div class="portrait-quote">
+          <q>A relação não passa mais por call center. Passa pela conversa onde o patrimônio de fato se decide.</q>
+          <div class="q-who">Cliente · 7 instituições · Multi-custódia</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="hero-sub" data-reveal data-delay="1">
+      Operamos um modelo multi-custódia real, <a href="research.html">research proprietária</a> e remuneração atrelada à performance, sem o preço, a fricção e o conflito de interesse do atendimento tradicional. O dinheiro continua na sua conta, nas instituições que você escolher. Nós só ganhamos quando a sua carteira ganha.
+    </p>
+
+    <div class="hero-cta" data-reveal data-delay="2">
+      <a href="#cta" class="btn-prime">Falar com um especialista <span class="arrow">→</span></a>
+      <a href="#alinhamento" class="btn-ghost">Ver modelo de cobrança</a>
+    </div>
+
+    <div class="hero-stats" data-reveal data-delay="3">
+      <div class="hero-stat">
+        <span class="hero-stat-label">Sob operação</span>
+        <span class="hero-stat-num">R$ 2<small>&nbsp;Bi</small></span>
+        <span class="hero-stat-sub">Patrimônio real operando hoje na mesma estrutura.</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">Instituições</span>
+        <span class="hero-stat-num">7</span>
+        <span class="hero-stat-sub">BTG, XP, Avenue, Safra, BTG Global, XP Int, IBKR.</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">Mercado regulado</span>
+        <span class="hero-stat-num">8<small>&nbsp;anos</small></span>
+        <span class="hero-stat-sub">Operação contínua, com histórico auditável.</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-label">Rebate na prateleira</span>
+        <span class="hero-stat-num">0</span>
+        <span class="hero-stat-sub">Taxa cheia no cliente. Sem spread escondido.</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ §01 · PROBLEMA ═══ -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">01 · Problema estrutural</span>
+      <span class="ts">Por que não é moral · é estrutural</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      Quem te atende hoje<br>é remunerado<br><em>pelo quê?</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      Assessor, banker, consultor, casa de análise, family office tradicional, quase todos são remunerados pela comissão do produto que vendem, não pelo resultado que geram. É o padrão do mercado. O mesmo padrão que faz a prateleira favorecer o produto que paga mais rebate e não o que se encaixa no seu perfil. A assimetria é estrutural. 
+Só desaparece quando a estrutura muda.
+    </p>
+
+    <div class="prob-grid">
+      <div class="prob" data-reveal data-delay="1">
+        <div class="prob-num">P · 01</div>
+        <h3>Quem recomenda, também vende.</h3>
+        <p>O produto que chega raramente é o melhor — é o que paga a maior comissão. O conselho vira pitch. O incentivo fica em conflito silencioso.</p>
+      </div>
+      <div class="prob" data-reveal data-delay="2">
+        <div class="prob-num">P · 02</div>
+        <h3>Rebate come a rentabilidade.</h3>
+        <p>Operação que paga 14% no mercado chega como 13,5% no cliente. O spread fica com o intermediário. Ao longo dos anos, é patrimônio vazando em silêncio.</p>
+      </div>
+      <div class="prob" data-reveal data-delay="3">
+        <div class="prob-num">P · 03</div>
+        <h3>Custódia única, conflito embutido.</h3>
+        <p>Uma instituição só controla prateleira, execução e relacionamento. Fora dela, a resposta é "não temos" — e a melhor taxa fica em outra mesa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §02 · COMO OPERAMOS ═══ -->
+<section class="section section-dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">02 · Como operamos a sua gestão</span>
+      <span class="ts">5 camadas · 1 equipe</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal style="color:var(--white);">
+      O modelo UHNW.<br>Sem o preço.<br><em>Sem a fricção.</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      O dinheiro permanece na sua conta, nas instituições que você escolher. A Anova opera a alocação com <a href="research.html">research proprietária</a> por trás de cada decisão rebalanceia conforme o mercado muda e atende pelo WhatsApp, o canal que você já usa. A mesma sofisticação que uma família UHNW acessa no private banking internacional, agora sem spread, sem rebate e sem produto empurrado.
+    </p>
+
+    <div class="layers">
+      <div class="layer" data-reveal>
+        <div class="layer-idx">01</div>
+        <div class="layer-title">Consolidação</div>
+        <div class="layer-desc">Todos os seus ativos, em todas as instituições, num painel único via Open Finance. O dinheiro continua na sua conta  nós organizamos a visão e a decisão.</div>
+        <div class="layer-tag">Open Finance</div>
+      </div>
+      <div class="layer" data-reveal data-delay="1">
+        <div class="layer-idx">02</div>
+        <div class="layer-title">Diagnóstico</div>
+        <div class="layer-desc">Entendemos seu patrimônio, objetivos, horizonte e tolerância real ao risco não a que cabe em formulário de dez perguntas.</div>
+        <div class="layer-tag">Perfil real</div>
+      </div>
+      <div class="layer" data-reveal data-delay="2">
+        <div class="layer-idx">03</div>
+        <div class="layer-title">Carteira com fundamento</div>
+        <div class="layer-desc">Alocação sob medida, com as teses ativas da <a href="research.html">casa de análise Anova</a> por trás. Cada decisão carrega argumento  você não precisa confiar, pode verificar.</div>
+        <div class="layer-tag">Research-led</div>
+      </div>
+      <div class="layer" data-reveal data-delay="3">
+        <div class="layer-idx">04</div>
+        <div class="layer-title">Execução BR e USD</div>
+        <div class="layer-desc">Câmbio, carteiras dolarizadas e prateleira completa, sem spread de assessor. Rebalanceamento contínuo e acesso direto ao time de gestão.</div>
+        <div class="layer-tag">Multi-mercado</div>
+      </div>
+      <div class="layer" data-reveal data-delay="4">
+        <div class="layer-idx">05</div>
+        <div class="layer-title">Crédito multibanco</div>
+        <div class="layer-desc">Quando precisar de financiamento, consórcio, seguro ou empréstimo, colocamos <a href="credito.html">80+ instituições cotando</a> lado a lado. Mesma estrutura que cuida da carteira.</div>
+        <div class="layer-tag">80+ parceiros</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §03 · ALINHAMENTO ═══ -->
+<section id="alinhamento" class="section section-dark" style="border-top:1px solid rgba(255,255,255,.08);">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">03 · Alinhamento de interesse</span>
+      <span class="ts">Perf → só sobre alpha</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal style="color:var(--white);">
+      Só ganhamos<br>quando <em>você ganha.</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      No modelo tradicional, quem recomenda também vende e o incentivo fica em conflito silencioso. Aqui, o contrato é diferente: três componentes na remuneração, zero escondidos.
+    </p>
+
+    <div class="align-grid">
+      <ul class="align-list">
+        <li>
+          <div class="align-label">Taxa de administração</div>
+          <div class="align-text">Percentual anual sobre o patrimônio, pré-acordado com o especialista que te atende. Descontado em frações diárias sem surpresa no extrato, sem cobrança escondida.</div>
+        </li>
+        <li>
+          <div class="align-label">Taxa de performance</div>
+          <div class="align-text">Só incide se a sua carteira superar o benchmark no período. Uma parte do ganho excedente vira a nossa remuneração. Se não superar, não cobramos performance.</div>
+        </li>
+        <li>
+          <div class="align-label">Zero spread na prateleira</div>
+          <div class="align-text">Se uma operação paga 14% no mercado, você recebe 14%. Não 13,5%. Nosso ganho não está na diferença está no resultado.</div>
+        </li>
+      </ul>
+
+      <div class="align-card">
+        <div class="align-card-head">
+          <span class="align-card-eyebrow">Modelo de cobrança</span>
+          <span class="align-card-ts">perf → só sobre alpha</span>
+        </div>
+
+        <svg class="align-chart" viewBox="0 0 620 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="alpha-fill" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".28"/>
+              <stop offset="1" stop-color="#FFFFFF" stop-opacity=".02"/>
+            </linearGradient>
+            <pattern id="alpha-hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(255,255,255,.16)" stroke-width="1"/>
+            </pattern>
+          </defs>
+
+          <!-- Grid rows -->
+          <g stroke="rgba(255,255,255,.06)" stroke-width="1">
+            <line x1="60"  y1="60"  x2="480" y2="60"/>
+            <line x1="60"  y1="140" x2="480" y2="140"/>
+            <line x1="60"  y1="220" x2="480" y2="220"/>
+            <line x1="60"  y1="300" x2="480" y2="300"/>
+          </g>
+
+          <!-- Axis -->
+          <line x1="60"  y1="60"  x2="60"  y2="300" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+          <line x1="60"  y1="300" x2="480" y2="300" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+
+          <!-- Y labels -->
+          <g font-family="ui-monospace, monospace" font-size="10" fill="rgba(255,255,255,.5)" letter-spacing=".04em">
+            <text x="52" y="64"  text-anchor="end">+20%</text>
+            <text x="52" y="144" text-anchor="end">+10%</text>
+            <text x="52" y="224" text-anchor="end">+5%</text>
+            <text x="52" y="304" text-anchor="end">0%</text>
+          </g>
+
+          <!-- X labels -->
+          <g font-family="ui-monospace, monospace" font-size="10" fill="rgba(255,255,255,.5)" letter-spacing=".04em">
+            <text x="60"  y="322" text-anchor="middle">T0</text>
+            <text x="165" y="322" text-anchor="middle">Q1</text>
+            <text x="270" y="322" text-anchor="middle">Q2</text>
+            <text x="375" y="322" text-anchor="middle">Q3</text>
+            <text x="480" y="322" text-anchor="middle">Q4</text>
+          </g>
+
+          <!-- Alpha area (between portfolio and benchmark) -->
+          <path d="M 60 300 C 165 276, 270 220, 480 90 L 480 220 C 270 260, 165 288, 60 300 Z"
+                fill="url(#alpha-fill)"/>
+          <path d="M 60 300 C 165 276, 270 220, 480 90 L 480 220 C 270 260, 165 288, 60 300 Z"
+                fill="url(#alpha-hatch)"/>
+
+          <!-- Benchmark (dashed) -->
+          <path d="M 60 300 C 165 288, 270 260, 480 220"
+                fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+          <!-- Portfolio (solid, bold) -->
+          <path d="M 60 300 C 165 276, 270 220, 480 90"
+                fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- End markers -->
+          <circle cx="480" cy="90"  r="5" fill="#FFFFFF"/>
+          <circle cx="480" cy="220" r="4" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.5"/>
+
+          <!-- Right-side callouts (outside plot area) -->
+          <g font-family="SF Pro Display, system-ui, sans-serif">
+            <!-- Portfolio label -->
+            <line x1="485" y1="90" x2="500" y2="90" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+            <text x="506" y="87" font-size="11" font-weight="600" fill="#FFFFFF" letter-spacing=".02em">Sua carteira</text>
+            <text x="506" y="101" font-size="10" fill="rgba(255,255,255,.55)" font-family="ui-monospace, monospace" letter-spacing=".04em">+18,4%</text>
+
+            <!-- Benchmark label -->
+            <line x1="485" y1="220" x2="500" y2="220" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+            <text x="506" y="217" font-size="11" font-weight="600" fill="rgba(255,255,255,.75)" letter-spacing=".02em">Benchmark</text>
+            <text x="506" y="231" font-size="10" fill="rgba(255,255,255,.45)" font-family="ui-monospace, monospace" letter-spacing=".04em">+7,0%</text>
+          </g>
+
+          <!-- Alpha bracket right side -->
+          <g stroke="rgba(255,255,255,.45)" stroke-width="1.25" fill="none">
+            <path d="M 486 94 Q 492 94 492 110 L 492 200 Q 492 216 486 216"/>
+          </g>
+          <g font-family="SF Pro Display, system-ui, sans-serif">
+            <text x="506" y="155" font-size="11" font-weight="700" fill="#FFFFFF" letter-spacing=".06em">ALPHA</text>
+            <text x="506" y="170" font-size="10" fill="rgba(255,255,255,.6)" letter-spacing=".02em">+11,4 p.p.</text>
+          </g>
+
+          <!-- Alpha caption below plot -->
+          <g font-family="ui-monospace, monospace" font-size="10" fill="rgba(255,255,255,.5)" letter-spacing=".08em">
+            <text x="60" y="360">ÁREA HACHURADA = ALPHA · ÚNICA BASE DE TAXA DE PERFORMANCE</text>
+          </g>
+        </svg>
+
+        <div class="align-legend">
+          <div><span class="dot dot--solid"></span>Sua carteira</div>
+          <div><span class="dot dot--dash"></span>Benchmark</div>
+          <div><span class="dot dot--fill"></span>Alpha — base da performance</div>
+        </div>
+
+        <p class="align-foot">Se a carteira não superar o benchmark, não há alpha e não há taxa de performance. Gráfico ilustrativo; não representa rentabilidade passada nem promessa futura.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §04 · COMPARAÇÃO ═══ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">04 · Comparação estrutural</span>
+      <span class="ts">3 critérios · 4 modelos</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      O que muda<br>quando a estrutura<br><em>é honesta?</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      Três critérios. É onde o seu patrimônio cresce ou vaza em silêncio.
+    </p>
+
+    <div class="comp" data-reveal data-delay="2">
+      <div class="comp-row comp-row--head">
+        <div>Critério</div>
+        <div>Assessoria tradicional</div>
+        <div>Fundo de investimento</div>
+        <div>Private banking</div>
+        <div class="anova">Anova Gestão</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-crit" data-label="Critério">Custódia</div>
+        <div class="comp-cell" data-label="Assessoria">Uma instituição</div>
+        <div class="comp-cell" data-label="Fundo">Uma gestora</div>
+        <div class="comp-cell" data-label="Private">Um banco</div>
+        <div class="comp-anova" data-label="Anova">7 instituições (BR + EUA)</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-crit" data-label="Critério">Comissão por produto</div>
+        <div class="comp-cell" data-label="Assessoria">Sim (rebate)</div>
+        <div class="comp-cell" data-label="Fundo">Embutida na taxa</div>
+        <div class="comp-cell" data-label="Private">Sim</div>
+        <div class="comp-anova" data-label="Anova">Zero</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-crit" data-label="Critério">Alinhamento de interesse</div>
+        <div class="comp-cell" data-label="Assessoria">Comissão por produto</div>
+        <div class="comp-cell" data-label="Fundo">Taxa fixa, independente do resultado</div>
+        <div class="comp-cell" data-label="Private">Comissão por produto</div>
+        <div class="comp-anova" data-label="Anova">Remuneração vinculada à performance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §05 · CUSTÓDIA ═══ -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">05 · Onde seu dinheiro fica</span>
+      <span class="ts">7 instituições · BR + EUA</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      Na sua conta.<br>Nas instituições<br><em>que você escolher.</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      A Anova nunca toca o seu dinheiro. Os ativos ficam custodiados nas instituições reguladas  CVM e BACEN no Brasil, reguladores locais nos EUA. A titularidade é sua. A movimentação é sua. A gestão é nossa.
+    </p>
+
+    <div class="cust-grid">
+      <div class="cust" data-reveal data-delay="1">
+        <span class="cust-flag">BR · CVM</span>
+        <span class="cust-name">BTG Pactual</span>
+        <span class="cust-sub">Conta corrente, renda fixa, ações.</span>
+      </div>
+      <div class="cust" data-reveal data-delay="1">
+        <span class="cust-flag">BR · CVM</span>
+        <span class="cust-name">XP</span>
+        <span class="cust-sub">Plataforma completa de investimentos.</span>
+      </div>
+      <div class="cust" data-reveal data-delay="2">
+        <span class="cust-flag">BR · CVM</span>
+        <span class="cust-name">Safra</span>
+        <span class="cust-sub">Banco, câmbio, renda fixa privada.</span>
+      </div>
+      <div class="cust" data-reveal data-delay="2">
+        <span class="cust-flag">US · SEC</span>
+        <span class="cust-name">Avenue</span>
+        <span class="cust-sub">Conta e investimentos em dólar.</span>
+      </div>
+      <div class="cust" data-reveal data-delay="3">
+        <span class="cust-flag">US · SEC</span>
+        <span class="cust-name">BTG Global</span>
+        <span class="cust-sub">Banking offshore e carteiras USD.</span>
+      </div>
+      <div class="cust" data-reveal data-delay="3">
+        <span class="cust-flag">US · SEC</span>
+        <span class="cust-name">XP Internacional</span>
+        <span class="cust-sub">Prateleira global via XP US.</span>
+      </div>
+      <div class="cust" data-reveal data-delay="4">
+        <span class="cust-flag">US · FINRA</span>
+        <span class="cust-name">Interactive Brokers</span>
+        <span class="cust-sub">Execução global em 150+ mercados.</span>
+      </div>
+      <div class="cust" data-reveal data-delay="4" style="opacity:.65;">
+        <span class="cust-flag">+ sob demanda</span>
+        <span class="cust-name">Outras custódias</span>
+        <span class="cust-sub">Casos específicos, avaliados 1-a-1.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §06 · NÃO É FUNDO ═══ -->
+<section class="section section-dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">06 · Carteira administrada · não é fundo</span>
+      <span class="ts">Liquidez · tributação · controle</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal style="color:var(--white);">
+      Carteira administrada.<br><em>Não cota de veículo.</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      A distinção parece técnica e pesa no bolso ao longo do tempo. Seu dinheiro é tratado como <em>seu</em> dinheiro, com as regras dos ativos que você carrega. Não como cota num veículo que impõe restrições coletivas.
+    </p>
+
+    <div class="nofund-grid">
+      <div class="nofund" data-reveal data-delay="1">
+        <div class="nofund-tag">Liquidez</div>
+        <h3>Sem janela de 30, 60 ou 90 dias.</h3>
+        <p>Fundos prendem capital em janelas fixas. Carteira administrada opera no ritmo dos próprios ativos se é líquido, você acessa. O calendário é seu.</p>
+      </div>
+      <div class="nofund" data-reveal data-delay="2">
+        <div class="nofund-tag">Tributação</div>
+        <h3>Sem come-cotas semestral.</h3>
+        <p>Fundos sofrem come-cotas duas vezes ao ano, antecipando imposto e reduzindo o efeito dos juros compostos. Aqui, cada ativo paga imposto na hora certa.</p>
+      </div>
+      <div class="nofund" data-reveal data-delay="3">
+        <div class="nofund-tag">Controle</div>
+        <h3>Seu dinheiro continua seu.</h3>
+        <p>Em fundo, você tem cota. Em carteira administrada, você tem os ativos na sua conta, na instituição que escolheu. A Anova orquestra a titularidade é sua.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §07 · PARA QUEM ═══ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">07 · Para quem faz sentido</span>
+      <span class="ts">3 perfis frequentes</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      Investidor<br>que já leu o jogo<br><em>e quer estrutura à altura.</em>
+    </h2>
+
+    <p class="sec-lead" data-reveal data-delay="1" style="margin-top:var(--s5);">
+      Não é para quem está começando. É para quem já tem tempo de mercado, já foi atendido por assessor, banker ou consultor, já leu prospecto e hoje busca estrutura onde o incentivo de quem atende esteja alinhado ao seu.
+    </p>
+
+    <div class="aud-grid">
+      <div class="aud" data-reveal data-delay="1">
+        <div class="aud-tag">Empresário</div>
+        <h3>Patrimônio consolidado via empresa.</h3>
+        <p>Construiu patrimônio com o próprio negócio. Hoje está distribuído entre bancos, corretoras, private banking, posições internacionais  e conhece o preço real de incentivo desalinhado operando no escuro.</p>
+      </div>
+      <div class="aud" data-reveal data-delay="2">
+        <div class="aud-tag">Profissional liberal</div>
+        <h3>Renda alta, já atendido por várias pontas.</h3>
+        <p>Médico, advogado, engenheiro, consultor sênior. Sofisticação construída ao longo dos anos. Já passou por casa de análise, assessoria de corretora e butique independente e percebeu que conselho neutro é artigo raro.</p>
+      </div>
+      <div class="aud" data-reveal data-delay="3">
+        <div class="aud-tag">Executivo · Herdeiro</div>
+        <h3>Técnico, exigente, desconfiado.</h3>
+        <p>C-level, sócio de firma, herdeiro de segunda geração, executivo com bônus relevantes. Entende de mercado o suficiente para desconfiar de simplificação e busca gestão alinhada ao resultado, não conversa comercial com produto embaixo do braço.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §08 · FAQ ═══ -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">08 · Perguntas frequentes</span>
+      <span class="ts">O que chega na primeira conversa</span>
+    </div>
+
+    <h2 class="sec-h2" data-reveal>
+      Dúvidas<br>que costumamos<br><em>responder primeiro.</em>
+    </h2>
+
+    <div class="faq" data-reveal data-delay="1">
+      <details>
+        <summary>Qual o patrimônio mínimo para começar?</summary>
+        <p>A conversa faz sentido a partir de patrimônios alocáveis relevantes o suficiente para justificar a estrutura multi-custódia. O número exato depende do seu perfil, dos ativos que você já carrega e da complexidade da operação. Preferimos discutir números na proposta — sem filtro automático por faixa.</p>
+      </details>
+      <details>
+        <summary>E se minha carteira não superar o benchmark no período?</summary>
+        <p>Se não superar, a Anova não cobra taxa de performance naquele período. A taxa de administração — percentual anual pré-acordado com o especialista — continua incidindo porque cobre o custo operacional da estrutura (research, execução, atendimento). A remuneração variável só existe quando a carteira gera resultado acima do benchmark combinado.</p>
+      </details>
+      <details>
+        <summary>Como sei que a Anova não tem acesso direto ao meu dinheiro?</summary>
+        <p>Porque o dinheiro nunca sai da sua conta. Os ativos ficam custodiados nas instituições reguladas que você escolheu. A Anova opera a camada de gestão — escolha de ativos, alocação, acompanhamento — mas titularidade e movimentação permanecem com os parceiros, dentro do marco regulatório do mercado financeiro brasileiro e internacional.</p>
+      </details>
+      <details>
+        <summary>Vocês são regulados?</summary>
+        <p>A Anova opera a camada de gestão e atendimento. A custódia, a execução e o compliance de cada operação acontecem via parceiros regulados por CVM e BACEN — e, quando aplicável, pelos reguladores das praças internacionais correspondentes (SEC, FINRA). Na primeira conversa, explicamos exatamente qual peça cabe a quem.</p>
+      </details>
+      <details>
+        <summary>Posso sair quando quiser?</summary>
+        <p>Sim. Não existe lock-up, multa ou janela de resgate. Como os ativos vivem na sua conta, na instituição que você escolheu, a saída é uma decisão sua — e acontece no ritmo dos próprios ativos. A Anova para de orquestrar; a titularidade nunca esteve conosco.</p>
+      </details>
+      <details>
+        <summary>Quanto tempo leva para começar?</summary>
+        <p>Após a primeira conversa, o diagnóstico leva de alguns dias a uma semana, dependendo de quantas instituições seu patrimônio toca. A proposta de alocação é apresentada em reunião. Com as contas abertas nas instituições escolhidas, o Open Finance consolida a visão em minutos — e a partir daí a operação é contínua.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ §09 · CTA ═══ -->
+<section id="cta" class="section section-dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">09 · Próximo passo</span>
+      <span class="ts">Consultiva · sem pitch</span>
+    </div>
+
+    <div class="cta-block">
+      <h2 class="cta-h2" data-reveal>
+        Fale com<br>um <em>especialista.</em>
+      </h2>
+      <div class="cta-side" data-reveal data-delay="1">
+        <p>
+          Conversa consultiva, com diagnóstico do seu patrimônio e uma direção clara. Sem pitch, sem produto na mesa, sem obrigação de seguir. Você sai com clareza  fique ou não fique. <a href="Landing Page.html">Confiança que vira execução.</a>
+        </p>
+        <div id="anova-cta-form" data-product="wealth-management"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="anova-footer"></div>
+
+<script src="js/shell.js?v=20260425b" defer></script>
+<script>
+  (function () {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+  })();
+</script>
+</body>
+</html>

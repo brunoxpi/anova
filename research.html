@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anova Research · Casa de análise preditiva</title>
+<meta name="description" content="A casa de análise preditiva da Anova. Nasceu em 2020 da inconformidade com a análise descritiva. Metodologia proprietária construída por Paulo Martins e Pedro Pivotto, ancorada em Wyckoff e reescrita em software que cruza parâmetros humanamente inviáveis.">
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="design-system/components.css">
+<link rel="stylesheet" href="design-system/sections.css">
+<link rel="stylesheet" href="design-system/nav.css">
+<link rel="stylesheet" href="design-system/editorial.css">
+<link rel="stylesheet" href="design-system/cta-form.css">
+<style>
+  /* ═══════════════════════════════════════════════════════
+     RESEARCH · Página dedicada
+     Sistema editorial herdado. Refinamentos locais.
+     ═══════════════════════════════════════════════════════ */
+
+  /* ─── HERO REFINADO ─── */
+  .research-hero{padding:calc(64px + var(--s8)) 0 var(--s8);position:relative;overflow:hidden;}
+  .research-hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--s8);align-items:end;}
+  @media(max-width:980px){.research-hero-grid{grid-template-columns:1fr;gap:var(--s6);}}
+  .research-hero h1{font-size:clamp(44px,6.6vw,88px);line-height:.96;letter-spacing:-.035em;font-weight:800;margin:var(--s4) 0 var(--s5);}
+  .research-hero h1 em{font-style:normal;color:var(--text-3);font-weight:800;}
+  .research-hero-sub{font-size:clamp(16px,1.35vw,19px);color:var(--text-2);line-height:1.6;max-width:54ch;margin-bottom:var(--s6);}
+  .research-hero-meta{display:flex;flex-wrap:wrap;gap:var(--s5);margin-top:var(--s6);padding-top:var(--s5);border-top:1px solid var(--border);}
+  .research-hero-meta span{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);display:flex;align-items:center;gap:var(--s2);}
+  .research-hero-meta span::before{content:"";width:6px;height:6px;border:1px solid var(--text-1);border-radius:50%;background:var(--text-1);}
+
+  /* Signature tile no hero — quadro de análise */
+  .signal-frame{border:1px solid var(--border);border-radius:var(--r-xl);padding:var(--s5);background:var(--bg-alt);display:flex;flex-direction:column;gap:var(--s4);aspect-ratio:4/5;position:relative;overflow:hidden;}
+  .signal-frame::before{content:"SIGNAL · 003";position:absolute;top:var(--s4);left:var(--s5);font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--text-3);}
+  .signal-frame::after{content:"LIVE";position:absolute;top:var(--s4);right:var(--s5);font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--text-1);padding:2px 8px;border:1px solid var(--text-1);border-radius:99px;display:flex;align-items:center;gap:6px;}
+  .signal-frame svg{margin-top:32px;width:100%;height:auto;flex:1;}
+  .signal-frame svg .baseline{stroke:var(--text-3);stroke-width:1;stroke-dasharray:2,4;opacity:.5;}
+  .signal-frame svg .signal-path{stroke:var(--text-1);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+  .signal-frame svg .signal-dot{fill:var(--text-1);}
+  .signal-frame svg .signal-label{font-family:var(--mono);font-size:9px;fill:var(--text-3);letter-spacing:.1em;}
+  .signal-footer{display:flex;justify-content:space-between;align-items:center;padding-top:var(--s3);border-top:1px dashed var(--border);font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--text-3);text-transform:uppercase;}
+  .signal-footer strong{color:var(--text-1);font-weight:700;}
+
+  @keyframes signal-pulse{
+    0%,100%{opacity:1;transform:scale(1);}
+    50%{opacity:.4;transform:scale(.7);}
+  }
+  .signal-frame::after span.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--text-1);animation:signal-pulse 1.8s ease-in-out infinite;}
+
+  /* ─── PROSE (intro sections) ─── */
+  .prose{max-width:68ch;margin:var(--s7) 0 0;}
+  .prose p{font-size:17px;color:var(--text-2);line-height:1.75;margin-bottom:var(--s5);}
+  .prose p:first-of-type::first-letter{font-size:64px;font-weight:800;float:left;line-height:.88;padding:6px 14px 0 0;color:var(--text-1);}
+  .prose strong{color:var(--text-1);font-weight:700;}
+
+  /* ─── TIMELINE (mantida, refinada) ─── */
+  .tl{display:flex;flex-direction:column;margin-top:var(--s7);position:relative;}
+  .tl::before{content:"";position:absolute;left:75px;top:0;bottom:0;width:1px;background:var(--border);z-index:0;}
+  @media(max-width:680px){.tl::before{left:50px;}}
+
+  .tl-row{display:grid;grid-template-columns:120px 1fr;gap:var(--s5);position:relative;z-index:1;}
+  @media(max-width:680px){.tl-row{grid-template-columns:80px 1fr;gap:var(--s4);}}
+
+  .tl-year{
+    font-family:var(--font);font-weight:800;
+    font-size:clamp(42px,5.5vw,68px);
+    letter-spacing:-.045em;line-height:.88;color:var(--text-1);
+    font-variant-numeric:tabular-nums;
+    position:sticky;top:96px;align-self:start;padding-top:4px;
+    transition:transform .6s var(--ease-spring),color .6s var(--ease);
+  }
+  .tl-year::after{
+    content:"";position:absolute;left:75px;top:12px;
+    width:16px;height:16px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--text-1);
+    transform:translateX(-8px);
+    box-shadow:0 0 0 6px var(--bg);
+  }
+  @media(max-width:680px){.tl-year::after{left:50px;transform:translateX(-8px);}}
+  body[data-theme="dark"] .tl-year::after{background:var(--onyx);box-shadow:0 0 0 6px var(--onyx);}
+  .section-alt .tl-year::after{background:var(--bg-alt);box-shadow:0 0 0 6px var(--bg-alt);}
+
+  .tl-item{border-top:1px solid var(--border);padding:var(--s5) 0 var(--s7);}
+  .tl-item + .tl-item{margin-top:0;}
+  .tl-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s3);}
+  .tl-label::before{content:"";width:20px;height:1px;background:var(--text-1);}
+  .tl-item h3{font-size:clamp(22px,2vw,26px);letter-spacing:-.02em;margin-bottom:var(--s3);line-height:1.2;}
+  .tl-item p{font-size:15px;color:var(--text-2);line-height:1.72;max-width:64ch;}
+  .tl-item p + p{margin-top:var(--s3);}
+
+  /* ─── PULL-QUOTE / MANIFESTO ─── */
+  .pull{border-top:1px solid var(--text-1);border-bottom:1px solid var(--text-1);padding:var(--s7) 0;margin:var(--s8) 0;}
+  .pull-text{font-size:clamp(26px,3.4vw,42px);line-height:1.2;letter-spacing:-.02em;font-weight:500;max-width:22ch;}
+  .pull-text em{font-style:normal;font-weight:700;background:linear-gradient(180deg, transparent 60%, rgba(0,0,0,.08) 60%);padding:0 2px;}
+  .section-dark .pull{border-color:var(--white);}
+  .section-dark .pull-text em{background:linear-gradient(180deg, transparent 60%, rgba(255,255,255,.15) 60%);color:var(--white);}
+  .pull-attr{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);margin-top:var(--s5);display:flex;align-items:center;gap:var(--s3);}
+  .pull-attr::before{content:"";width:40px;height:1px;background:var(--text-3);}
+
+  /* ─── CONFLITO DE PARADIGMA (descritivo vs preditivo) ─── */
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:var(--s7);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;position:relative;}
+  @media(max-width:780px){.vs{grid-template-columns:1fr;}}
+  .vs-col{padding:var(--s6);position:relative;}
+  .vs-col:first-child{border-right:1px solid var(--border);background:var(--bg-alt);}
+  @media(max-width:780px){.vs-col:first-child{border-right:none;border-bottom:1px solid var(--border);}}
+  .vs-col-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:var(--s4);display:flex;align-items:center;gap:var(--s3);}
+  .vs-col-label strong{color:var(--text-1);font-weight:700;}
+  .vs-col h3{font-size:22px;letter-spacing:-.02em;margin-bottom:var(--s4);line-height:1.2;}
+  .vs-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--s3);}
+  .vs-col li{font-size:14px;color:var(--text-2);line-height:1.6;padding-left:22px;position:relative;}
+  .vs-col li::before{content:"";position:absolute;left:0;top:7px;width:14px;height:1px;background:var(--text-3);}
+  .vs-col:last-child li::before{background:var(--text-1);height:2px;}
+  .vs-col:last-child li{color:var(--text-1);}
+  .vs-divider{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--text-3);z-index:2;}
+  @media(max-width:780px){.vs-divider{top:50%;left:50%;}}
+
+  /* ─── FUNDADORES · duo card com número grande ─── */
+  .duo{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5);margin-top:var(--s7);}
+  @media(max-width:680px){.duo{grid-template-columns:1fr;}}
+  .duo-card{border:1px solid var(--border);border-radius:var(--r-xl);padding:var(--s6);background:var(--white);transition:border-color .3s,transform .3s var(--ease-spring);position:relative;overflow:hidden;}
+  .duo-card::before{
+    content:attr(data-num);
+    position:absolute;top:-20px;right:-10px;
+    font-size:180px;font-weight:800;letter-spacing:-.05em;
+    color:var(--bg-alt);line-height:1;z-index:0;
+    font-variant-numeric:tabular-nums;
+  }
+  .duo-card > *{position:relative;z-index:1;}
+  .duo-card:hover{border-color:var(--text-1);transform:translateY(-4px);}
+  .duo-role{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:var(--s4);display:flex;align-items:center;gap:var(--s2);}
+  .duo-role::before{content:"";width:20px;height:1px;background:var(--text-1);}
+  .duo-name{font-size:clamp(22px,2.2vw,28px);font-weight:800;letter-spacing:-.02em;margin-bottom:var(--s2);line-height:1.1;}
+  .duo-origin{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-2);margin-bottom:var(--s4);padding-bottom:var(--s4);border-bottom:1px dashed var(--border);}
+  .duo-bio{font-size:14px;color:var(--text-2);line-height:1.65;}
+
+  /* ─── PILARES · grid metódico ─── */
+  .pillar-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:var(--s7);border:1px solid var(--charcoal);border-radius:var(--r-xl);overflow:hidden;}
+  @media(max-width:880px){.pillar-grid{grid-template-columns:1fr;}}
+  .pillar{padding:var(--s6);border-right:1px solid var(--charcoal);border-bottom:1px solid var(--charcoal);position:relative;transition:background .3s;}
+  .pillar:nth-child(2n){border-right:none;}
+  .pillar:nth-last-child(-n+2){border-bottom:none;}
+  @media(max-width:880px){
+    .pillar{border-right:none;}
+    .pillar:not(:last-child){border-bottom:1px solid var(--charcoal);}
+  }
+  .pillar:hover{background:var(--charcoal);}
+  .pillar-num{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--silver);margin-bottom:var(--s4);display:flex;align-items:center;justify-content:space-between;}
+  .pillar-num strong{color:var(--white);font-weight:700;}
+  .pillar h3{color:var(--white);font-size:20px;letter-spacing:-.015em;margin-bottom:var(--s4);line-height:1.25;}
+  .pillar p{color:var(--silver);font-size:14px;line-height:1.65;}
+
+  /* ─── THESIS GRID (track record) ─── */
+  .thesis-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:var(--s7);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;}
+  @media(max-width:780px){.thesis-grid{grid-template-columns:1fr;}}
+  .thesis{padding:var(--s6);border-right:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;transition:background .2s;}
+  .thesis:nth-child(2n){border-right:none;}
+  .thesis:nth-last-child(-n+2){border-bottom:none;}
+  @media(max-width:780px){.thesis{border-right:none;}.thesis:not(:last-child){border-bottom:1px solid var(--border);}}
+  .thesis:hover{background:var(--bg-alt);}
+  .thesis-tag{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;}
+  .thesis-tag .dir{padding:3px 10px;border-radius:99px;font-weight:800;letter-spacing:.16em;}
+  .thesis-tag .buy{background:var(--onyx);color:var(--white);}
+  .thesis-tag .sell{border:1px solid var(--text-1);color:var(--text-1);}
+  .thesis h4{font-size:20px;letter-spacing:-.015em;margin-bottom:var(--s3);font-weight:700;line-height:1.2;}
+  .thesis p{font-size:13px;color:var(--text-2);line-height:1.65;}
+  .thesis-arrow{margin-top:var(--s4);padding-top:var(--s4);border-top:1px dashed var(--border);font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--text-2);display:flex;align-items:center;gap:var(--s2);}
+  .thesis-arrow::before{content:"→ ";color:var(--text-1);font-weight:700;}
+
+  /* ─── CLIENT ARCHETYPES ─── */
+  .clients{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s5);}
+  .client-tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--border);border-radius:99px;color:var(--text-2);transition:border-color .2s,color .2s,background .2s;}
+  .client-tag:hover{border-color:var(--text-1);color:var(--text-1);background:var(--bg-alt);}
+
+  /* ─── MEDIA STRIP ─── */
+  .media-strip{display:flex;gap:var(--s5);align-items:center;flex-wrap:wrap;padding-top:var(--s6);border-top:1px solid var(--border);margin-top:var(--s7);}
+  .media-strip .media-label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-right:var(--s3);}
+  .media-logo{font-family:var(--font);font-weight:800;font-size:15px;letter-spacing:-.01em;color:var(--text-2);padding:8px 16px;border:1px solid var(--border);border-radius:6px;transition:border-color .2s,color .2s;}
+  .media-logo:hover{border-color:var(--text-1);color:var(--text-1);}
+  .media-logo small{font-weight:400;color:var(--text-3);margin-left:6px;font-size:11px;}
+
+  /* ─── BRIDGE (Life Invest callout) ─── */
+  .bridge{border:1px solid var(--charcoal);border-radius:var(--r-xl);padding:var(--s7);background:var(--onyx);color:var(--white);margin-top:var(--s7);display:grid;grid-template-columns:1fr auto;gap:var(--s6);align-items:center;position:relative;overflow:hidden;}
+  @media(max-width:680px){.bridge{grid-template-columns:1fr;gap:var(--s5);padding:var(--s6);}}
+  .bridge::before{
+    content:"→";
+    position:absolute;top:-60px;right:-40px;
+    font-size:320px;font-weight:300;color:var(--charcoal);opacity:.6;
+    line-height:1;z-index:0;
+  }
+  .bridge > *{position:relative;z-index:1;}
+  .bridge h3{font-size:clamp(24px,2.4vw,30px);letter-spacing:-.02em;color:var(--white);margin-bottom:var(--s3);line-height:1.2;}
+  .bridge p{font-size:15px;color:var(--silver);line-height:1.65;max-width:48ch;}
+  .bridge .btn{border-color:var(--white);color:var(--white);}
+  .bridge .btn:hover{background:var(--white);color:var(--onyx);}
+
+  /* ─── CTA FINAL refinado ─── */
+  .cta-final{padding:var(--s8) 0;}
+  .cta-final h2{font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-.03em;color:var(--white);font-weight:800;max-width:16ch;margin-bottom:var(--s6);}
+  .cta-final h2 strong{color:var(--white);font-weight:800;}
+  .cta-final .lead{color:var(--silver);}
+</style>
+</head>
+<body data-page="research">
+
+<div id="anova-nav"></div>
+<noscript>
+  <nav style="padding:16px;background:#F8F8F8;border-bottom:1px solid #CCC;font-family:sans-serif;font-size:13px;">
+    <a href="Landing Page.html" style="margin-right:16px;">Anova OS</a>
+    <a href="research.html">Research</a>
+  </nav>
+</noscript>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero research-hero">
+  <div class="container">
+    <div class="research-hero-grid">
+      <div data-reveal="up">
+        <span class="eyebrow">00 · Casa de análise preditiva · desde 2020</span>
+        <h1><strong>Descritivo</strong> é passado.<br><em>Preditivo</em> é decisão.</h1>
+        <p class="research-hero-sub">A Anova Research nasceu em 2020 da inconformidade com a análise atual do mercado financeiro. Métodos arcaicos que só explicam o retrovisor. Construímos um software capaz de cruzar parâmetros humanamente inviáveis, ancorado em Wyckoff e reescrito para o mercado de hoje.</p>
+        <div class="hero-cta">
+          <a href="#cta" class="btn btn-primary btn-lg">Falar com Research <span class="arr">→</span></a>
+          <a href="#origem" class="btn btn-outline btn-lg">Ler a história</a>
+        </div>
+        <div class="research-hero-meta">
+          <span>Fundada em 2020</span>
+          <span>Metodologia proprietária</span>
+          <span>Coberta por Valor e Estadão</span>
+        </div>
+      </div>
+      <div data-reveal="left" data-delay="2">
+        <div class="signal-frame">
+          <svg viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <!-- Baselines -->
+            <line class="baseline" x1="0" y1="70" x2="320" y2="70"/>
+            <line class="baseline" x1="0" y1="140" x2="320" y2="140"/>
+            <line class="baseline" x1="0" y1="210" x2="320" y2="210"/>
+            <!-- Vertical gridlines -->
+            <line class="baseline" x1="80" y1="0" x2="80" y2="280"/>
+            <line class="baseline" x1="160" y1="0" x2="160" y2="280"/>
+            <line class="baseline" x1="240" y1="0" x2="240" y2="280"/>
+            <!-- Trigger zone (acumulação) -->
+            <rect x="100" y="150" width="60" height="80" fill="none" stroke="var(--text-1)" stroke-dasharray="3,3" stroke-width="1" opacity=".6"/>
+            <text class="signal-label" x="104" y="145">ACUMULAÇÃO</text>
+            <!-- Price signal path -->
+            <path class="signal-path" d="M 0,180 L 20,175 L 40,195 L 60,210 L 80,205 L 100,215 L 120,195 L 140,175 L 160,150 L 180,125 L 200,95 L 220,110 L 240,85 L 260,60 L 280,75 L 300,50 L 320,40"/>
+            <!-- Breakout markers -->
+            <circle class="signal-dot" cx="160" cy="150" r="4"/>
+            <circle class="signal-dot" cx="260" cy="60" r="4"/>
+            <text class="signal-label" x="170" y="155">ENTRY</text>
+            <text class="signal-label" x="215" y="50">BREAKOUT</text>
+          </svg>
+          <div class="signal-footer">
+            <span>FRAME · Wyckoff · 4H</span>
+            <span>Δ <strong>+18,4%</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ 01 · ORIGEM · TIMELINE ═══ -->
+<section id="origem" class="section section-alt" data-chapter="01 / 06">
+  <div class="container">
+    <span class="eyebrow" data-reveal>01 · Origem</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:28ch;"><strong>Uma</strong> inconformidade com o mercado. Um software como resposta.</h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);max-width:68ch;">A Research começou como obsessão por resultado e por método. Antes de plataforma, antes de orquestrador, antes de multibanco. A pergunta que fundou a casa: por que o mercado financeiro ainda opera em cima de análise descritiva, olhando o retrovisor, quando a tecnologia já permite observar o que está se formando?</p>
+
+    <div class="tl">
+      <div class="tl-row">
+        <div class="tl-year" data-reveal="up">2020</div>
+        <div>
+          <article class="tl-item" data-reveal="up">
+            <div class="tl-label">T · 01 · Gênese</div>
+            <h3>A obsessão por resultado vira inconformidade com o método.</h3>
+            <p>Dois arquitetos com origens diferentes partem da mesma inconformidade. <strong>Paulo Martins</strong> vinha do <em>Traders Club</em>, onde era contribuidor até sair no episódio público do "café com verdades" e decidir fundar a casa. <strong>Pedro Pivotto</strong> chegou do <em>Banco do Brasil</em>, com o lado institucional e quantitativo do mercado.</p>
+            <p>A leitura compartilhada: análise fundamentalista e análise descritiva não dão rumo ao que vai acontecer. Explicam o passado. Projetam possibilidades que não englobam os parâmetros necessários para compreender como o mercado realmente se posiciona.</p>
+          </article>
+
+          <article class="tl-item" data-reveal="up">
+            <div class="tl-label">T · 02 · Referência fundadora</div>
+            <h3>Wyckoff como ponto de partida. Software como extensão.</h3>
+            <p>A referência estrutural vem de <strong>Richard Wyckoff</strong>, uma das autoridades fundadoras do mercado. Sua tese de acumulação e distribuição, ainda que poderosa, já não era cabível na complexidade de instrumentos, volumes e correlações do mercado contemporâneo. A metodologia pedia uma extensão construída sobre software.</p>
+            <p>Paulo e Pedro desenvolvem um software capaz de acompanhar o mercado em tempo real e cruzar parâmetros que, para um analista humano, seriam estruturalmente ineficientes ou impossíveis de processar. É aqui que descritivo começa a virar preditivo: o modelo engloba histórico, presente e cenários futuros em um único plano de análise.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-year" data-reveal="up">2023</div>
+        <div>
+          <article class="tl-item" data-reveal="up">
+            <div class="tl-label">T · 03 · Casa aberta a mercado</div>
+            <h3>Carteiras públicas. Nacional, internacional, curto, médio e longo prazo.</h3>
+            <p>A Anova Research passa a operar publicamente com múltiplas carteiras. Diferente do consenso, o método preditivo permite posicionamentos antagônicos. E eles se confirmam: Argentina em 2023, Chile e Colômbia no final de 2025, vendidos em dólar, vendidos em relação ao crescimento da Selic. As notícias vieram depois. O modelo já estava posicionado.</p>
+          </article>
+
+          <article class="tl-item" data-reveal="up">
+            <div class="tl-label">T · 04 · Cobertura & clientes</div>
+            <h3>Valor Econômico. Valor Invest. Estadão.</h3>
+            <p>O crescimento trouxe cobertura editorial. A base começa a se formar por <strong>médicos, advogados, engenheiros</strong> que já testaram assessorias convencionais e queriam método, não opinião.</p>
+            <div class="clients">
+              <span class="client-tag">Médicos</span>
+              <span class="client-tag">Advogados</span>
+              <span class="client-tag">Engenheiros</span>
+              <span class="client-tag">Ex-assessoria</span>
+              <span class="client-tag">Empresários</span>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-year" data-reveal="up">2025</div>
+        <div>
+          <article class="tl-item" data-reveal="up">
+            <div class="tl-label">T · 05 · A dor que virou próximo capítulo</div>
+            <h3>Um modelo preditivo pede execução preditiva.</h3>
+            <p>O sucesso das teses revelou uma dor nascida da própria solução: o cliente médico, advogado, engenheiro não conseguia <strong>executar ou acompanhar</strong> as ações no tempo certo. Tinha trabalho, tinha vida, tinha outra operação acontecendo.</p>
+            <p>E o método preditivo, por natureza, carrega movimentações antagônicas ao buy-and-hold. Ajustes, rotações, posicionamentos contra-consenso. Sem execução rápida, a tese perde valor. A resposta foi construir o próximo estágio do ecossistema: <strong>carteiras automatizadas</strong> que seguem as teses da Research com disciplina operacional.</p>
+            <p><a href="life-invest.html" style="border-bottom:1px solid var(--text-1);font-weight:600;">Life Invest</a> é a continuação direta desta história. A camada de execução preditiva, conectada à mesma metodologia.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 · TESE · NOTÍCIA É O INIMIGO ═══ -->
+<section class="section" data-chapter="02 / 06">
+  <div class="container">
+    <span class="eyebrow" data-reveal>02 · Tese</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:24ch;"><strong>Notícia</strong> é inimiga do investidor. Método é o antídoto.</h2>
+
+    <div class="prose" data-reveal="up" data-delay="1">
+      <p>A leitura da Anova Research sobre o mercado atual é direta: a notícia é um dos maiores inimigos do investidor. Ela cria os ciclos conhecidos de pânico e euforia, descritos exaustivamente na literatura e vividos diariamente por quem opera sem método. Quem decide a partir da manchete, reage. Quem decide a partir do modelo, se posiciona.</p>
+      <p>A abordagem preditiva não tenta adivinhar o próximo headline. Ela calibra um modelo que observa o que está se formando abaixo da superfície. Volumes, correlações, comportamentos institucionais, movimentos macro. E entrega ao analista um <strong>fundamento explícito</strong> para agir antes da notícia virar preço.</p>
+      <p>Por isso o perfil do cliente Anova Research costuma ser quem já sentiu na pele o custo de seguir o ciclo de manchetes e procura outra coisa. Não uma dica, não uma tese isolada, não um guru. Um <strong>método</strong> que explique por que a casa está posicionada como está.</p>
+    </div>
+
+    <!-- Conflito de paradigma -->
+    <div class="vs" data-reveal="up" data-delay="2">
+      <div class="vs-col">
+        <div class="vs-col-label"><strong>Descritivo</strong> · o que o mercado faz</div>
+        <h3>Explica o passado. Projeta possibilidades.</h3>
+        <ul>
+          <li>Lê manchete como sinal de entrada</li>
+          <li>Opera em cima de narrativas consensuais</li>
+          <li>Reage ao movimento depois que ele já aconteceu</li>
+          <li>Fundamentalismo puro: bom para contexto, ruim para timing</li>
+          <li>Analista humano como única camada de decisão</li>
+        </ul>
+      </div>
+      <div class="vs-col">
+        <div class="vs-col-label"><strong>Preditivo</strong> · o que a Anova faz</div>
+        <h3>Observa o que está se formando. Calibra fundamento.</h3>
+        <ul>
+          <li>Lê volume, correlação e comportamento institucional</li>
+          <li>Posiciona contra o consenso quando o modelo indica</li>
+          <li>Entra antes da notícia virar preço</li>
+          <li>Wyckoff estendido em software: timing com fundamento</li>
+          <li>Software cruza parâmetros humanamente inviáveis</li>
+        </ul>
+      </div>
+      <div class="vs-divider">VS</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 · ARQUITETOS ═══ -->
+<section class="section section-alt" data-chapter="03 / 06">
+  <div class="container">
+    <span class="eyebrow" data-reveal>03 · Arquitetos</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:26ch;"><strong>Duas</strong> origens. Uma inconformidade só.</h2>
+
+    <div class="duo">
+      <article class="duo-card" data-reveal="up" data-num="01">
+        <div class="duo-role">F · 01 · Fundador · Research</div>
+        <div class="duo-name">Paulo Martins</div>
+        <div class="duo-origin">Ex-Traders Club · Fundador Anova</div>
+        <p class="duo-bio">Saiu depois de criar o <strong>café com verdades</strong> para fundar a Anova Research. Encabeça a pergunta que fundou a metodologia: <em>por que ainda operamos olhando pelo retrovisor?</em></p>
+      </article>
+      <article class="duo-card" data-reveal="up" data-delay="1" data-num="02">
+        <div class="duo-role">F · 02 · Co-fundador · Research</div>
+        <div class="duo-name">Pedro Pivotto</div>
+        <div class="duo-origin">Ex-Banco do Brasil · Software preditivo</div>
+        <p class="duo-bio">Co-desenvolvedor do software que permitiu a análise preditiva a partir de parâmetros humanamente inviáveis. Carrega o lado institucional e quantitativo do modelo: cruzamento de histórico, presente e cenários futuros em um único plano, com fundamento auditável em cada sinal.</p>
+      </article>
+    </div>
+
+    <!-- Pull-quote -->
+    <div class="pull" data-reveal="up">
+      <div class="pull-text">
+        "Análise descritiva explica o passado. <em>Preditiva explica o que está se formando.</em> O resto é opinião."
+      </div>
+      <div class="pull-attr">Manifesto fundador · Research · 2020</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 · METODOLOGIA · 4 PILARES ═══ -->
+<section class="section section-dark" data-chapter="04 / 06">
+  <div class="container">
+    <span class="eyebrow" data-reveal>04 · Metodologia</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:24ch;color:var(--white);"><strong>Quatro</strong> pilares. Um método. Um software.</h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);max-width:62ch;">A metodologia é proprietária, construída desde 2020 e recalibrada continuamente. Não é um indicador novo, nem um modelo fechado. É uma estrutura que combina histórico denso, modelagem multiativos, sinal explícito e calibração permanente.</p>
+
+    <div class="pillar-grid">
+      <div class="pillar" data-reveal="up">
+        <div class="pillar-num"><strong>P · 01</strong><span>Dados</span></div>
+        <h3>Dado histórico denso</h3>
+        <p>Séries temporais de ativos, volumes, cotações, eventos corporativos e indicadores macro em alta granularidade. A base sob tudo: precisão antes de predição.</p>
+      </div>
+      <div class="pillar" data-reveal="up" data-delay="1">
+        <div class="pillar-num"><strong>P · 02</strong><span>Modelo</span></div>
+        <h3>Modelagem multiativos</h3>
+        <p>Wyckoff mapeou acumulação e distribuição antes de qualquer movimento de preço. Nós reescrevemos essa leitura em software: cruzamento de correlações, volume profile e fundamentos num modelo proprietário, calibrado para o mercado contemporâneo.</p>
+      </div>
+      <div class="pillar" data-reveal="up" data-delay="2">
+        <div class="pillar-num"><strong>P · 03</strong><span>Sinal</span></div>
+        <h3>Sinal preditivo explícito</h3>
+        <p>Cada sinal vem com fundamento. Por quê, em quê, com qual confiança. Sem caixa-preta. Sem "o modelo disse". O analista consegue defender a posição.</p>
+      </div>
+      <div class="pillar" data-reveal="up" data-delay="3">
+        <div class="pillar-num"><strong>P · 04</strong><span>Ciclo</span></div>
+        <h3>Calibração contínua</h3>
+        <p>Os sinais são recalibrados conforme o mercado evolui. Backtesting é parte do ciclo, não um teste único de saída. Mercado muda, o modelo acompanha.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 · TRACK RECORD ═══ -->
+<section class="section" data-chapter="05 / 06">
+  <div class="container">
+    <span class="eyebrow" data-reveal>05 · Track record</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:28ch;"><strong>Teses</strong> que foram contra o mercado. O mercado depois concordou.</h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);max-width:62ch;">A amostra abaixo é pública. São teses assumidas em carteira, muitas vezes contra o consenso, e reconfirmadas pelas notícias que chegaram depois.</p>
+
+    <div class="thesis-grid" data-reveal="up">
+      <article class="thesis">
+        <div class="thesis-tag">2023 · Internacional <span class="dir buy">BUY</span></div>
+        <h4>Argentina · reposicionamento estrutural</h4>
+        <p>Tese de entrada em ativos argentinos no início de 2023, quando o consenso ainda lia o país apenas pelo risco. A reprecificação subsequente confirmou a leitura do modelo.</p>
+        <div class="thesis-arrow">Tese da casa · confirmada pelo mercado</div>
+      </article>
+      <article class="thesis">
+        <div class="thesis-tag">2025 · Internacional <span class="dir buy">BUY</span></div>
+        <h4>Chile & Colômbia · janelas abertas</h4>
+        <p>Posicionamento entre início e final de 2025 em Chile e Colômbia. O modelo identificou padrões de acumulação antes da virada de narrativa regional.</p>
+        <div class="thesis-arrow">Padrão de acumulação antes da virada</div>
+      </article>
+      <article class="thesis">
+        <div class="thesis-tag">2025 · Câmbio <span class="dir sell">SELL</span></div>
+        <h4>Dólar · vendido no pico</h4>
+        <p>Posicionamento vendido em dólar contra a corrente do medo, ancorado em leitura de exaustão e correlações macro.</p>
+        <div class="thesis-arrow">Contra o medo · leitura de exaustão</div>
+      </article>
+      <article class="thesis">
+        <div class="thesis-tag">2025 · Juros <span class="dir sell">SELL</span></div>
+        <h4>Selic · vendido no ciclo de alta</h4>
+        <p>Vendido em instrumentos sensíveis ao ciclo de alta da Selic. O modelo antecipou a inflexão antes da narrativa de política monetária se ajustar.</p>
+        <div class="thesis-arrow">Inflexão antecipada · antes da narrativa</div>
+      </article>
+    </div>
+
+    <div class="media-strip" data-reveal>
+      <div class="media-label">M · Coberturas editoriais</div>
+      <span class="media-logo">Valor<small>Econômico</small></span>
+      <span class="media-logo">Valor<small>Invest</small></span>
+      <span class="media-logo">Estadão</span>
+      <span class="media-logo">InfoMoney</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 06 · PONTE PARA LIFE INVEST ═══ -->
+<section class="section section-alt" data-chapter="06 / 06">
+  <div class="container">
+    <span class="eyebrow" data-reveal>06 · O próximo capítulo</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:26ch;"><strong>Preditivo</strong> sem execução é tese parada. A resposta virou Life Invest.</h2>
+
+    <div class="prose" data-reveal="up" data-delay="1">
+      <p>A própria maturação da Research criou a dor do próximo capítulo. Clientes com a leitura certa, sem tempo para executar na velocidade que o método pede. Um modelo que opera com movimentações antagônicas ao buy-and-hold precisa de uma camada de execução disciplinada. Por isso construímos as <strong>carteiras automatizadas</strong> dentro do ecossistema, a camada Life Invest.</p>
+    </div>
+
+    <div class="bridge" data-reveal="up">
+      <div>
+        <h3>Research pensa. Life Invest executa.</h3>
+        <p>A metodologia preditiva vira motor algorítmico com HITL. Cada sinal da Research pode virar ordem dentro da carteira, com revisão humana e trilha auditável.</p>
+      </div>
+      <a href="life-invest.html" class="btn btn-outline btn-lg">Conhecer Life Invest <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA FINAL ═══ -->
+<section id="cta" class="section section-dark cta-final">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Próximo passo</span>
+    <div class="cta-block" style="margin-top:var(--s5);">
+      <h2 class="cta-h2" data-reveal>
+        <strong>Conversar</strong><br>com o time<br>de <em>Research.</em>
+      </h2>
+      <div class="cta-side" data-reveal data-delay="1">
+        <p>Se a pergunta "por que o método tradicional já não funciona?" for familiar, vale começar por uma conversa. Sem pitch. Direto ao que a casa observa hoje.</p>
+        <div id="anova-cta-form" data-product="research"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="anova-footer"></div>
+
+<script src="js/shell.js?v=20260425b" defer></script>
+<script src="js/motion.js" defer></script>
+</body>
+</html>

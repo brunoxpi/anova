@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anova | Infraestrutura conversacional para distribuição financeira</title>
+<meta name="description" content="A Anova conecta originação, relacionamento, operação e governança em um único fluxo conversacional para profissionais e instituições financeiras.">
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="design-system/components.css">
+<link rel="stylesheet" href="design-system/sections.css">
+<link rel="stylesheet" href="design-system/nav.css">
+<link rel="stylesheet" href="design-system/editorial.css">
+</head>
+<body data-page="home">
+
+<!-- ═══ NAV (injected by shell.js) ═══ -->
+<div id="anova-nav"></div>
+<noscript>
+  <nav style="padding:16px;background:#F8F8F8;border-bottom:1px solid #CCC;font-family:sans-serif;font-size:13px;">
+    <a href="index.html" style="margin-right:16px;">Anova OS</a>
+    <a href="wealth-management.html" style="margin-right:16px;">Gestão Patrimonial</a>
+    <a href="wealth-hubs.html" style="margin-right:16px;">Wealth Hubs</a>
+    <a href="life-invest.html" style="margin-right:16px;">Life Invest</a>
+    <a href="orquestrador.html" style="margin-right:16px;">Orquestrador</a>
+    <a href="credito.html" style="margin-right:16px;">Crédito</a>
+    <a href="research.html">Research</a>
+  </nav>
+</noscript>
+
+<!-- SECTIONS -->
+
+<!-- ═══ 01 · HERO ═══ -->
+<header class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div data-reveal="up">
+      <span class="eyebrow">00 · Anova · Infraestrutura conversacional</span>
+      <h1 style="margin-top:var(--s5);"><strong>Chega de operação financeira quebrada</strong> entre WhatsApp, CRM, banco, mesa e backoffice.</h1>
+      <p class="hero-sub" style="margin-top:var(--s5);">A Anova conecta <strong>originação, relacionamento, operação e governança</strong> em um único fluxo conversacional, para que profissionais e instituições cresçam com <strong>mais receita, menos fricção e controle real</strong>.</p>
+      <div class="hero-cta" style="margin-top:var(--s6);">
+        <a href="#contato" class="btn btn-primary btn-lg">Solicitar demonstração <span class="arr">→</span></a>
+        <a href="#solucao" class="btn btn-outline btn-lg">Ver como funciona</a>
+      </div>
+      <div style="display:flex;align-items:center;margin-top:var(--s5);font-family:var(--mono);font-size:11px;color:var(--text-3);flex-wrap:wrap;gap:var(--s1);">
+        <span>Sem perder relacionamento.</span>
+        <span style="color:var(--dust);margin:0 6px;">·</span>
+        <span>Sem perder governança.</span>
+        <span style="color:var(--dust);margin:0 6px;">·</span>
+        <span>Sem perder oportunidade.</span>
+      </div>
+      <a class="meta-badge" href="https://www.meta.com/business/whatsapp/api" target="_blank" rel="noopener" aria-label="Parceiro oficial Meta" style="margin-top:var(--s5);">
+        <img src="assets/img/metatech.png" alt="Meta">
+        <span class="meta-badge-label">Parceiro<br>oficial Meta</span>
+      </a>
+    </div>
+
+    <div class="hero-visual" data-reveal="left" data-delay="2" style="background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);padding:var(--s4);aspect-ratio:auto;">
+      <svg viewBox="0 0 700 480" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+        <defs>
+          <marker id="arr" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M 0 0.5 L 6.5 3.5 L 0 6.5 Z" fill="#0A0A0A"/>
+          </marker>
+        </defs>
+        <!-- Guide ring -->
+        <circle cx="350" cy="240" r="120" stroke="#E8E8E8" stroke-width="1" stroke-dasharray="4 7"/>
+        <!-- Cycle arcs -->
+        <path d="M 390,120 C 462,92 514,196 470,226" stroke="#0A0A0A" stroke-width="1.5" marker-end="url(#arr)"/>
+        <path d="M 470,254 C 510,292 470,378 390,360" stroke="#0A0A0A" stroke-width="1.5" marker-end="url(#arr)"/>
+        <path d="M 310,360 C 228,388 186,310 230,254" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+        <path d="M 230,226 C 186,168 214,100 310,120" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+        <!-- Center to Node spokes -->
+        <line x1="350" y1="134" x2="350" y2="226" stroke="#E0E0E0" stroke-width="0.8" stroke-dasharray="2 4"/>
+        <line x1="350" y1="254" x2="350" y2="346" stroke="#E0E0E0" stroke-width="0.8" stroke-dasharray="2 4"/>
+        <line x1="410" y1="240" x2="378" y2="240" stroke="#E0E0E0" stroke-width="0.8" stroke-dasharray="2 4"/>
+        <line x1="290" y1="240" x2="322" y2="240" stroke="#E0E0E0" stroke-width="0.8" stroke-dasharray="2 4"/>
+        <!-- Satellite connection lines -->
+        <line x1="192" y1="57"  x2="316" y2="106" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5"/>
+        <line x1="506" y1="57"  x2="384" y2="106" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5"/>
+        <line x1="574" y1="181" x2="530" y2="226" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5"/>
+        <line x1="506" y1="406" x2="390" y2="374" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5"/>
+        <line x1="196" y1="406" x2="310" y2="374" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5"/>
+        <line x1="130" y1="181" x2="170" y2="230" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5"/>
+        <!-- Pulse dots: satellite to cycle node (gray, r=2.5) -->
+        <circle r="2.5" fill="#767676"><animateMotion path="M 192,57 L 316,106" dur="1.6s" repeatCount="indefinite" begin="0s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.6s" repeatCount="indefinite" begin="0s"/></circle>
+        <circle r="2.5" fill="#767676"><animateMotion path="M 192,57 L 316,106" dur="1.6s" repeatCount="indefinite" begin="-0.8s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.6s" repeatCount="indefinite" begin="-0.8s"/></circle>
+        <circle r="2.5" fill="#767676"><animateMotion path="M 506,57 L 384,106" dur="1.6s" repeatCount="indefinite" begin="-0.4s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.6s" repeatCount="indefinite" begin="-0.4s"/></circle>
+        <circle r="2.5" fill="#767676"><animateMotion path="M 506,57 L 384,106" dur="1.6s" repeatCount="indefinite" begin="-1.2s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.6s" repeatCount="indefinite" begin="-1.2s"/></circle>
+        <circle r="2.5" fill="#767676"><animateMotion path="M 574,181 L 530,226" dur="1.4s" repeatCount="indefinite" begin="-0.2s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.4s" repeatCount="indefinite" begin="-0.2s"/></circle>
+        <circle r="2.5" fill="#767676"><animateMotion path="M 574,181 L 530,226" dur="1.4s" repeatCount="indefinite" begin="-0.9s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.4s" repeatCount="indefinite" begin="-0.9s"/></circle>
+        <circle r="2.5" fill="#767676"><animateMotion path="M 506,406 L 390,374" dur="1.5s" repeatCount="indefinite" begin="-0.6s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.5s" repeatCount="indefinite" begin="-0.6s"/></circle>
+        <circle r="2.5" fill="#767676"><animateMotion path="M 506,406 L 390,374" dur="1.5s" repeatCount="indefinite" begin="-1.35s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.5s" repeatCount="indefinite" begin="-1.35s"/></circle>
+        <circle r="2.5" fill="#767676"><animateMotion path="M 196,406 L 310,374" dur="1.5s" repeatCount="indefinite" begin="-0.3s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.5s" repeatCount="indefinite" begin="-0.3s"/></circle>
+        <circle r="2.5" fill="#767676"><animateMotion path="M 196,406 L 310,374" dur="1.5s" repeatCount="indefinite" begin="-1.05s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.5s" repeatCount="indefinite" begin="-1.05s"/></circle>
+        <circle r="2.5" fill="#767676"><animateMotion path="M 130,181 L 170,230" dur="1.3s" repeatCount="indefinite" begin="-0.5s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.3s" repeatCount="indefinite" begin="-0.5s"/></circle>
+        <circle r="2.5" fill="#767676"><animateMotion path="M 130,181 L 170,230" dur="1.3s" repeatCount="indefinite" begin="-1.15s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.3s" repeatCount="indefinite" begin="-1.15s"/></circle>
+        <!-- Pulse dots: cycle node to center Anova (black, r=3) -->
+        <circle r="3" fill="#0A0A0A"><animateMotion path="M 350,134 L 350,226" dur="1.0s" repeatCount="indefinite" begin="0s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="1.0s" repeatCount="indefinite" begin="0s"/></circle>
+        <circle r="3" fill="#0A0A0A"><animateMotion path="M 350,134 L 350,226" dur="1.0s" repeatCount="indefinite" begin="-0.5s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="1.0s" repeatCount="indefinite" begin="-0.5s"/></circle>
+        <circle r="3" fill="#0A0A0A"><animateMotion path="M 410,240 L 378,240" dur="0.6s" repeatCount="indefinite" begin="-0.15s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="0.6s" repeatCount="indefinite" begin="-0.15s"/></circle>
+        <circle r="3" fill="#0A0A0A"><animateMotion path="M 410,240 L 378,240" dur="0.6s" repeatCount="indefinite" begin="-0.45s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="0.6s" repeatCount="indefinite" begin="-0.45s"/></circle>
+        <circle r="3" fill="#0A0A0A"><animateMotion path="M 350,346 L 350,254" dur="1.0s" repeatCount="indefinite" begin="-0.25s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="1.0s" repeatCount="indefinite" begin="-0.25s"/></circle>
+        <circle r="3" fill="#0A0A0A"><animateMotion path="M 350,346 L 350,254" dur="1.0s" repeatCount="indefinite" begin="-0.75s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="1.0s" repeatCount="indefinite" begin="-0.75s"/></circle>
+        <circle r="3" fill="#0A0A0A"><animateMotion path="M 290,240 L 322,240" dur="0.6s" repeatCount="indefinite" begin="-0.35s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="0.6s" repeatCount="indefinite" begin="-0.35s"/></circle>
+        <circle r="3" fill="#0A0A0A"><animateMotion path="M 290,240 L 322,240" dur="0.6s" repeatCount="indefinite" begin="-0.55s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="0.6s" repeatCount="indefinite" begin="-0.55s"/></circle>
+        <!-- Ripple at center -->
+        <circle cx="350" cy="240" r="4" fill="none" stroke="#0A0A0A" stroke-width="1.2"><animate attributeName="r" values="4;26" dur="2.0s" repeatCount="indefinite" begin="0s"/><animate attributeName="opacity" values="0.5;0" dur="2.0s" repeatCount="indefinite" begin="0s"/></circle>
+        <circle cx="350" cy="240" r="4" fill="none" stroke="#0A0A0A" stroke-width="1.2"><animate attributeName="r" values="4;26" dur="2.0s" repeatCount="indefinite" begin="-0.66s"/><animate attributeName="opacity" values="0.5;0" dur="2.0s" repeatCount="indefinite" begin="-0.66s"/></circle>
+        <circle cx="350" cy="240" r="4" fill="none" stroke="#0A0A0A" stroke-width="1.2"><animate attributeName="r" values="4;26" dur="2.0s" repeatCount="indefinite" begin="-1.33s"/><animate attributeName="opacity" values="0.5;0" dur="2.0s" repeatCount="indefinite" begin="-1.33s"/></circle>
+        <!-- Center hub -->
+        <rect x="322" y="226" width="56" height="28" rx="8" fill="white" stroke="#0A0A0A" stroke-width="1.5"/>
+        <text x="350" y="244" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="11" font-weight="700" fill="#0A0A0A">Anova</text>
+        <!-- 4 main nodes -->
+        <rect x="310" y="106" width="80" height="28" rx="8" fill="#0A0A0A"/>
+        <text x="350" y="124" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="11" font-weight="600" fill="white">Originação</text>
+        <rect x="410" y="226" width="120" height="28" rx="8" fill="white" stroke="#0A0A0A" stroke-width="1.5"/>
+        <text x="470" y="244" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">Relacionamento</text>
+        <rect x="310" y="346" width="80" height="28" rx="8" fill="white" stroke="#0A0A0A" stroke-width="1.5"/>
+        <text x="350" y="364" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">Operação</text>
+        <rect x="170" y="226" width="120" height="28" rx="8" fill="white" stroke="#0A0A0A" stroke-width="1.5"/>
+        <text x="230" y="244" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">Governança</text>
+        <!-- 6 satellite nodes -->
+        <rect x="104" y="44"  width="88"  height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1"/>
+        <text x="148" y="61"  text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="10" fill="#767676">Research</text>
+        <rect x="506" y="44"  width="92"  height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1"/>
+        <text x="552" y="61"  text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="10" fill="#767676">Life Invest</text>
+        <rect x="574" y="168" width="106" height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1"/>
+        <text x="627" y="185" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="10" fill="#767676">Orquestrador</text>
+        <rect x="506" y="406" width="80"  height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1"/>
+        <text x="546" y="423" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="10" fill="#767676">Crédito</text>
+        <rect x="102" y="406" width="92"  height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1"/>
+        <text x="148" y="423" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="10" fill="#767676">Wealth Hubs</text>
+        <rect x="14"  y="168" width="116" height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1"/>
+        <text x="72"  y="185" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="9.5" fill="#767676">Gestão Patrimonial</text>
+        <!-- Label -->
+        <text x="350" y="472" text-anchor="middle" font-family="monospace" font-size="8" fill="#BABABA" letter-spacing="2">FLUXO CONVERSACIONAL CONTÍNUO</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- Trust bar -->
+<div class="trust-bar">
+  <div class="container">
+    <div class="trust-bar-inner">
+      <span class="trust-item">Conversa que vira operação</span>
+      <span class="trust-dot">·</span>
+      <span class="trust-item">Fluxo ponta a ponta</span>
+      <span class="trust-dot">·</span>
+      <span class="trust-item">Rastreabilidade por etapa</span>
+      <span class="trust-dot">·</span>
+      <span class="trust-item">Governança e controle de acesso</span>
+      <span class="trust-dot">·</span>
+      <span class="trust-item">Integração com parceiros regulados</span>
+      <span class="trust-dot">·</span>
+      <span class="trust-item">Experiência WhatsApp-first</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 02 · PARCEIROS ═══ -->
+<section class="partners-section">
+  <div class="container">
+    <p class="partners-section-label">Parceiros &amp; integrações reguladas</p>
+    <div class="partners-ticker" aria-label="Parceiros regulados">
+      <div class="partners-track">
+        <span class="tick">BTG Pactual</span>
+        <span class="tick">BTG Global</span>
+        <span class="tick">XP</span>
+        <span class="tick">XP Internacional</span>
+        <span class="tick">Avenue</span>
+        <span class="tick">Safra</span>
+        <span class="tick">Interactive Brokers</span>
+        <span class="tick">Prudential</span>
+        <span class="tick">AWT</span>
+        <span class="tick">Nelógica</span>
+        <span class="tick">Camex</span>
+        <span class="tick">Davos</span>
+        <span class="tick">Eleva Invest</span>
+        <span class="tick">CVM · Registrado</span>
+        <span class="tick">BACEN · Conectado</span>
+        <span class="tick">SUSEP · Integrado</span>
+        <span class="tick">ANS · Integrado</span>
+        <span class="tick">+ 70 instituições</span>
+        <span class="tick">BTG Pactual</span>
+        <span class="tick">BTG Global</span>
+        <span class="tick">XP</span>
+        <span class="tick">XP Internacional</span>
+        <span class="tick">Avenue</span>
+        <span class="tick">Safra</span>
+        <span class="tick">Interactive Brokers</span>
+        <span class="tick">Prudential</span>
+        <span class="tick">+ 70 instituições</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 · ADVISORY BOARD ═══ -->
+<section id="conselho" class="section">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Advisory Board</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:22ch;"><strong>Conselho</strong> com autoridade fora da indústria financeira de propósito.</h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);">A Anova pesou autoridade fora da caixa pra não replicar os vícios da indústria. O conselho conecta rede educacional em escala, enterprise operando em larga escala e governança regulatória exatamente pra construir uma rede nova, com regra nova de remuneração.</p>
+    <div class="board-grid">
+      <article class="board-card" data-reveal="up" data-board-idx="0">
+        <div class="board-photo"><img src="assets/img/board-castelo.png" alt="Bruno Castelo" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="board-meta"><div class="board-name">Bruno Castelo</div><div class="board-role">B · 01 · Dell</div></div>
+        <div class="board-expand"><div class="board-expand-inner">
+          <div class="board-expand-role">Consultor em Tecnologia de Produtos na DELL</div>
+          <p class="board-expand-bio">Profissional de tecnologia com mais de 10 anos de experiência em inovação de produtos, vendas consultivas e transformação digital. Formado em Ciência da Computação, pós-graduado em Cibersegurança e certificado em Gen AI (Dell) e Dale Carnegie.</p>
+        </div></div>
+      </article>
+      <article class="board-card" data-reveal="up" data-delay="1" data-board-idx="1">
+        <div class="board-photo"><img src="assets/img/board-rogerio.png" alt="Rogério Balieiro" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="board-meta"><div class="board-name">Rogério Balieiro</div><div class="board-role">B · 02 · Caramuru</div></div>
+        <div class="board-expand"><div class="board-expand-inner">
+          <div class="board-expand-role">Gerente Industrial na Caramuru Alimentos</div>
+          <p class="board-expand-bio">Engenheiro químico com 22 anos no agronegócio. Investidor na Anova há 5 anos, hoje lidera a unidade de Uberlândia, focado em novas oportunidades de negócio.</p>
+        </div></div>
+      </article>
+      <article class="board-card" data-reveal="up" data-delay="2" data-board-idx="2">
+        <div class="board-photo"><img src="assets/img/board-pedro.png" alt="Pedro Pivotto" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="board-meta"><div class="board-name">Pedro Pivotto</div><div class="board-role">B · 03 · Anova Research</div></div>
+        <div class="board-expand"><div class="board-expand-inner">
+          <div class="board-expand-role">Engenheiro de Software e ex-executivo do Banco do Brasil</div>
+          <p class="board-expand-bio">Com mais de 25 anos de experiência no mercado financeiro e de TI. Atualmente é sócio e Diretor de Tecnologia da Anova Research.</p>
+        </div></div>
+      </article>
+      <article class="board-card" data-reveal="up" data-delay="3" data-board-idx="3">
+        <div class="board-photo"><img src="assets/img/board-marcelo.png" alt="Marcelo Távora" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="board-meta"><div class="board-name">Marcelo Távora</div><div class="board-role">B · 04 · VK Digital</div></div>
+        <div class="board-expand"><div class="board-expand-inner">
+          <div class="board-expand-role">Fundador da VK Digital</div>
+          <p class="board-expand-bio">Agência especializada em estratégias digitais e crescimento de marcas. Vasta experiência em tráfego pago e lançamentos. Formado em Administração pela PUC Minas.</p>
+        </div></div>
+      </article>
+      <article class="board-card" data-reveal="up" data-delay="4" data-board-idx="4">
+        <div class="board-photo"><img src="assets/img/board-joao.png" alt="João Vitor" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="board-meta"><div class="board-name">João Vitor</div><div class="board-role">B · 05 · G4 Educação</div></div>
+        <div class="board-expand"><div class="board-expand-inner">
+          <div class="board-expand-role">Diretor de Operações (COO) do G4 Educação</div>
+          <p class="board-expand-bio">Especialista em desenvolvimento de negócios e mentor de startups. Foi o mais jovem a receber o título de professor em Negócios e Inovação pelo MIT em 2016.</p>
+        </div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 · PROBLEMA ═══ -->
+<section id="problema" class="section section-alt">
+  <div class="container">
+    <span class="eyebrow" data-reveal>O problema</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:24ch;">O mercado financeiro ainda opera de forma <strong>fragmentada.</strong></h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);">Enquanto o cliente conversa em um canal, a operação acontece em vários outros. A jornada se espalha entre mensagens, planilhas, sistemas, pessoas e aprovações desconectadas. No fim, a empresa perde velocidade, previsibilidade e capacidade de escala.</p>
+
+    <div class="problem-2col">
+      <div class="dor-list" data-reveal="up" data-delay="1">
+        <div class="dor-chip">leads sem resposta no tempo certo</div>
+        <div class="dor-chip">follow-up inconsistente</div>
+        <div class="dor-chip">pendências invisíveis</div>
+        <div class="dor-chip">retrabalho operacional</div>
+        <div class="dor-chip">pouca visibilidade da jornada</div>
+        <div class="dor-chip">perda de timing comercial</div>
+        <div class="dor-chip">dificuldade de escalar sem ampliar desorganização</div>
+      </div>
+      <div class="problem-frag" data-reveal="left" data-delay="2">
+        <svg viewBox="0 0 220 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:220px;width:100%;">
+          <rect x="20" y="10" width="90" height="28" rx="8" stroke="#CCC" stroke-dasharray="3 3" fill="#F8F8F8"/>
+          <text x="65" y="28" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">WhatsApp</text>
+          <rect x="100" y="70" width="80" height="28" rx="8" stroke="#CCC" stroke-dasharray="3 3" fill="#F8F8F8"/>
+          <text x="140" y="88" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">CRM</text>
+          <rect x="10" y="140" width="80" height="28" rx="8" stroke="#CCC" stroke-dasharray="3 3" fill="#F8F8F8"/>
+          <text x="50" y="158" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Planilha</text>
+          <rect x="110" y="210" width="80" height="28" rx="8" stroke="#CCC" stroke-dasharray="3 3" fill="#F8F8F8"/>
+          <text x="150" y="228" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Banco</text>
+          <rect x="30" y="280" width="88" height="28" rx="8" stroke="#CCC" stroke-dasharray="3 3" fill="#F8F8F8"/>
+          <text x="74" y="298" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#888">Backoffice</text>
+          <line x1="65" y1="38" x2="90" y2="62" stroke="#E0E0E0" stroke-dasharray="3 4"/>
+          <line x1="140" y1="98" x2="70" y2="130" stroke="#E0E0E0" stroke-dasharray="3 4"/>
+          <line x1="50" y1="168" x2="120" y2="200" stroke="#E0E0E0" stroke-dasharray="3 4"/>
+          <line x1="150" y1="238" x2="90" y2="268" stroke="#E0E0E0" stroke-dasharray="3 4"/>
+        </svg>
+      </div>
+    </div>
+
+    <p class="problem-close" data-reveal>A Anova nasce para transformar essa <strong>fragmentação em fluxo.</strong></p>
+  </div>
+</section>
+
+<!-- ═══ 03 · SOLUÇÃO ═══ -->
+<section id="solucao" class="section">
+  <div class="container">
+    <span class="eyebrow" data-reveal>A solução</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:28ch;">A distribuição e <strong>conexão de negócios</strong>, finalmente, em um só fluxo.</h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);">A Anova é a infraestrutura conversacional que organiza a relação entre cliente, profissional, operação, backoffice e parceiros regulados em uma camada única. A conversa deixa de ser um canal solto e passa a fazer parte da operação, com contexto, continuidade, histórico e visibilidade.</p>
+
+    <div class="solution-flow" data-reveal="up" data-delay="2">
+      <span class="flow-node">Cliente</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node">Originação</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node">Relacionamento</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node">Operação</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node">Governança</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node">Acompanhamento</span>
+    </div>
+
+    <p class="solution-sub" data-reveal>Menos sistemas soltos. Mais continuidade entre atendimento, execução e controle.</p>
+  </div>
+</section>
+
+<!-- ═══ 04 · BENEFÍCIOS ═══ -->
+<section id="beneficios" class="section section-alt">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Benefícios</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:24ch;">O que a Anova resolve <strong>na prática</strong></h2>
+
+    <div class="benefits-grid">
+      <article class="benefit-card" data-reveal="up">
+        <div class="benefit-num">B · 01</div>
+        <h3>Nunca mais deixe uma oportunidade morrer no meio do caminho</h3>
+        <p>Monitora jornada, identifica silêncio, pendência e próxima ação.</p>
+      </article>
+      <article class="benefit-card" data-reveal="up" data-delay="1">
+        <div class="benefit-num">B · 02</div>
+        <h3>O cliente fala no WhatsApp. A estrutura enxerga tudo.</h3>
+        <p>Experiência simples na ponta. Visibilidade, rastreabilidade e controle na operação.</p>
+      </article>
+      <article class="benefit-card" data-reveal="up" data-delay="2">
+        <div class="benefit-num">B · 03</div>
+        <h3>Agentes que trabalham sua base 24 horas por dia</h3>
+        <p>Cobra pendências, organiza follow-ups, sustenta cadência sem depender da memória humana.</p>
+      </article>
+      <article class="benefit-card" data-reveal="up">
+        <div class="benefit-num">B · 04</div>
+        <h3>Saiba exatamente onde sua receita trava</h3>
+        <p>Veja gargalos entre entrada da demanda, resposta, documentação, operação e conversão.</p>
+      </article>
+      <article class="benefit-card" data-reveal="up" data-delay="1">
+        <div class="benefit-num">B · 05</div>
+        <h3>Mais relacionamento. Menos carga operacional.</h3>
+        <p>IA remove peso manual sem retirar do profissional o protagonismo da relação.</p>
+      </article>
+      <article class="benefit-card" data-reveal="up" data-delay="2">
+        <div class="benefit-num">B · 06</div>
+        <h3>Escale com governança, não com improviso</h3>
+        <p>Trilha, regra, visibilidade e permissionamento para crescer com disciplina operacional.</p>
+      </article>
+      <article class="benefit-card benefit-card--featured" data-reveal="up">
+        <div>
+          <div class="benefit-num">B · 07</div>
+          <h3>Opere dentro de uma estrutura regulada</h3>
+        </div>
+        <p>Compliance embarcado e integração com parceiros regulados (CVM, SUSEP, ANS, BACEN) desde o primeiro fluxo.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 · COMO FUNCIONA ═══ -->
+<section id="como-funciona" class="section">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Como funciona</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:26ch;">Uma camada conversacional entre <strong>cliente, time e instituição.</strong></h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);">A Anova organiza a operação financeira em quatro frentes integradas, para que a conversa avance com lógica operacional e governança desde o início.</p>
+
+    <div class="how-grid" style="margin-top:var(--s7);">
+      <article class="how-step" data-reveal="up">
+        <div class="how-num">01 · Originação</div>
+        <h3>Capta e organiza a entrada da demanda</h3>
+        <p>Demanda com contexto desde o início, qualificada e encaminhada sem se perder.</p>
+      </article>
+      <article class="how-step" data-reveal="up" data-delay="1">
+        <div class="how-num">02 · Relacionamento</div>
+        <h3>Mantém cadência e follow-up</h3>
+        <p>Continuidade comercial com menos esforço manual.</p>
+      </article>
+      <article class="how-step" data-reveal="up" data-delay="2">
+        <div class="how-num">03 · Operação</div>
+        <h3>Acompanha documentação e execução</h3>
+        <p>Visibilidade clara de andamento, pendências e etapas internas.</p>
+      </article>
+      <article class="how-step" data-reveal="up" data-delay="3">
+        <div class="how-num">04 · Governança</div>
+        <h3>Trilha, regras e rastreabilidade</h3>
+        <p>Controle, histórico e permissionamento sobre toda a operação.</p>
+      </article>
+    </div>
+    <p class="solution-sub" data-reveal style="margin-top:var(--s7);">Da conversa à execução, tudo passa a existir em fluxo contínuo.</p>
+  </div>
+</section>
+
+<!-- ═══ 06 · FLYWHEEL ═══ -->
+<section id="flywheel" class="flywheel-section">
+  <div class="container">
+    <span class="eyebrow" data-reveal style="color:var(--silver);">O arco que virou sistema</span>
+    <div class="flywheel-header">
+      <h2 data-reveal="up" style="margin-top:var(--s4);"><strong>Sete</strong> dores. Tudo virou um sistema.</h2>
+      <p class="lead" data-reveal="up" data-delay="1">Cada superfície da Anova nasceu resolvendo a dor da anterior e criando a próxima. Não é roadmap de slide. É <strong>flywheel</strong> que rodou até virar infraestrutura.</p>
+    </div>
+    <div class="flywheel" data-reveal="up" data-delay="2">
+      <div class="fly-node">
+        <span class="fly-index">01</span>
+        <h3 class="fly-title"><a href="research.html" style="color:inherit;">Research</a></h3>
+        <p class="fly-pain"><span>Dor de origem</span>Análise descritiva é retrovisor não antecipa mercado.</p>
+        <p class="fly-solution"><span>O que fizemos</span>Reescrevemos Wyckoff em software. Sinais preditivos com fundamento auditável em cada posição.</p>
+        <span class="fly-arrow">→</span>
+      </div>
+      <div class="fly-node">
+        <span class="fly-index">02</span>
+        <h3 class="fly-title"><a href="wealth-management.html" style="color:inherit;">Gestão Patrimonial</a></h3>
+        <p class="fly-pain"><span>Dor criada</span>Cliente tem a tese, mas não consegue executar na velocidade do modelo.</p>
+        <p class="fly-solution"><span>O que fizemos</span>Criamos a Gestão Patrimonial conectando tese e execução com multi-custódia real.</p>
+        <span class="fly-arrow">→</span>
+      </div>
+      <div class="fly-node">
+        <span class="fly-index">03</span>
+        <h3 class="fly-title"><a href="wealth-hubs.html" style="color:inherit;">Rede Própria</a></h3>
+        <p class="fly-pain"><span>Dor criada</span>Assessor tradicional opera por rebate. Incentivo errado pra escalar.</p>
+        <p class="fly-solution"><span>O que fizemos</span>Estruturamos os Anova Hubs com remuneração alinhada ao cliente, não ao produto.</p>
+        <span class="fly-arrow">→</span>
+      </div>
+      <div class="fly-node">
+        <span class="fly-index">04</span>
+        <h3 class="fly-title"><a href="life-invest.html" style="color:inherit;">Life Invest</a></h3>
+        <p class="fly-pain"><span>Dor criada</span>Consultor relacional não sabe montar proposta consultiva.</p>
+        <p class="fly-solution"><span>O que fizemos</span>Criamos o Life Invest. Áudio vira proposta PDF consultiva em 5 minutos.</p>
+        <span class="fly-arrow">→</span>
+      </div>
+      <div class="fly-node">
+        <span class="fly-index">05</span>
+        <h3 class="fly-title"><a href="credito.html" style="color:inherit;">Rede Monoproduto</a></h3>
+        <p class="fly-pain"><span>Dor criada</span>Cliente pede crédito, consórcio, seguro no mesmo canal da carteira.</p>
+        <p class="fly-solution"><span>O que fizemos</span>Integramos crédito multibanco e seguros ao mesmo fluxo conversacional.</p>
+        <span class="fly-arrow">→</span>
+      </div>
+      <div class="fly-node">
+        <span class="fly-index">06</span>
+        <h3 class="fly-title"><a href="orquestrador.html" style="color:inherit;">Orquestrador</a></h3>
+        <p class="fly-pain"><span>Dor criada</span>Volume explode no WhatsApp sem governança nem trilha auditável.</p>
+        <p class="fly-solution"><span>O que fizemos</span>Arquitetamos o Orquestrador dentro da API oficial. Trilha imutável e HITL nativos da camada.</p>
+        <span class="fly-arrow">→</span>
+      </div>
+      <div class="fly-node fly-node--os">
+        <span class="fly-index">07</span>
+        <h3 class="fly-title">Anova OS</h3>
+        <p class="fly-pain"><span>Consolidação</span>Sete dores resolvidas. Uma infraestrutura. Research, execução, crédito, governança e compliance num fluxo único — no WhatsApp, na web, em qualquer canal da rede. Auditado. Escalável. Licenciável.</p>
+      </div>
+    </div>
+    <div class="flywheel-footer" data-reveal>
+      <p class="law">Cada dor virou superfície. Cada superfície virou <strong>infraestrutura</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 07 · DEPOIMENTOS ═══ -->
+<section id="depoimentos" class="section">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Depoimentos</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:26ch;"><strong>Quem</strong> já opera dentro da Anova conta melhor do que a gente.</h2>
+    <div class="video-grid" style="margin-top:var(--s7);">
+      <article class="video-card" data-reveal="up">
+        <div class="video-frame" data-yt="QFg_yGCxfRQ" role="button" tabindex="0" aria-label="Tocar depoimento 01">
+          <img class="vthumb" src="https://i.ytimg.com/vi/QFg_yGCxfRQ/hqdefault.jpg" alt="Depoimento de cliente Anova">
+          <div class="vplay"></div>
+        </div>
+        <div class="video-meta">V · 01 · Depoimento</div>
+      </article>
+      <article class="video-card" data-reveal="up" data-delay="1">
+        <div class="video-frame" data-yt="D7tQVrQoAJY" role="button" tabindex="0" aria-label="Tocar depoimento 02">
+          <img class="vthumb" src="https://i.ytimg.com/vi/D7tQVrQoAJY/hqdefault.jpg" alt="Depoimento de cliente Anova">
+          <div class="vplay"></div>
+        </div>
+        <div class="video-meta">V · 02 · Depoimento</div>
+      </article>
+      <article class="video-card" data-reveal="up" data-delay="2">
+        <div class="video-frame" data-yt="9bgdiU0msPY" role="button" tabindex="0" aria-label="Tocar depoimento 03">
+          <img class="vthumb" src="https://i.ytimg.com/vi/9bgdiU0msPY/hqdefault.jpg" alt="Depoimento de cliente Anova">
+          <div class="vplay"></div>
+        </div>
+        <div class="video-meta">V · 03 · Depoimento</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 08 · AGENTES ═══ -->
+<section id="agentes" class="section section-alt">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Inteligência especializada</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:26ch;"><strong>Especialização</strong> operacional, não caos operacional.</h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);">A Anova combina agentes especializados para reduzir fricção, dar continuidade à jornada e apoiar a estrutura em cada etapa relevante do processo.</p>
+    <div class="agents-grid">
+      <article class="agent-card" data-reveal="up">
+        <div class="agent-num">AG · 01</div>
+        <h3>Agente de Originação</h3>
+        <p>Recebe, qualifica e encaminha a demanda corretamente.</p>
+      </article>
+      <article class="agent-card" data-reveal="up" data-delay="1">
+        <div class="agent-num">AG · 02</div>
+        <h3>Agente de Relacionamento</h3>
+        <p>Monitora base, follow-up, silêncio e continuidade.</p>
+      </article>
+      <article class="agent-card" data-reveal="up" data-delay="2">
+        <div class="agent-num">AG · 03</div>
+        <h3>Agente Operacional</h3>
+        <p>Acompanha documentação, status, SLAs e execução.</p>
+      </article>
+      <article class="agent-card" data-reveal="up" data-delay="3">
+        <div class="agent-num">AG · 04</div>
+        <h3>Agente de Governança</h3>
+        <p>Vigia trilha, regras, exceções e aprovações.</p>
+      </article>
+      <article class="agent-card" data-reveal="up" data-delay="4">
+        <div class="agent-num">AG · 05</div>
+        <h3>Agente de Expansão</h3>
+        <p>Identifica reativação, base ociosa e novas oportunidades.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 09 · DIFERENCIAL ═══ -->
+<section id="diferencial" class="section section-dark">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Diferencial</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);color:var(--white);">
+      Não é mais um CRM.<br>
+      Não é mais um bot.<br>
+      Não é só automação.
+    </h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s6);max-width:60ch;">A Anova foi desenhada para ser a camada operacional que faz a distribuição financeira andar, unindo conversa, processo, execução e governança em um único sistema. Ela não atua apenas na interface. Atua na lógica que conecta cliente, profissional, operação e instituição com continuidade real.</p>
+    <div class="differentials-list" data-reveal="up" data-delay="2">
+      <div class="differentials-item">conversa com contexto</div>
+      <div class="differentials-item">fluxo com continuidade</div>
+      <div class="differentials-item">operação com acompanhamento</div>
+      <div class="differentials-item">estrutura com controle</div>
+      <div class="differentials-item">escala com governança</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10 · GOVERNANÇA ═══ -->
+<section id="governanca" class="section">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Governança e confiança</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:28ch;">Nada relevante acontece sem contexto, regra, trilha e <strong>visibilidade.</strong></h2>
+    <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);">Em um setor sensível como o financeiro, escalar sem governança é ampliar risco. A Anova foi construída para combinar experiência fluida com disciplina operacional.</p>
+    <div class="gov-grid" data-reveal="up" data-delay="2">
+      <div class="gov-item">trilha de auditoria</div>
+      <div class="gov-item">histórico por etapa</div>
+      <div class="gov-item">controle de acessos</div>
+      <div class="gov-item">segregação de perfis</div>
+      <div class="gov-item">rastreabilidade ponta a ponta</div>
+      <div class="gov-item">aprovações em pontos críticos</div>
+      <div class="gov-item">visibilidade para operação e gestão</div>
+      <div class="gov-item">integração com parceiros regulados</div>
+    </div>
+    <p class="gov-close" data-reveal>IA para organizar. <strong>Humanos para governar.</strong></p>
+  </div>
+</section>
+
+<!-- ═══ 11 · PARA QUEM É ═══ -->
+<section id="para-quem" class="section section-alt">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Para quem é</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:28ch;">Feita para operações que precisam crescer <strong>sem desmontar a estrutura.</strong></h2>
+    <div class="forwhom-grid">
+      <article class="forwhom-card" data-reveal="up">
+        <div class="forwhom-num">P · 01</div>
+        <h3>Consultorias financeiras</h3>
+        <p>Para estruturar relacionamento, operação e acompanhamento em escala.</p>
+      </article>
+      <article class="forwhom-card" data-reveal="up" data-delay="1">
+        <div class="forwhom-num">P · 02</div>
+        <h3>Escritórios de investimentos</h3>
+        <p>Para conectar ponta comercial, operação e governança em um único fluxo.</p>
+      </article>
+      <article class="forwhom-card" data-reveal="up" data-delay="2">
+        <div class="forwhom-num">P · 03</div>
+        <h3>Redes distribuídas</h3>
+        <p>Para manter padrão, visibilidade e disciplina operacional em times maiores.</p>
+      </article>
+      <article class="forwhom-card" data-reveal="up" data-delay="3">
+        <div class="forwhom-num">P · 04</div>
+        <h3>Operações WhatsApp-first</h3>
+        <p>Para transformar conversa em fluxo real de trabalho.</p>
+      </article>
+      <article class="forwhom-card" data-reveal="up" data-delay="4">
+        <div class="forwhom-num">P · 05</div>
+        <h3>Estruturas com backoffice relevante</h3>
+        <p>Para unir simplicidade na ponta com controle interno.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 12 · ANTES E DEPOIS ═══ -->
+<section id="resultado" class="section">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Resultado esperado</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:20ch;">O que <strong>muda</strong> na prática</h2>
+    <div class="ba-grid" data-reveal="up" data-delay="1">
+      <div class="ba-col ba-col--before">
+        <span class="ba-col-label">ANTES DA ANOVA</span>
+        <div class="ba-row">informação espalhada</div>
+        <div class="ba-row">atendimento inconsistente</div>
+        <div class="ba-row">follow-up manual</div>
+        <div class="ba-row">operação invisível</div>
+        <div class="ba-row">pouca previsibilidade</div>
+        <div class="ba-row">baixa rastreabilidade</div>
+      </div>
+      <div class="ba-col ba-col--after">
+        <span class="ba-col-label">DEPOIS DA ANOVA</span>
+        <div class="ba-row">fluxo unificado</div>
+        <div class="ba-row">continuidade comercial</div>
+        <div class="ba-row">priorização inteligente</div>
+        <div class="ba-row">operação acompanhável</div>
+        <div class="ba-row">mais previsibilidade</div>
+        <div class="ba-row">governança real</div>
+      </div>
+    </div>
+    <p class="ba-close" data-reveal>Mais atendimento, mais conversão, mais visibilidade e menos desorganização.</p>
+  </div>
+</section>
+
+<!-- ═══ 14 · MANIFESTO DO FUNDADOR ═══ -->
+<section class="section section-dark">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Manifesto do fundador</span>
+    <div class="founder-grid">
+      <div class="founder-photo" data-reveal="right"><img src="/assets/img/paulo-martins-fundador.jpg" alt="Paulo Martins fundador Anova" class="img-slot"></div>
+      <div data-reveal="left" data-delay="1">
+        <span class="founder-quote-mark" aria-hidden="true">"</span>
+        <p class="founder-quote">O modelo de atendimento do mercado financeiro segue lento, caro e distante das necessidades reais dos clientes. A Anova nasceu para mudar esse cenário. Acreditamos que investir deve ser tão simples quanto uma conversa no WhatsApp — <strong>direto, acessível e personalizado</strong>. Por isso, criamos a primeira plataforma WhatsApp-first de investimentos do Brasil: uma experiência pensada para libertar clientes e consultores do modelo tradicional. Já movimentamos mais de <strong>R$ 1 bilhão</strong>, com NPS 90 e custos até <strong>80% menores</strong> em relação ao mercado. Sou movido pela paixão de conectar tecnologia, finanças e pessoas, e aqui acreditamos que o futuro dos investimentos não está em escritórios, mas nas conversas, em canais que já fazem parte da rotina das pessoas.</p>
+        <div class="founder-sig">
+          <div class="founder-name">Paulo Martins</div>
+          <div class="founder-role">Fundador · Anova Financial Technologies</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 15 · FAQ ═══ -->
+<section id="faq" class="section">
+  <div class="container">
+    <span class="eyebrow" data-reveal>FAQ</span>
+    <h2 data-reveal="up" style="margin-top:var(--s4);max-width:20ch;"><strong>Perguntas</strong> frequentes</h2>
+    <div class="faq" data-reveal="up" data-delay="1">
+      <div class="faq-item">
+        <button class="faq-q">A Anova é um CRM?</button>
+        <div class="faq-a"><p>Não. A Anova é uma infraestrutura conversacional. Ela organiza originação, relacionamento, operação e governança em um único fluxo — algo que um CRM não faz. O CRM registra. A Anova opera.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">A Anova substitui o profissional?</button>
+        <div class="faq-a"><p>Não. A Anova potencializa o profissional. Ela remove o peso operacional repetitivo para que o profissional foque no que mais importa: o relacionamento e a decisão. A IA organiza. O humano decide e governa.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">A Anova funciona só no WhatsApp?</button>
+        <div class="faq-a"><p>Não. O WhatsApp é o canal principal por ser onde o cliente já está, mas a Anova opera como uma camada que conecta múltiplos canais e sistemas — incluindo web, backoffice e parceiros regulados. A conversa começa no WhatsApp. A operação se completa em toda a infraestrutura.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Para quais tipos de operação a Anova foi desenhada?</button>
+        <div class="faq-a"><p>Para operações financeiras que precisam de continuidade: consultorias financeiras, escritórios de investimento, redes distribuídas, gestoras e qualquer estrutura que opera com relacionamento e backoffice relevante. Se há volume de relacionamento e operação acontecendo em canais soltos, a Anova foi feita para isso.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Como a Anova trata controle e rastreabilidade?</button>
+        <div class="faq-a"><p>A Anova embarca governança na arquitetura: trilha de auditoria por etapa, histórico de ações, controle de acessos por perfil e rastreabilidade ponta a ponta. Compliance não é uma auditoria adicional — é a lógica do sistema desde o primeiro fluxo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">A Anova pode se integrar a parceiros regulados?</button>
+        <div class="faq-a"><p>Sim. A Anova conecta BTG Pactual, XP, XP Internacional, Avenue, Safra, Interactive Brokers, Prudential e dezenas de outros parceiros. O acesso ao ecossistema regulado — CVM, SUSEP, ANS, BACEN — já está na infraestrutura. Você não precisa negociar cada integração.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">A Anova é apenas uma ferramenta de automação?</button>
+        <div class="faq-a"><p>Não. Automação é um recurso, não o produto. A Anova é uma infraestrutura de operação: ela organiza fluxos, governa processos, mantém histórico e conecta instituições. A automação serve para reduzir fricção — não para substituir a lógica operacional, o relacionamento ou a decisão humana.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 16 · CTA FINAL + FORMULÁRIO ═══ -->
+<section id="contato" class="section section-alt">
+  <div class="container">
+    <span class="eyebrow" data-reveal>Próximo passo</span>
+    <div class="cta-grid">
+      <div data-reveal="right">
+        <h2 style="margin-top:var(--s4);max-width:20ch;">
+          Sua operação já acontece em conversa.<br>
+          A pergunta é: ela está <strong>organizada como sistema?</strong>
+        </h2>
+        <p class="lead" style="margin-top:var(--s5);">A Anova conecta o que já existe na sua operação e transforma conversa em fluxo auditável, com governança e continuidade desde a primeira mensagem.</p>
+        <div style="margin-top:var(--s6);display:flex;flex-direction:column;gap:var(--s3);">
+          <a href="#contato" style="font-size:14px;font-weight:600;color:var(--text-1);">→ Quero estruturar minha operação</a>
+          <a href="#contato" style="font-size:14px;font-weight:600;color:var(--text-1);">→ Quero licenciar a plataforma</a>
+        </div>
+      </div>
+
+      <form id="anova-form" class="form-card" data-reveal="left" data-delay="1">
+        <div class="field">
+          <label class="field-label" for="f-nome">Nome completo</label>
+          <input class="input" id="f-nome" name="nome" type="text" required placeholder="Seu nome completo">
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-email">E-mail</label>
+          <input class="input" id="f-email" name="email" type="email" required placeholder="voce@empresa.com.br">
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-tel">Telefone / WhatsApp</label>
+          <input class="input" id="f-tel" name="telefone" type="tel" required placeholder="(11) 90000-0000">
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-perfil">Perfil</label>
+          <select class="select" id="f-perfil" name="perfil" required>
+            <option value="">Selecione seu perfil</option>
+            <option value="Escritório de investimentos">Escritório de investimentos</option>
+            <option value="Gestora">Gestora</option>
+            <option value="Corretora">Corretora</option>
+            <option value="Assessor de investimentos">Assessor de investimentos</option>
+            <option value="Consultor financeiro">Consultor financeiro</option>
+            <option value="Empreendedor">Empreendedor</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-atuacao">Atuação no mercado hoje</label>
+          <select class="select" id="f-atuacao" name="atuacao" required>
+            <option value="">Selecione</option>
+            <option value="Ainda não tenho atuação">Ainda não tenho atuação</option>
+            <option value="Estou iniciando minha operação">Estou iniciando minha operação</option>
+            <option value="Já opero como autônomo / individual">Já opero como autônomo / individual</option>
+            <option value="Tenho equipe ou estrutura formal">Tenho equipe ou estrutura formal</option>
+            <option value="Faço parte de uma rede ou franquia">Faço parte de uma rede ou franquia</option>
+          </select>
+        </div>
+        <input type="hidden" name="utm_source">
+        <input type="hidden" name="utm_medium">
+        <input type="hidden" name="utm_campaign">
+        <input type="hidden" name="utm_term">
+        <input type="hidden" name="utm_content">
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:var(--s5);">
+          Solicitar demonstração →
+        </button>
+        <p class="field-hint" style="margin-top:var(--s3);text-align:center;">Resposta em até 1 dia útil. Sem obrigação de contrato.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER (injected by shell.js) ═══ -->
+<div id="anova-footer"></div>
+
+<script src="js/shell.js" defer></script>
+<script src="js/motion.js" defer></script>
+<script>
+/* ── UTM capture ── */
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  var fields=['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+  fields.forEach(function(k){
+    var el=document.querySelector('[name="'+k+'"]');
+    if(el&&p.get(k))el.value=p.get(k);
+  });
+})();
+
+/* ── Form submit → Apps Script → WhatsApp ── */
+(function(){
+  /* ── Apps Script setup:
+     1. Go to script.google.com → New project → Name: "Anova Form Handler"
+     2. Paste this code and replace SHEET_ID with your Google Sheets ID:
+        function doPost(e){
+          var d=JSON.parse(e.postData.contents);
+          SpreadsheetApp.openById('SHEET_ID').getActiveSheet().appendRow([
+            new Date().toISOString(),d.nome,d.email,d.telefone,d.perfil,d.atuacao,
+            d.utm_source,d.utm_medium,d.utm_campaign,d.utm_term,d.utm_content
+          ]);
+          return ContentService.createTextOutput('ok').setMimeType(ContentService.MimeType.TEXT);
+        }
+     3. Deploy → New deployment → Web app → Execute as: Me → Access: Anyone → Deploy
+     4. Copy the Web App URL and paste it below as APPS_SCRIPT_URL
+  ── */
+  var APPS_SCRIPT_URL='COLE_AQUI_A_URL_DO_APPS_SCRIPT_DEPLOY';
+  var form=document.getElementById('anova-form');
+  if(!form)return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var btn=form.querySelector('button[type="submit"]');
+    btn.textContent='Enviando...';
+    btn.disabled=true;
+    var data={};
+    new FormData(form).forEach(function(v,k){data[k]=v;});
+    fetch(APPS_SCRIPT_URL,{
+      method:'POST',
+      body:JSON.stringify(data),
+      mode:'no-cors'
+    }).catch(function(){});
+    window.location.href='https://wa.me/5511982647397?text=Ol%C3%A1%2C%20vim%20do%20site%20da%20Anova%20e%20tenho%20interesse%20em%20saber%20mais%20sobre%20a%20AnovaOS';
+  });
+})();
+
+/* ── FAQ accordion ── */
+(function(){
+  var items=document.querySelectorAll('.faq-item');
+  items.forEach(function(item){
+    var btn=item.querySelector('.faq-q');
+    if(!btn)return;
+    btn.addEventListener('click',function(){
+      var isOpen=item.classList.contains('is-open');
+      items.forEach(function(i){i.classList.remove('is-open');});
+      if(!isOpen)item.classList.add('is-open');
+    });
+  });
+})();
+
+/* ── Video click-to-play ── */
+(function(){
+  document.querySelectorAll('.video-frame[data-yt]').forEach(function(f){
+    f.addEventListener('click',function(){
+      var id=f.dataset.yt;
+      f.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="width:100%;height:100%;border:0;"></iframe>';
+    });
+    f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')f.click();});
+  });
+})();
+
+/* ── Board accordion — abre ao scrollar até o card ── */
+(function(){
+  var cards=document.querySelectorAll('.board-card[data-board-idx]');
+  if(!cards.length)return;
+  function update(){
+    var vh=window.innerHeight;
+    cards.forEach(function(card){
+      var r=card.getBoundingClientRect();
+      if(r.top<vh*0.45&&r.bottom>0){
+        card.classList.add('is-open');
+      } else if(r.bottom<=0){
+        card.classList.remove('is-open');
+      }
+    });
+  }
+  var pending=false;
+  window.addEventListener('scroll',function(){
+    if(pending)return;
+    pending=true;
+    requestAnimationFrame(function(){update();pending=false;});
+  },{passive:true});
+  update();
+})();
+</script>
+</body>
+</html>

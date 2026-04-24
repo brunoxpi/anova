@@ -1,0 +1,67 @@
+<!-- ═══════════════════════════════════════════════════════
+     CTA FORM · partial reutilizável
+     Injetado pelo shell.js em <div id="anova-cta-form" data-product="...">
+     Campos alinhados com o form da home (Landing Page.html)
+     O <select name="produto"> é pré-selecionado pelo shell.js via data-product.
+     ═══════════════════════════════════════════════════════ -->
+<form class="anova-cta-form" novalidate>
+  <div class="acf-row">
+    <div class="acf-field">
+      <label class="acf-label" for="acf-nome">Nome completo</label>
+      <input class="acf-input" id="acf-nome" name="nome" type="text" required placeholder="Seu nome completo" autocomplete="name">
+    </div>
+    <div class="acf-field">
+      <label class="acf-label" for="acf-email">E-mail</label>
+      <input class="acf-input" id="acf-email" name="email" type="email" required placeholder="voce@empresa.com.br" autocomplete="email">
+    </div>
+  </div>
+
+  <div class="acf-row">
+    <div class="acf-field">
+      <label class="acf-label" for="acf-tel">Telefone / WhatsApp</label>
+      <input class="acf-input" id="acf-tel" name="tel" type="tel" placeholder="(00) 00000-0000" autocomplete="tel">
+    </div>
+    <div class="acf-field">
+      <label class="acf-label" for="acf-seg">Segmento</label>
+      <select class="acf-input acf-select" id="acf-seg" name="segmento">
+        <option value="">Selecione</option>
+        <option>Investidor pessoa física</option>
+        <option>Consultoria financeira</option>
+        <option>Escritório de investimentos</option>
+        <option>Multi-family office</option>
+        <option>Gestora / fundo</option>
+        <option>Banco / instituição</option>
+        <option>Rede distribuída</option>
+        <option>Outro</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="acf-field">
+    <label class="acf-label" for="acf-prod">Interesse</label>
+    <select class="acf-input acf-select" id="acf-prod" name="produto" required>
+      <option value="">Selecione</option>
+      <option value="anova-os">Anova OS · Plataforma completa</option>
+      <option value="wealth-management">Gestão Patrimonial</option>
+      <option value="wealth-hubs">Anova Hubs · Seja uma Hub</option>
+      <option value="research">Anova Research</option>
+      <option value="life-invest">Life Invest</option>
+      <option value="orquestrador">Orquestrador WhatsApp</option>
+      <option value="credito">Crédito multibanco</option>
+    </select>
+  </div>
+
+  <div class="acf-field">
+    <label class="acf-label" for="acf-msg">Mensagem <span class="acf-opt">(opcional)</span></label>
+    <textarea class="acf-input acf-textarea" id="acf-msg" name="msg" rows="3" placeholder="Conte o contexto rápido — o que você tá procurando, o que já tá rodando."></textarea>
+  </div>
+
+  <button type="submit" class="acf-submit">
+    <span class="acf-submit-label">Agendar conversa</span>
+    <span class="acf-submit-arr" aria-hidden="true">→</span>
+  </button>
+
+  <p class="acf-disclaimer">
+    Sem pitch. Sem obrigação. Resposta em até 1 dia útil.
+  </p>
+</form>
