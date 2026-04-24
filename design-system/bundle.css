@@ -898,7 +898,9 @@ h3{font-size:22px;letter-spacing:-.015em;line-height:1.2;}
 .anova-nav-toggle{display:none;background:none;border:none;font-size:20px;color:var(--text-1);cursor:pointer;padding:8px;}
 
 @media(max-width:980px){
-  .anova-nav-links{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;z-index:200;background:#ffffff;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:var(--s6) var(--s5);gap:var(--s2);overflow-y:auto;}
+  /* Remove backdrop-filter: cria stacking context que quebra position:fixed nos filhos */
+  .anova-nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:#ffffff;}
+  .anova-nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;background:#ffffff;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:80px var(--s5) var(--s6);gap:var(--s2);overflow-y:auto;}
   .anova-nav.mobile-open .anova-nav-links{display:flex;}
   .anova-nav-toggle{display:block;}
   .anova-nav-link{font-size:18px;font-weight:600;color:#0A0A0A;padding:var(--s4) 0;border-bottom:1px solid #e5e5e5;}
