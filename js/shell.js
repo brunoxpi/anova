@@ -42,13 +42,26 @@
       e.stopPropagation();
       const isOpen = !nav.classList.contains('mobile-open');
       nav.classList.toggle('mobile-open', isOpen);
+      document.body.classList.toggle('nav-open', isOpen);
       toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.textContent = isOpen ? '×' : '☰';
     });
     document.addEventListener('click', (e) => {
       if (!nav.contains(e.target) && nav.classList.contains('mobile-open')) {
         nav.classList.remove('mobile-open');
+        document.body.classList.remove('nav-open');
         toggle.setAttribute('aria-expanded', 'false');
+        toggle.textContent = '☰';
       }
+    });
+    // Fecha ao clicar em link
+    nav.querySelectorAll('.anova-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('mobile-open');
+        document.body.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.textContent = '☰';
+      });
     });
   }
 

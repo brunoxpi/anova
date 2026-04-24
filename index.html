@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0A">
+<title>Anova | Infraestrutura conversacional para operações comerciais</title>
+<meta name="description" content="A Anova conecta originação, relacionamento, operação e governança em um único fluxo conversacional para equipes e empresas que vendem e atendem em escala.">
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="design-system/components.css">
+<link rel="stylesheet" href="design-system/sections.css">
+<link rel="stylesheet" href="design-system/nav.css">
+<link rel="stylesheet" href="design-system/editorial.css">
+<link rel="stylesheet" href="design-system/cta-form.css">
+<style>
+@keyframes boardScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.board-track:hover{animation-play-state:paused;}
+
+noscript{display:none;}
+
+/* ── Trust bar ── */
+.trust-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--s4);font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);}
+.trust-bar .trust-item{white-space:nowrap;}
+.trust-bar .trust-dot{color:var(--text-3);opacity:.4;}
+
+/* ── Tabs ── */
+.tabs-bar{display:flex;gap:var(--s2);border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.tab-btn{background:none;border:0;padding:var(--s4) var(--s5);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;}
+.tab-btn:hover{color:var(--text-1);}
+.tab-btn.is-active{color:var(--text-1);border-bottom-color:var(--text-1);}
+.tab-panel{display:none;padding-top:var(--s7);}
+.tab-panel.is-active{display:block;}
+.tab-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8);align-items:center;}
+@media(max-width:880px){.tab-grid{grid-template-columns:1fr;gap:var(--s6);}}
+.tab-visual{border:1px solid var(--border);border-radius:var(--r-xl);padding:var(--s5);background:var(--white);min-height:360px;display:flex;align-items:stretch;}
+
+/* WhatsApp mock */
+.wa-mock{width:100%;display:flex;flex-direction:column;border-radius:var(--r-md);overflow:hidden;background:#ECE5DD;}
+.wa-header{background:#075E54;color:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px;}
+.wa-avatar{width:32px;height:32px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;}
+.wa-title{font-size:13px;font-weight:600;line-height:1.2;}
+.wa-sub{font-size:10px;opacity:.75;}
+.wa-body{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1;}
+.wa-msg{max-width:78%;padding:8px 11px;border-radius:10px;font-size:12.5px;line-height:1.35;box-shadow:0 1px 1px rgba(0,0,0,.05);position:relative;}
+.wa-msg .wa-who{display:block;font-size:10px;font-weight:700;color:#075E54;margin-bottom:2px;}
+.wa-msg--in{background:#fff;align-self:flex-start;border-top-left-radius:2px;}
+.wa-msg--out{background:#DCF8C6;align-self:flex-end;border-top-right-radius:2px;}
+.wa-msg--out .wa-who{color:#128C7E;}
+.wa-msg--sys{align-self:center;background:rgba(255,255,255,.7);color:var(--text-3);font-size:10px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:99px;}
+
+/* WhatsApp animated group */
+.wa-mock--anim{height:520px;position:relative;}
+.wa-mock--anim .wa-body{overflow:hidden;position:relative;gap:8px;}
+.wa-invite{align-self:center;background:#fff;border-radius:10px;padding:12px 12px;text-align:center;max-width:86%;box-shadow:0 1px 2px rgba(0,0,0,.08);opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease;}
+.wa-invite.show{opacity:1;transform:translateY(0);}
+.wa-invite{flex-shrink:0;}
+.wa-invite-ico{width:36px;height:36px;border-radius:50%;background:#FCE4EC;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;}
+.wa-invite-ico svg{width:20px;height:20px;}
+.wa-invite-ico svg{fill:#E91E63;}
+.wa-invite h5{font-size:12.5px;font-weight:700;color:var(--text-1);margin:0 0 2px;letter-spacing:-.01em;}
+.wa-invite .wa-invite-sub{font-size:10.5px;color:var(--text-3);margin-bottom:6px;}
+.wa-invite .wa-invite-desc{font-size:11.5px;color:var(--text-1);font-weight:600;margin-bottom:6px;}
+.wa-invite .wa-invite-tag{font-size:9.5px;color:var(--text-3);padding:4px 8px;border-radius:99px;background:#F5F5F5;display:inline-block;font-family:var(--mono);letter-spacing:.04em;line-height:1.3;}
+.wa-msg--anim{opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease;flex-shrink:0;}
+.wa-msg--anim.show{opacity:1;transform:translateY(0);}
+.wa-typing{align-self:flex-start;background:#fff;border-radius:10px;border-top-left-radius:2px;padding:8px 12px;display:none;box-shadow:0 1px 1px rgba(0,0,0,.05);}
+.wa-typing.show{display:flex;gap:3px;}
+.wa-typing span{width:5px;height:5px;border-radius:50%;background:#B0B0B0;animation:waBlink 1.2s infinite ease-in-out;}
+.wa-typing span:nth-child(2){animation-delay:.2s;}
+.wa-typing span:nth-child(3){animation-delay:.4s;}
+@keyframes waBlink{0%,60%,100%{opacity:.3;transform:translateY(0);}30%{opacity:1;transform:translateY(-2px);}}
+.wa-scene-label{position:absolute;top:-14px;right:-14px;left:auto;transform:none;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-1);background:rgba(255,255,255,.55);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);padding:7px 13px;border-radius:99px;pointer-events:none;border:1px solid rgba(255,255,255,.8);box-shadow:0 6px 20px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.7);white-space:nowrap;z-index:10;}
+.tab-panel[data-panel="t1"] .tab-visual{position:relative;overflow:visible;}
+
+/* Agents live stack */
+.ag-stack{width:100%;display:flex;flex-direction:column;gap:var(--s3);}
+.ag-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);border:1px solid var(--border);border-radius:var(--r-md);background:var(--white);}
+.ag-dot{width:8px;height:8px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,.15);animation:agPulse 1.8s ease-in-out infinite;}
+@keyframes agPulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.ag-name{font-size:13px;font-weight:700;letter-spacing:-.01em;color:var(--text-1);}
+.ag-task{font-size:11px;color:var(--text-3);font-family:var(--mono);}
+.ag-live{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#22C55E;}
+
+/* ═══ Pipeline (refactor: referência produto real) ═══ */
+.pl-board{width:100%;background:#F7F8FA;border:1px solid var(--border);border-radius:var(--r-xl);padding:14px 14px 4px;display:flex;flex-direction:column;gap:12px;}
+.pl-toolbar{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.pl-toolbar-title{display:flex;flex-direction:column;line-height:1.1;flex-shrink:0;}
+.pl-toolbar-title h4{font-family:var(--serif,'Playfair Display',serif);font-size:16px;font-weight:600;color:var(--text-1);letter-spacing:-.015em;margin:0;}
+.pl-toolbar-title span{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-top:2px;}
+.pl-segment{display:inline-flex;background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:2px;}
+.pl-segment button{background:none;border:0;padding:5px 12px;font-family:inherit;font-size:11.5px;font-weight:500;color:var(--text-3);cursor:pointer;border-radius:calc(var(--r-sm) - 2px);letter-spacing:-.005em;}
+.pl-segment button.is-active{background:#0A0A0A;color:#fff;font-weight:600;}
+.pl-search{flex:1;min-width:160px;display:flex;align-items:center;gap:6px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:6px 10px;font-size:11.5px;color:var(--text-3);}
+.pl-search svg{width:12px;height:12px;opacity:.5;flex-shrink:0;}
+.pl-new{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;background:#0F3B2E;color:#fff;border:0;border-radius:var(--r-sm);font-family:inherit;font-size:11.5px;font-weight:600;letter-spacing:-.005em;cursor:pointer;}
+.pl-new .plus{font-size:13px;line-height:1;}
+
+.pl-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;min-height:460px;}
+.pl-col{display:flex;flex-direction:column;gap:8px;background:#F0F1F4;border-radius:var(--r-md);padding:10px 8px;min-width:0;}
+.pl-col-head{display:flex;align-items:center;justify-content:space-between;padding:2px 4px 8px;border-bottom:1px solid rgba(0,0,0,.06);}
+.pl-col-head-left{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-1);}
+.pl-col-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.pl-col[data-stage="aguardando"] .pl-col-dot{background:#94A3B8;}
+.pl-col[data-stage="simulacao"] .pl-col-dot{background:#A855F7;}
+.pl-col[data-stage="analise"] .pl-col-dot{background:#F97316;}
+.pl-col[data-stage="aprovado"] .pl-col-dot{background:#22C55E;}
+.pl-col[data-stage="reprovado"] .pl-col-dot{background:#EF4444;}
+.pl-col-count{font-family:var(--mono);font-size:9.5px;color:var(--text-3);background:var(--white);padding:2px 7px;border-radius:99px;font-weight:600;letter-spacing:.02em;}
+.pl-col-body{display:flex;flex-direction:column;gap:7px;overflow:hidden;}
+
+.pl-card{background:var(--white);border-radius:var(--r-sm);padding:10px 11px 9px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 2px rgba(0,0,0,.04);text-align:left;width:100%;border:0;font-family:inherit;cursor:default;position:relative;}
+.pl-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.pl-card-title{font-size:12px;font-weight:700;color:var(--text-1);letter-spacing:-.005em;line-height:1.25;flex:1;min-width:0;}
+.pl-card-kebab{font-size:12px;color:var(--text-3);line-height:1;flex-shrink:0;letter-spacing:.06em;}
+.pl-card-client{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--text-2);letter-spacing:-.005em;}
+.pl-card-client::before{content:"";width:4px;height:4px;border-radius:50%;background:#CBD5E1;flex-shrink:0;}
+.pl-card-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:9.5px;color:var(--text-3);letter-spacing:.02em;}
+.pl-card-date{white-space:nowrap;}
+.pl-card-value{background:#0F3B2E;color:#fff;font-family:var(--mono);font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;letter-spacing:-.005em;}
+.pl-card-resp{display:flex;align-items:center;gap:5px;padding-top:6px;border-top:1px dashed rgba(0,0,0,.08);font-size:10px;color:var(--text-2);letter-spacing:-.005em;overflow:hidden;}
+.pl-card-resp-dot{width:6px;height:6px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 2px rgba(34,197,94,.2);flex-shrink:0;}
+.pl-card-resp-label{font-family:var(--mono);font-size:8.5px;color:var(--text-3);letter-spacing:.06em;text-transform:uppercase;margin-right:2px;}
+.pl-card-resp-name{flex:1;min-width:0;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
+
+.pl-card--interactive{cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;}
+.pl-card--interactive:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.08);}
+.pl-card--highlight{box-shadow:0 0 0 2px #0F3B2E,0 8px 24px rgba(15,59,46,.2) !important;transform:translateY(-2px) scale(1.02);transition:all .4s cubic-bezier(.2,.8,.2,1);}
+
+@media(max-width:1100px){.pl-cols{grid-template-columns:repeat(3,1fr);}.pl-col:nth-child(n+4){display:none;}}
+@media(max-width:720px){.pl-cols{grid-template-columns:1fr;}.pl-col:nth-child(n+2){display:none;}}
+
+/* ═══ Kanban minimalista 3-col (versão B) ═══ */
+.tab-t3-stacked{display:flex;flex-direction:column;gap:var(--s6);}
+.tab-t3-head{display:grid;grid-template-columns:1fr 1fr;gap:var(--s6);align-items:end;}
+.tab-t3-head-left,.tab-t3-head-right{display:flex;flex-direction:column;}
+@media(max-width:880px){.tab-t3-head{grid-template-columns:1fr;}}
+.tab-panel[data-panel="t3"] .tab-visual--wide{position:relative;min-height:640px;padding:28px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;}
+.tab-panel[data-panel="t3"] .tab-visual{position:relative;min-height:560px;padding:28px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;}
+.kb-board{height:100%;display:flex;flex-direction:column;}
+.kb-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;flex:1;}
+.kb-col{padding:0 22px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:14px;min-width:0;}
+.kb-col:first-child{padding-left:0;}
+.kb-col:last-child{border-right:none;padding-right:0;}
+.kb-col-head{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);font-weight:500;margin-bottom:4px;}
+.kb-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;text-align:left;font-family:inherit;cursor:default;transition:all .2s;}
+.kb-card--interactive{cursor:pointer;border-color:var(--text-1);border-width:1.5px;position:relative;}
+.kb-card--interactive:hover,.kb-card--highlight{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.08);background:#FAFAFA;}
+.kb-card--closed{border-left:3px solid #22C55E;}
+.kb-card-title{font-size:13.5px;color:var(--text-1);letter-spacing:-.01em;line-height:1.35;position:relative;}
+.kb-card-title strong{font-weight:700;}
+.kb-card-ping{position:absolute;top:2px;right:-4px;width:7px;height:7px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,.2);}
+.kb-card-ping::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:1.5px solid #22C55E;opacity:.5;animation:kbPing 1.6s ease-out infinite;}
+@keyframes kbPing{0%{transform:scale(1);opacity:.5;}100%{transform:scale(2);opacity:0;}}
+.kb-card-resp{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:-.005em;}
+.kb-card-resp-dot{width:12px;height:12px;border-radius:50%;background:#D4D4D4;flex-shrink:0;}
+.tab-visual--wide .kb-col{padding:0 32px;}
+.tab-visual--wide .kb-card{padding:16px 18px;gap:12px;}
+.tab-visual--wide .kb-card-title{font-size:14.5px;}
+@media(max-width:720px){.kb-cols{grid-template-columns:1fr;}.kb-col{border-right:none;border-bottom:1px solid var(--border);padding:16px 0;}.kb-col:last-child{border-bottom:none;}}
+
+/* ═══ Deal modal — versão B (chat + sidebar + faixa de membros) ═══ */
+.deal-modal{position:absolute;inset:0;z-index:3;background:rgba(10,10,10,.35);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:none;align-items:stretch;justify-content:center;opacity:0;transition:opacity .3s ease;border-radius:var(--r-xl);overflow:hidden;}
+.deal-modal.is-open{display:flex;opacity:1;}
+.deal-modal-box{width:100%;height:100%;background:var(--white);border-radius:var(--r-xl);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.04);display:flex;flex-direction:column;transform:translateY(12px) scale(.96);transition:transform .4s cubic-bezier(.2,.8,.2,1);}
+.deal-modal.is-open .deal-modal-box{transform:translateY(0) scale(1);}
+
+/* Top bar */
+.deal-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.deal-top-left{display:flex;align-items:center;gap:10px;min-width:0;}
+.deal-top-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#0A0A0A,#404040);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.deal-top-info{display:flex;flex-direction:column;min-width:0;}
+.deal-top-name{font-size:13.5px;font-weight:700;color:var(--text-1);letter-spacing:-.015em;display:flex;align-items:center;gap:8px;}
+.deal-top-edit{background:none;border:0;padding:0;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);cursor:pointer;}
+.deal-top-edit:hover{color:var(--text-1);}
+.deal-top-meta{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-top:2px;}
+.deal-top-status{color:#22C55E;font-weight:700;}
+.deal-top-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.deal-advance{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:#0F3B2E;border:0;color:#fff;border-radius:var(--r-sm);font-family:inherit;font-size:11px;font-weight:600;letter-spacing:-.005em;cursor:pointer;}
+.deal-close{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;font-size:14px;color:var(--text-2);line-height:1;flex-shrink:0;}
+.deal-close:hover{background:#F5F5F5;border-color:var(--text-1);color:var(--text-1);}
+
+/* Faixa de membros */
+.deal-members{display:flex;align-items:stretch;gap:0;padding:10px 18px;border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;}
+.deal-member{display:flex;align-items:center;gap:9px;padding-right:18px;margin-right:18px;border-right:1px solid var(--border);flex-shrink:0;}
+.deal-member:last-child{border-right:none;}
+.deal-member-av{width:30px;height:30px;border-radius:50%;color:var(--text-1);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:-.01em;}
+.deal-member-av.av-1{background:linear-gradient(135deg,#FED7AA,#FDBA74);}
+.deal-member-av.av-2{background:linear-gradient(135deg,#BFDBFE,#93C5FD);}
+.deal-member-av.av-3{background:linear-gradient(135deg,#DDD6FE,#C4B5FD);}
+.deal-member-av.av-4{background:linear-gradient(135deg,#FBCFE8,#F9A8D4);}
+.deal-member-av.av-5{background:linear-gradient(135deg,#BBF7D0,#86EFAC);}
+.deal-member-meta{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.deal-member-name{font-size:12px;font-weight:600;color:var(--text-1);letter-spacing:-.005em;white-space:nowrap;}
+.deal-member-tags{display:flex;align-items:center;gap:5px;}
+.deal-member-tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:3px;font-weight:600;white-space:nowrap;}
+.deal-member-tag.role.cliente{background:#FEF3C7;color:#854D0E;}
+.deal-member-tag.role.originador{background:#DBEAFE;color:#1E40AF;}
+.deal-member-tag.role.allocation{background:#F3E8FF;color:#6B21A8;}
+.deal-member-tag.role.private{background:#FCE7F3;color:#9D174D;}
+.deal-member-tag.role.daily{background:#DCFCE7;color:#166534;}
+.deal-member-tag.presence{background:transparent;color:var(--text-3);padding:2px 0;display:inline-flex;align-items:center;gap:4px;}
+.deal-member-tag.presence::before{content:"";width:6px;height:6px;border-radius:50%;background:#CBD5E1;}
+.deal-member-tag.presence.on::before{background:#22C55E;}
+
+/* Body — chat + sidebar */
+.deal-body{flex:1;min-height:0;display:flex;overflow:hidden;}
+.deal-pane{display:flex;flex-direction:column;min-height:0;}
+.deal-pane--chat{flex:1;min-width:0;background:#E5DDD5;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><g fill='none' stroke='%23D0C8BF' stroke-width='1' opacity='.5'><circle cx='40' cy='40' r='6'/><circle cx='120' cy='80' r='8'/><circle cx='170' cy='30' r='5'/><circle cx='80' cy='130' r='7'/><circle cx='150' cy='160' r='6'/><path d='M20 100 Q30 90 40 100 T60 100'/><path d='M100 50 Q110 40 120 50 T140 50'/></g></svg>");}
+.deal-chat{flex:1;overflow:auto;padding:16px 22px;display:flex;flex-direction:column;gap:8px;}
+.deal-chat-date{align-self:center;background:rgba(255,255,255,.9);color:var(--text-3);font-family:var(--mono);font-size:9px;padding:3px 10px;border-radius:6px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin:2px 0 6px;}
+.deal-msg{max-width:72%;padding:8px 12px 7px;border-radius:8px;font-size:12.5px;line-height:1.45;box-shadow:0 1px 1px rgba(0,0,0,.08);color:var(--text-1);background:#fff;align-self:flex-start;border-top-left-radius:2px;}
+.deal-msg .who{display:block;font-size:10px;font-weight:700;margin-bottom:2px;letter-spacing:-.005em;}
+.deal-msg .time{display:block;text-align:right;font-size:9px;color:#999;margin-top:3px;font-weight:400;}
+.deal-msg.c1 .who{color:#E94E6F;}
+.deal-msg.c2 .who{color:#2B7ACC;}
+.deal-msg.c3 .who{color:#8B5CF6;}
+.deal-msg.c4 .who{color:#F59E0B;}
+.deal-composer-alert{background:#FEF9C3;border-top:1px solid #FDE68A;padding:7px 20px;font-size:10.5px;color:#854D0E;display:flex;align-items:center;gap:6px;font-family:var(--mono);letter-spacing:.02em;flex-shrink:0;}
+.deal-composer-alert::before{content:"⚠";font-family:inherit;font-size:12px;}
+.deal-composer{display:flex;align-items:center;gap:10px;padding:12px 18px;background:var(--white);border-top:1px solid var(--border);flex-shrink:0;}
+.deal-composer-input{flex:1;padding:9px 14px;border:1px solid var(--border);border-radius:99px;font-size:12px;color:var(--text-3);font-family:inherit;background:#FAFAFA;}
+.deal-composer-mic{width:34px;height:34px;border-radius:50%;border:0;background:#0F3B2E;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;flex-shrink:0;}
+
+/* Sidebar */
+.deal-side{width:300px;flex-shrink:0;background:var(--white);border-left:1px solid var(--border);overflow:hidden;}
+.deal-side-tabs{display:flex;gap:2px;padding:10px 16px 0;border-bottom:1px solid var(--border);}
+.deal-side-tab{background:none;border:0;padding:8px 10px;font-family:inherit;font-size:11.5px;font-weight:600;color:var(--text-3);cursor:pointer;letter-spacing:-.005em;border-bottom:2px solid transparent;margin-bottom:-1px;}
+.deal-side-tab.is-active{color:var(--text-1);border-bottom-color:#0A0A0A;}
+.deal-side-body{flex:1;overflow:auto;padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
+.deal-side-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;}
+.deal-field{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.deal-field-lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);font-weight:600;}
+.deal-field-val{font-size:11.5px;color:var(--text-1);font-weight:600;letter-spacing:-.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.deal-side-cta{margin-top:4px;}
+.deal-side-cta-btn{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;background:#22C55E;border:0;color:#fff;border-radius:var(--r-sm);font-family:inherit;font-size:11.5px;font-weight:600;letter-spacing:-.005em;cursor:pointer;}
+.deal-side-cta-btn:hover{background:#16A34A;}
+.deal-side-cta-btn .ico{font-size:13px;}
+.deal-side-link{padding-top:12px;border-top:1px dashed var(--border);}
+.deal-side-link-lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);font-weight:600;margin-bottom:5px;}
+.deal-side-link-box{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#FAFAFA;border:1px solid var(--border);border-radius:var(--r-sm);}
+.deal-side-link-url{flex:1;font-family:var(--mono);font-size:9.5px;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.deal-side-link-copy{font-family:var(--mono);font-size:9px;color:var(--text-3);padding:3px 7px;border:1px solid var(--border);border-radius:4px;background:var(--white);cursor:pointer;letter-spacing:.06em;text-transform:uppercase;flex-shrink:0;}
+
+@media (max-width:900px){
+ .deal-side{display:none;}
+}
+
+/* Scene label (glassmorphism flutuante) */
+.tab-panel[data-panel="t3"] .tab-visual--wide .tab-scene-label,.tab-panel[data-panel="t3"] .tab-visual .tab-scene-label{position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-1);background:rgba(255,255,255,.55);backdrop-filter:blur(14px) saturate(180%);-webkit-backdrop-filter:blur(14px) saturate(180%);padding:6px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.8);box-shadow:0 4px 16px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.6);white-space:nowrap;z-index:5;pointer-events:none;}
+
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5);margin-top:var(--s6);}
+@media(max-width:880px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+.stat{padding-top:var(--s5);border-top:1px solid rgba(255,255,255,.12);}
+.stat-num{font-size:clamp(48px,5vw,72px);font-weight:700;letter-spacing:-.03em;line-height:1;color:#fff;}
+.stat-lbl{margin-top:var(--s3);font-size:13px;color:var(--silver);line-height:1.45;max-width:24ch;}
+
+/* For whom card override: num -> tag pill */
+#para-quem .forwhom-num{display:inline-block;padding:3px 10px;border:1px solid var(--border);border-radius:99px;text-transform:none;letter-spacing:0;font-size:10px;}
+
+.hero-meta-badge:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.12) !important;}
+.hero-sem-perder{display:flex;align-items:center;gap:var(--s5);flex-wrap:wrap;margin-top:var(--s3);}
+
+/* ═════════════════════════════════════════════════════════
+   MOBILE-FIRST OPTIMIZATIONS (iPhone 14/15 priority — 390–430px)
+   ═════════════════════════════════════════════════════════ */
+@media(max-width:820px){
+  /* Hero: stack layout, esconder o diagrama SVG grande */
+  .hero .hero-grid{grid-template-columns:1fr !important;gap:var(--s6) !important;text-align:left;}
+  .hero .hero-visual{display:none !important;}
+  .hero h1{font-size:clamp(34px,8vw,44px) !important;line-height:1.05 !important;}
+  .hero .hero-sub{font-size:15px !important;max-width:100% !important;}
+  .hero .hero-cta{flex-direction:column;align-items:stretch;gap:var(--s3);}
+  .hero .hero-cta .btn{width:100%;justify-content:center;padding:14px 20px;font-size:12.5px;}
+  .hero-sem-perder{flex-direction:column;align-items:flex-start !important;gap:var(--s4) !important;}
+  .hero-meta-badge{align-self:flex-start;}
+  .hero-meta-badge img{height:36px !important;}
+
+  /* Section padding menor */
+  section, header.hero{padding-left:0;padding-right:0;}
+  .container{padding:0 20px;}
+
+  /* Tabs bar horizontal scroll se apertada */
+  .tabs-bar{overflow-x:auto;flex-wrap:nowrap !important;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .tabs-bar::-webkit-scrollbar{display:none;}
+  .tab-btn{flex-shrink:0;font-size:10px !important;padding:var(--s3) var(--s4) !important;}
+  .tab-grid{grid-template-columns:1fr !important;gap:var(--s5) !important;}
+
+  /* Tab T3 stacked header — 1 col no mobile */
+  .tab-t3-head{grid-template-columns:1fr !important;gap:var(--s4) !important;}
+  .tab-visual--wide{padding:16px !important;min-height:auto !important;}
+  .tab-visual--wide .kb-col{padding:0 12px !important;}
+  .tab-visual--wide .kb-card{padding:12px !important;font-size:13px;}
+
+  /* Deal modal: fullscreen no mobile */
+  .deal-modal-box{width:100% !important;max-width:100% !important;max-height:100vh !important;border-radius:0 !important;margin:0 !important;}
+  .deal-body{flex-direction:column !important;}
+  .deal-pane--chat{min-height:50vh;}
+  .deal-side{border-left:0 !important;border-top:1px solid var(--border) !important;}
+
+  /* Agent cards, forwhom cards stacked */
+  .agents-grid, .forwhom-grid{grid-template-columns:1fr !important;gap:var(--s5) !important;}
+
+  /* Form fields largura total */
+  .field input, .field select, .field textarea{font-size:16px !important;}
+
+  /* Footer stack */
+  .footer-top{flex-direction:column !important;}
+  .footer-cols{gap:var(--s6) !important;}
+  .footer-col{min-width:140px;}
+  .footer-meta-badge img{height:26px !important;}
+}
+
+/* ─── iPhone 14/15/Pro (390–430px wide) refinements ───── */
+@media(max-width:430px){
+  .hero{padding:calc(64px + var(--s5)) 0 var(--s6) !important;}
+  .hero h1{font-size:34px !important;letter-spacing:-.03em;}
+  .hero-sub{font-size:14.5px !important;}
+  .eyebrow{font-size:10px;}
+  h2{font-size:26px !important;line-height:1.15 !important;}
+  h3{font-size:18px !important;}
+  .container{padding:0 18px;}
+  .btn{padding:12px 18px;font-size:12px;}
+  .stats-grid{grid-template-columns:1fr 1fr !important;gap:var(--s4) !important;}
+  .stat-num{font-size:40px !important;}
+}
+
+/* ─── Mobile nav: fix sobreposição de conteúdo ────────── */
+@media(max-width:980px){
+  /* Garante que o overlay do menu cubra com bg sólido e tenha close-area visual */
+  .anova-nav.mobile-open{box-shadow:0 10px 32px rgba(0,0,0,.08);}
+  .anova-nav-links{background:var(--white) !important;max-height:calc(100vh - 64px);}
+  /* Quando menu aberto, trava scroll do body */
+  body.nav-open{overflow:hidden;}
+  /* Toggle com área de toque maior */
+  .anova-nav-toggle{min-width:44px;min-height:44px;display:flex !important;align-items:center;justify-content:center;}
+}
+</style>
+</head>
+<body data-page="home">
+
+<!-- ═══ NAV (injected by shell.js) ═══ -->
+<div id="anova-nav"></div>
+<noscript>
+ <nav style="padding:16px;background:#F8F8F8;border-bottom:1px solid #CCC;font-family:sans-serif;font-size:13px;">
+ <a href="index.html" style="margin-right:16px;">Anova OS</a>
+ <a href="life-invest.html" style="margin-right:16px;">Life Invest</a>
+ </nav>
+</noscript>
+
+<!-- ═══ 01 · HERO ═══ -->
+<header class="hero" id="inicio" style="padding:calc(64px + var(--s6)) 0 var(--s7);">
+ <div class="container hero-grid" style="grid-template-columns:1.25fr .75fr;gap:var(--s7);align-items:center;">
+ <div data-reveal="up">
+ <span class="eyebrow">00 · Anova · Infraestrutura conversacional</span>
+ <h1 style="margin-top:var(--s4);font-size:clamp(44px,5.8vw,72px);line-height:1.02;letter-spacing:-.035em;"><strong>Da conversa</strong><br>ao fechamento.<br>Em um só fluxo.</h1>
+ <p class="hero-sub" style="margin-top:var(--s5);font-size:clamp(15px,1.3vw,17px);max-width:52ch;line-height:1.6;">A Anova conecta <strong>originação, relacionamento, operação e governança</strong> em uma única camada conversacional para que sua equipe atenda mais, feche mais e perca menos pelo caminho.</p>
+ <div class="hero-cta" style="margin-top:var(--s5);">
+ <a href="#contato" class="btn btn-primary">Solicitar demonstração <span class="arr">→</span></a>
+ <a href="#como-funciona" class="btn btn-outline">Ver como funciona</a>
+ </div>
+ <div style="display:flex;align-items:center;gap:var(--s5);margin-top:var(--s6);padding-top:var(--s5);border-top:1px solid var(--border);flex-wrap:wrap;">
+ <div aria-label="Parceiro oficial Meta" style="display:none;"></div>
+ <div class="hero-sem-perder" style="display:flex;align-items:center;gap:var(--s5);flex-wrap:wrap;">
+ <div style="display:flex;flex-direction:column;gap:2px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);line-height:1.4;">
+ <span>Sem perder relacionamento</span>
+ <span>Sem perder governança</span>
+ <span style="color:var(--text-2);">Sem perder oportunidade</span>
+ </div>
+ <a href="https://developers.facebook.com/docs/whatsapp/" target="_blank" rel="noopener" class="hero-meta-badge" aria-label="Meta Tech Provider" style="display:inline-flex;align-items:center;padding:14px 22px;background:var(--white);border:1.5px solid var(--onyx);border-radius:var(--r-lg);box-shadow:0 4px 16px rgba(0,0,0,.06);transition:transform .2s var(--ease-spring),box-shadow .2s;height:80px;">
+ <img src="assets/img/meta-tech-provider.png" alt="Meta Tech Provider" style="width: auto; display: block; height: 70px" />
+ </a>
+ </div>
+ </div>
+ </div>
+
+ <div class="hero-visual" data-reveal="left" data-delay="2" style="background: var(--white); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 8px; aspect-ratio: auto; font-size: 30px; width: 500px; height: 500px; text-align: justify">
+ <svg viewBox="0 0 700 480" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 600px; height: 600px; display: block; stroke-width: 5000px; opacity: 100">
+ <defs>
+ <marker id="arr" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+ <path d="M 0 0.5 L 6.5 3.5 L 0 6.5 Z" fill="#0A0A0A"/>
+ </marker>
+ </defs>
+ <circle cx="350" cy="240" r="120" stroke="#E8E8E8" stroke-width="1" stroke-dasharray="4 7"/>
+ <path d="M 390,120 C 462,92 514,196 470,226" stroke="#0A0A0A" stroke-width="1.5" marker-end="url(#arr)"/>
+ <path d="M 470,254 C 510,292 470,378 390,360" stroke="#0A0A0A" stroke-width="1.5" marker-end="url(#arr)"/>
+ <path d="M 310,360 C 228,388 186,310 230,254" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+ <path d="M 230,226 C 186,168 214,100 310,120" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#arr)"/>
+ <line x1="350" y1="134" x2="350" y2="226" stroke="#E0E0E0" stroke-width="0.8" stroke-dasharray="2 4"/>
+ <line x1="350" y1="254" x2="350" y2="346" stroke="#E0E0E0" stroke-width="0.8" stroke-dasharray="2 4"/>
+ <line x1="410" y1="240" x2="378" y2="240" stroke="#E0E0E0" stroke-width="0.8" stroke-dasharray="2 4"/>
+ <line x1="290" y1="240" x2="322" y2="240" stroke="#E0E0E0" stroke-width="0.8" stroke-dasharray="2 4"/>
+ <line x1="192" y1="57" x2="316" y2="106" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5"/>
+ <line x1="506" y1="57" x2="384" y2="106" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5"/>
+ <line x1="574" y1="181" x2="530" y2="226" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5"/>
+ <line x1="506" y1="406" x2="390" y2="374" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5"/>
+ <line x1="196" y1="406" x2="310" y2="374" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5" style="display:none"/>
+ <line x1="130" y1="181" x2="170" y2="230" stroke="#D8D8D8" stroke-width="0.8" stroke-dasharray="2 5" style="display:none"/>
+ <!-- Pulse dots satellite→cycle -->
+ <circle r="2.5" fill="#767676"><animateMotion path="M 192,57 L 316,106" dur="1.6s" repeatCount="indefinite" begin="0s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.6s" repeatCount="indefinite" begin="0s"/></circle>
+ <circle r="2.5" fill="#767676"><animateMotion path="M 506,57 L 384,106" dur="1.6s" repeatCount="indefinite" begin="-0.4s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.6s" repeatCount="indefinite" begin="-0.4s"/></circle>
+ <circle r="2.5" fill="#767676"><animateMotion path="M 574,181 L 530,226" dur="1.4s" repeatCount="indefinite" begin="-0.2s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.4s" repeatCount="indefinite" begin="-0.2s"/></circle>
+ <circle r="2.5" fill="#767676"><animateMotion path="M 506,406 L 390,374" dur="1.5s" repeatCount="indefinite" begin="-0.6s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.5s" repeatCount="indefinite" begin="-0.6s"/></circle>
+ <circle r="2.5" fill="#767676" style="display:none"><animateMotion path="M 196,406 L 310,374" dur="1.5s" repeatCount="indefinite" begin="-0.3s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.5s" repeatCount="indefinite" begin="-0.3s"/></circle>
+ <circle r="2.5" fill="#767676" style="display:none"><animateMotion path="M 130,181 L 170,230" dur="1.3s" repeatCount="indefinite" begin="-0.5s"/><animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.1;0.85;1" dur="1.3s" repeatCount="indefinite" begin="-0.5s"/></circle>
+ <!-- Pulse dots cycle→center -->
+ <circle r="3" fill="#0A0A0A"><animateMotion path="M 350,134 L 350,226" dur="1.0s" repeatCount="indefinite" begin="0s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="1.0s" repeatCount="indefinite" begin="0s"/></circle>
+ <circle r="3" fill="#0A0A0A"><animateMotion path="M 410,240 L 378,240" dur="0.6s" repeatCount="indefinite" begin="-0.15s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="0.6s" repeatCount="indefinite" begin="-0.15s"/></circle>
+ <circle r="3" fill="#0A0A0A"><animateMotion path="M 350,346 L 350,254" dur="1.0s" repeatCount="indefinite" begin="-0.25s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="1.0s" repeatCount="indefinite" begin="-0.25s"/></circle>
+ <circle r="3" fill="#0A0A0A"><animateMotion path="M 290,240 L 322,240" dur="0.6s" repeatCount="indefinite" begin="-0.35s"/><animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="0.6s" repeatCount="indefinite" begin="-0.35s"/></circle>
+ <!-- Ripple -->
+ <circle cx="350" cy="240" r="4" fill="none" stroke="#0A0A0A" stroke-width="1.2"><animate attributeName="r" values="4;26" dur="2.0s" repeatCount="indefinite" begin="0s"/><animate attributeName="opacity" values="0.5;0" dur="2.0s" repeatCount="indefinite" begin="0s"/></circle>
+ <circle cx="350" cy="240" r="4" fill="none" stroke="#0A0A0A" stroke-width="1.2"><animate attributeName="r" values="4;26" dur="2.0s" repeatCount="indefinite" begin="-0.66s"/><animate attributeName="opacity" values="0.5;0" dur="2.0s" repeatCount="indefinite" begin="-0.66s"/></circle>
+ <!-- Center hub -->
+ <rect x="322" y="226" width="56" height="28" rx="8" fill="white" stroke="#0A0A0A" stroke-width="1.5"/>
+ <text x="350" y="244" text-anchor="middle" font-family="'DM Sans',-apple-system,sans-serif" font-size="11" font-weight="700" fill="#0A0A0A">Anova OS</text>
+ <!-- 4 main nodes -->
+ <rect x="310" y="106" width="80" height="28" rx="8" fill="#0A0A0A"/>
+ <text x="350" y="124" text-anchor="middle" font-family="'DM Sans'" font-size="11" font-weight="600" fill="white">Originação</text>
+ <rect x="410" y="226" width="120" height="28" rx="8" fill="white" stroke="#0A0A0A" stroke-width="1.5"/>
+ <text x="470" y="244" text-anchor="middle" font-family="'DM Sans'" font-size="11" font-weight="600" fill="#0A0A0A">Relacionamento</text>
+ <rect x="310" y="346" width="80" height="28" rx="8" fill="white" stroke="#0A0A0A" stroke-width="1.5"/>
+ <text x="350" y="364" text-anchor="middle" font-family="'DM Sans'" font-size="11" font-weight="600" fill="#0A0A0A">Operação</text>
+ <rect x="170" y="226" width="120" height="28" rx="8" fill="white" stroke="#0A0A0A" stroke-width="1.5"/>
+ <text x="230" y="244" text-anchor="middle" font-family="'DM Sans'" font-size="11" font-weight="600" fill="#0A0A0A">Governança</text>
+ <!-- 6 satellites -->
+ <rect x="104" y="44" width="88" height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1"/>
+ <text x="148" y="61" text-anchor="middle" font-family="'DM Sans'" font-size="10" fill="#767676">Investimentos</text>
+ <rect x="506" y="44" width="92" height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1"/>
+ <text x="552" y="61" text-anchor="middle" font-family="'DM Sans'" font-size="10" fill="#767676">Agentes de IA</text>
+ <rect x="574" y="168" width="106" height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1"/>
+ <text x="627" y="185" text-anchor="middle" font-family="'DM Sans'" font-size="10" fill="#767676">Orquestrador</text>
+ <rect x="506" y="406" width="80" height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1"/>
+ <text x="546" y="423" text-anchor="middle" font-family="'DM Sans'" font-size="10" fill="#767676">Crédito</text>
+ <rect x="102" y="406" width="92" height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1" style="display:none"/>
+ <text x="148" y="423" text-anchor="middle" font-family="'DM Sans'" font-size="10" fill="#767676" style="display:none">Wealth Hubs</text>
+ <rect x="14" y="168" width="116" height="26" rx="6" fill="white" stroke="#D0D0D0" stroke-width="1" style="display:none"/>
+ <text x="72" y="185" text-anchor="middle" font-family="'DM Sans'" font-size="9.5" fill="#767676" style="display:none">Gestão Patrimonial</text>
+ <text x="350" y="472" text-anchor="middle" font-family="monospace" font-size="8" fill="#BABABA" letter-spacing="2">FLUXO CONVERSACIONAL CONTÍNUO</text>
+ </svg>
+ </div>
+ </div>
+</header>
+
+<!-- ═══ PARCEIROS TICKER ═══ -->
+<section style="padding:0;border-top:1px solid var(--border);">
+ <div class="partners-ticker" aria-label="Parceiros regulados">
+ <div class="partners-track">
+ <span class="tick">BTG Pactual</span><span class="tick">BTG Global</span><span class="tick">XP</span><span class="tick">XP Internacional</span><span class="tick">Avenue</span><span class="tick">Safra</span><span class="tick">Interactive Brokers</span><span class="tick">Prudential</span><span class="tick">AWT</span><span class="tick">Nelógica</span><span class="tick">Camex</span><span class="tick">Davos</span><span class="tick">Eleva Invest</span><span class="tick">+ 70 instituições</span>
+ </div>
+ </div>
+</section>
+
+<!-- ═══ 02 · ADVISORY BOARD ═══ -->
+<section id="conselho" class="section">
+ <div class="container">
+ <span class="eyebrow" data-reveal>Advisory Board</span>
+ <h2 data-reveal="up" style="margin-top:var(--s4);max-width:22ch;"><strong>Conheça</strong> nossos conselheiros</h2>
+ <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);">Conselho Executivo da Anova Investimentos reúne profissionais de excelência, responsáveis por impulsionar estratégias, inovações e resultados, garantindo liderança e crescimento sustentável.</p>
+ <div class="board-carousel" data-reveal="up" data-delay="2" style="margin-top:var(--s7);overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);">
+ <div class="board-track" style="display:flex;gap:var(--s4);width:max-content;animation:boardScroll 30s linear infinite;">
+ <div style="width:520px;height:280px;border-radius:var(--r-xl);overflow:hidden;flex-shrink:0;"><img src="assets/img/card-castelo.png" alt="Bruno Castelo" style="width:100%;height:100%;object-fit:contain;"></div>
+ <div style="width:520px;height:280px;border-radius:var(--r-xl);overflow:hidden;flex-shrink:0;"><img src="assets/img/card-rogerio.png" alt="Rogério Balieiro" style="width:100%;height:100%;object-fit:contain;"></div>
+ <div style="width:520px;height:280px;border-radius:var(--r-xl);overflow:hidden;flex-shrink:0;"><img src="assets/img/card-pedro.png" alt="Pedro Pivotto" style="width:100%;height:100%;object-fit:contain;"></div>
+ <div style="width:520px;height:280px;border-radius:var(--r-xl);overflow:hidden;flex-shrink:0;"><img src="assets/img/card-marcelo.png" alt="Marcelo Távora" style="width:100%;height:100%;object-fit:contain;"></div>
+ <div style="width:520px;height:280px;border-radius:var(--r-xl);overflow:hidden;flex-shrink:0;"><img src="assets/img/card-joao.png" alt="João Vitor" style="width:100%;height:100%;object-fit:contain;"></div>
+ <!-- duplicate for seamless loop -->
+ <div style="width:520px;height:280px;border-radius:var(--r-xl);overflow:hidden;flex-shrink:0;"><img src="assets/img/card-castelo.png" alt="Bruno Castelo" style="width:100%;height:100%;object-fit:contain;"></div>
+ <div style="width:520px;height:280px;border-radius:var(--r-xl);overflow:hidden;flex-shrink:0;"><img src="assets/img/card-rogerio.png" alt="Rogério Balieiro" style="width:100%;height:100%;object-fit:contain;"></div>
+ <div style="width:520px;height:280px;border-radius:var(--r-xl);overflow:hidden;flex-shrink:0;"><img src="assets/img/card-pedro.png" alt="Pedro Pivotto" style="width:100%;height:100%;object-fit:contain;"></div>
+ <div style="width:520px;height:280px;border-radius:var(--r-xl);overflow:hidden;flex-shrink:0;"><img src="assets/img/card-marcelo.png" alt="Marcelo Távora" style="width:100%;height:100%;object-fit:contain;"></div>
+ <div style="width:520px;height:280px;border-radius:var(--r-xl);overflow:hidden;flex-shrink:0;"><img src="assets/img/card-joao.png" alt="João Vitor" style="width:100%;height:100%;object-fit:contain;"></div>
+ </div>
+ </div>
+ </div>
+</section>
+
+<!-- ═══ 03 · TRUST BAR ═══ -->
+<section class="section" style="padding:var(--s6) 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+ <div class="container">
+ <div class="trust-bar" data-reveal>
+ <span class="trust-item">Conversa que vira operação</span>
+ <span class="trust-dot">·</span>
+ <span class="trust-item">Fluxo ponta a ponta</span>
+ <span class="trust-dot">·</span>
+ <span class="trust-item">Rastreabilidade por etapa</span>
+ <span class="trust-dot">·</span>
+ <span class="trust-item">Governança e controle de acesso</span>
+ <span class="trust-dot">·</span>
+ <span class="trust-item">Integração com parceiros</span>
+ <span class="trust-dot">·</span>
+ <span class="trust-item">Experiência WhatsApp‑first</span>
+ </div>
+ </div>
+</section>
+
+<!-- ═══ 04 · MARQUEE ═══ -->
+<section class="section" style="padding:var(--s7) 0;">
+ <div class="container">
+ <span class="eyebrow" data-reveal>Operações que a Anova organiza</span>
+ </div>
+ <div class="partners-ticker" aria-label="Operações que a Anova organiza" style="margin-top:var(--s5);">
+ <div class="partners-track">
+ <span class="tick">Contabilidade</span><span class="tick">Advogados</span><span class="tick">Consultorias</span><span class="tick">Corretores</span><span class="tick">Ex-Bancários</span><span class="tick">Correspondentes</span><span class="tick">Gestoras de Investimentos</span><span class="tick">Comerciais Autônomos</span><span class="tick">Franquias</span><span class="tick">Operações B2B</span><span class="tick">Contabilidade</span><span class="tick">Advogados</span><span class="tick">Consultorias</span><span class="tick">Corretores</span><span class="tick">Ex-Bancários</span><span class="tick">Correspondentes</span><span class="tick">Gestoras de Investimentos</span><span class="tick">Comerciais Autônomos</span><span class="tick">Franquias</span><span class="tick">Operações B2B</span>
+ </div>
+ </div>
+</section>
+
+<!-- ═══ 05 · CARDS DE CASO DE USO ═══ -->
+<section id="casos" class="section section-alt" data-chapter-num="03">
+ <div class="container">
+ <span class="eyebrow" data-reveal>Casos de uso</span>
+ <h2 data-reveal="up" style="margin-top:var(--s4);max-width:24ch;">A operação <strong>acontecendo</strong> em conversa.</h2>
+ <div class="benefits-grid" style="grid-template-columns:repeat(2,1fr);">
+ <article class="benefit-card" data-reveal="up">
+ <div class="benefit-num">CASO · 01</div>
+ <h3>Captura de Oportunidades</h3>
+ <p>Nunca mais um lead sem resposta. A Anova captura, qualifica e encaminha cada demanda no momento certo.</p>
+ </article>
+ <article class="benefit-card" data-reveal="up" data-delay="1">
+ <div class="benefit-num">CASO · 02</div>
+ <h3>Negociação em Grupo</h3>
+ <p>Cliente, vendedor e especialistas no mesmo grupo. Toda a negociação centralizada, sem dispersão de informação.</p>
+ </article>
+ <article class="benefit-card" data-reveal="up" data-delay="2">
+ <div class="benefit-num">CASO · 03</div>
+ <h3>Expansão de Receita</h3>
+ <p>O parceiro fecha um negócio. O cliente precisa de mais. O especialista entra no grupo sem fricção. Mais receita, menos esforço.</p>
+ </article>
+ <article class="benefit-card" data-reveal="up" data-delay="3">
+ <div class="benefit-num">CASO · 04</div>
+ <h3>Governança e Contexto</h3>
+ <p>Trilha, histórico e regras garantidos pelo número orquestrador. A operação não depende da memória de ninguém.</p>
+ </article>
+ </div>
+ </div>
+</section>
+
+<!-- ═══ 06 · PRODUTO · 3 TABS ═══ -->
+<section id="como-funciona" class="section" data-chapter-num="04">
+ <div class="container">
+ <span class="eyebrow" data-reveal>Como funciona</span>
+ <h2 data-reveal="up" style="margin-top:var(--s4);max-width:22ch;">Três camadas. <strong>Um só fluxo.</strong></h2>
+
+ <div class="tabs-container" data-reveal="up" data-delay="1" style="margin-top:var(--s7);">
+ <div class="tabs-bar" role="tablist">
+ <button class="tab-btn is-active" data-tab="t1" role="tab">01 · Grupos WhatsApp</button>
+ <button class="tab-btn" data-tab="t2" role="tab">02 · Agentes</button>
+ <button class="tab-btn" data-tab="t3" role="tab">03 · Plataforma</button>
+ </div>
+
+ <div class="tab-panel is-active" data-panel="t1" role="tabpanel">
+ <div class="tab-grid">
+ <div>
+ <span class="eyebrow" style="color:var(--text-3);">Arquitetura WhatsApp</span>
+ <h3 style="margin-top:var(--s3);font-size:clamp(28px,3vw,40px);letter-spacing:-.025em;line-height:1.1;">O grupo é a operação</h3>
+ <p style="margin-top:var(--s4);font-size:16px;line-height:1.6;color:var(--text-2);max-width:46ch;">Cada negociação acontece dentro de um grupo organizado. Cliente, vendedor e especialistas reunidos com contexto, histórico e governança desde o início sem dispersão.</p>
+ <a href="#contato" class="btn btn-outline" style="margin-top:var(--s5);">Ver arquitetura <span class="arr">→</span></a>
+ </div>
+ <div class="tab-visual">
+ <div class="wa-mock wa-mock--anim" id="waAnim">
+ <div class="wa-header"><div class="wa-avatar">G</div><div><div class="wa-title" id="waTitle">Crédito Imobiliário · Bruno</div><div class="wa-sub" id="waSub">criando grupo…</div></div></div>
+ <div class="wa-body" id="waBody">
+ <div class="wa-msg wa-msg--sys" id="waDate">QUI., 12 DE MAR.</div>
+ <div class="wa-invite" id="waInvite">
+ <div class="wa-invite-ico"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+ <h5>Grupo regulado criado</h5>
+ <div class="wa-invite-sub">Automaticamente pelo Orquestrador</div>
+ <div class="wa-invite-desc">Crédito Imobiliário · Bruno</div>
+ <div class="wa-invite-tag">🏷 4 participantes: cliente, originador, especialista, Orquestrador</div>
+ </div>
+ <div class="wa-typing" id="waTyping"><span></span><span></span><span></span></div>
+ <div class="wa-msg wa-msg--out wa-msg--anim" id="waMsg1"><span class="wa-who">Rogério · Originador</span>Bruno, criei este grupo para que o especialista de crédito possa te ajudar a encontrar a melhor proposta nas mais de 70 instituições parceiras.</div>
+ <div class="wa-msg wa-msg--in wa-msg--anim" id="waMsg2"><span class="wa-who">Gabriel · Especialista de Crédito</span>Olá Bruno, meu nome é Gabriel e estou lendo as informações que encaminhou para a proposta da compra de um imóvel.</div>
+ <div class="wa-msg wa-msg--out wa-msg--anim" id="waMsg3"><span class="wa-who">Bruno</span>Olá Gabriel! Fico no aguardo!</div>
+ </div>
+ </div>
+ <div class="wa-scene-label" id="waLabel">01 · grupo criado</div>
+ </div>
+ </div>
+ </div>
+
+ <div class="tab-panel" data-panel="t2" role="tabpanel">
+ <div class="tab-grid">
+ <div>
+ <span class="eyebrow" style="color:var(--text-3);">Agentes Sintéticos</span>
+ <h3 style="margin-top:var(--s3);font-size:clamp(28px,3vw,40px);letter-spacing:-.025em;line-height:1.1;">Agentes que trabalham enquanto sua equipe se relaciona</h3>
+ <p style="margin-top:var(--s4);font-size:16px;line-height:1.6;color:var(--text-2);max-width:46ch;">Um grupo de agentes especializados cuida de originação, follow-up, documentação, governança e expansão 24 horas por dia, sem depender da memória humana.</p>
+ <a href="#agentes" class="btn btn-outline" style="margin-top:var(--s5);">Conhecer os agentes <span class="arr">→</span></a>
+ </div>
+ <div class="tab-visual">
+ <div class="ag-stack">
+ <div class="ag-row"><span class="ag-dot"></span><div><div class="ag-name">Originação</div><div class="ag-task">Qualificando novo lead · #4821</div></div><span class="ag-live">ativo</span></div>
+ <div class="ag-row"><span class="ag-dot"></span><div><div class="ag-name">Relacionamento</div><div class="ag-task">Follow-up automático · 14 bases</div></div><span class="ag-live">ativo</span></div>
+ <div class="ag-row"><span class="ag-dot"></span><div><div class="ag-name">Operacional</div><div class="ag-task">Checando SLA · 3 pendências</div></div><span class="ag-live">ativo</span></div>
+ <div class="ag-row"><span class="ag-dot" style="background-color: rgb(229, 0, 0)"></span><div><div class="ag-name">Governança</div><div class="ag-task">Bloqueado: "seguro como investimento" no grupo "Seguro-347 | João"</div></div><span class="ag-live">ativo</span></div>
+ <div class="ag-row"><span class="ag-dot"></span><div><div class="ag-name">Expansão</div><div class="ag-task">Reativando base · 87 clientes</div></div><span class="ag-live">ativo</span></div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div class="tab-panel" data-panel="t3" role="tabpanel">
+ <div class="tab-t3-stacked">
+  <div class="tab-t3-head">
+   <div class="tab-t3-head-left">
+    <span class="eyebrow" style="color:var(--text-3);">Central de Atendimento</span>
+    <h3 style="margin-top:var(--s3);font-size:clamp(24px,2.4vw,34px);letter-spacing:-.025em;line-height:1.1;">Pipeline, kanban e gestão de tarefas em um só lugar</h3>
+   </div>
+   <div class="tab-t3-head-right">
+    <p style="margin:0;font-size:14.5px;line-height:1.55;color:var(--text-2);max-width:54ch;">A Central de Atendimento da Anova transforma as mensagens dos grupos em pipeline comercial visual com criação de tarefas, priorização e visibilidade total da operação.</p>
+    <a href="#contato" class="btn btn-outline" style="margin-top:var(--s4);align-self:flex-start;">Ver a plataforma <span class="arr">→</span></a>
+   </div>
+  </div>
+  <div class="tab-visual tab-visual--wide">
+ <div class="tab-scene-label" id="kbSceneLabel">01 · central de atendimento</div>
+ <div class="kb-board" id="kbBoard">
+  <div class="kb-cols">
+   <div class="kb-col">
+    <div class="kb-col-head">Entrada</div>
+    <div class="kb-card"><div class="kb-card-title">Crédito Imobiliário · <strong>Bruno Salles</strong></div><div class="kb-card-resp"><span class="kb-card-resp-dot"></span>Rogério Balieiro</div></div>
+    <div class="kb-card"><div class="kb-card-title">Pró-Labore · <strong>Juliana Prado</strong></div><div class="kb-card-resp"><span class="kb-card-resp-dot"></span>Marcelo Távora</div></div>
+   </div>
+
+   <div class="kb-col">
+    <div class="kb-col-head">Negociando</div>
+    <button type="button" class="kb-card kb-card--interactive" id="kbOpen"><div class="kb-card-title">Seguro de Vida · <strong>Ana Martins</strong><span class="kb-card-ping"></span></div><div class="kb-card-resp"><span class="kb-card-resp-dot"></span>Carlos Ribeiro</div></button>
+    <div class="kb-card"><div class="kb-card-title">Previdência · <strong>Rafael Teixeira</strong></div><div class="kb-card-resp"><span class="kb-card-resp-dot"></span>Pedro Pivotto</div></div>
+   </div>
+
+   <div class="kb-col">
+    <div class="kb-col-head">Fechado</div>
+    <div class="kb-card kb-card--closed"><div class="kb-card-title">Investimentos · <strong>Helena Costa</strong></div><div class="kb-card-resp"><span class="kb-card-resp-dot"></span>João Vitor</div></div>
+   </div>
+  </div>
+ </div>
+
+ <!-- ═══ DEAL MODAL (versão B — chat + sidebar + faixa de membros) ═══ -->
+ <div class="deal-modal" id="dealModal" aria-hidden="true">
+  <div class="deal-modal-box">
+   <div class="deal-top">
+    <div class="deal-top-left">
+     <div class="deal-top-av">AM</div>
+     <div class="deal-top-info">
+      <span class="deal-top-name">Seguro de Vida · Ana Martins <button class="deal-top-edit" type="button">✎ Editar</button></span>
+      <span class="deal-top-meta"><span class="deal-top-status">Negociando</span> · 5 participantes</span>
+     </div>
+    </div>
+    <div class="deal-top-right">
+     <button class="deal-advance" type="button">→ Avançar para Fechado</button>
+     <button class="deal-close" id="dealClose" type="button">×</button>
+    </div>
+   </div>
+
+   <div class="deal-members">
+    <div class="deal-member"><div class="deal-member-av av-1">AM</div><div class="deal-member-meta"><span class="deal-member-name">Ana Martins</span><div class="deal-member-tags"><span class="deal-member-tag role cliente">Cliente</span><span class="deal-member-tag presence on">No grupo</span></div></div></div>
+    <div class="deal-member"><div class="deal-member-av av-2">CR</div><div class="deal-member-meta"><span class="deal-member-name">Carlos Ribeiro</span><div class="deal-member-tags"><span class="deal-member-tag role originador">Originador</span><span class="deal-member-tag presence on">No grupo</span></div></div></div>
+    <div class="deal-member"><div class="deal-member-av av-3">JV</div><div class="deal-member-meta"><span class="deal-member-name">João Vitor</span><div class="deal-member-tags"><span class="deal-member-tag role allocation">Allocation</span><span class="deal-member-tag presence off">Ausente</span></div></div></div>
+    <div class="deal-member"><div class="deal-member-av av-4">MT</div><div class="deal-member-meta"><span class="deal-member-name">Marcelo Távora</span><div class="deal-member-tags"><span class="deal-member-tag role private">Private</span><span class="deal-member-tag presence off">Ausente</span></div></div></div>
+    <div class="deal-member"><div class="deal-member-av av-5">PP</div><div class="deal-member-meta"><span class="deal-member-name">Pedro Pivotto</span><div class="deal-member-tags"><span class="deal-member-tag role daily">Daily</span><span class="deal-member-tag presence off">Ausente</span></div></div></div>
+   </div>
+
+   <div class="deal-body">
+    <div class="deal-pane deal-pane--chat">
+     <div class="deal-chat">
+      <div class="deal-chat-date">QUI., 22 DE ABR.</div>
+      <div class="deal-msg c1"><span class="who">Carlos</span>Ana, bom dia! Conforme combinado, enviei a simulação de seguro de vida com coberturas ajustadas ao perfil familiar.<span class="time">11:28</span></div>
+      <div class="deal-msg c2"><span class="who">Ana Martins</span>Recebi, Carlos. Posso fechar essa semana?<span class="time">11:30</span></div>
+      <div class="deal-msg c3"><span class="who">João Vitor</span>Ana, só pra alinhar: a cobertura contempla invalidez + morte natural/acidental + DIT. Assistência funeral também inclusa.<span class="time">11:32</span></div>
+      <div class="deal-msg c2"><span class="who">Ana Martins</span>Perfeito! Vou assinar ainda hoje.<span class="time">11:34</span></div>
+      <div class="deal-msg c4"><span class="who">Pedro</span>Fechado. Já protocolei no backoffice.<span class="time">13:52</span></div>
+     </div>
+     <div class="deal-composer-alert">A conversa está fora da janela de 24h. Envie um template para estimular uma interação do cliente ou aguarde ele.</div>
+     <div class="deal-composer">
+      <input class="deal-composer-input" placeholder="Envie um template ou aguarde o cliente." disabled>
+      <button class="deal-composer-mic" aria-label="Gravar áudio">🎤</button>
+     </div>
+    </div>
+
+    <div class="deal-pane deal-side">
+     <div class="deal-side-tabs">
+      <button class="deal-side-tab is-active" type="button">Detalhes</button>
+      <button class="deal-side-tab" type="button">Anexos</button>
+      <button class="deal-side-tab" type="button">Observações</button>
+     </div>
+     <div class="deal-side-body">
+      <div class="deal-side-grid">
+       <div class="deal-field"><span class="deal-field-lbl">Cliente</span><span class="deal-field-val">Ana Martins</span></div>
+       <div class="deal-field"><span class="deal-field-lbl">Telefone</span><span class="deal-field-val">+55 (11) 9 8264-7397</span></div>
+       <div class="deal-field"><span class="deal-field-lbl">E-mail</span><span class="deal-field-val">ana.martins@…</span></div>
+       <div class="deal-field"><span class="deal-field-lbl">Nascimento</span><span class="deal-field-val">04/11/1982</span></div>
+       <div class="deal-field"><span class="deal-field-lbl">Profissão</span><span class="deal-field-val">Empresária</span></div>
+       <div class="deal-field"><span class="deal-field-lbl">Consultor</span><span class="deal-field-val">Carlos Ribeiro</span></div>
+       <div class="deal-field"><span class="deal-field-lbl">Cidade</span><span class="deal-field-val">São Paulo</span></div>
+       <div class="deal-field"><span class="deal-field-lbl">Estado</span><span class="deal-field-val">SP</span></div>
+       <div class="deal-field"><span class="deal-field-lbl">Produto</span><span class="deal-field-val">Seguro de Vida</span></div>
+       <div class="deal-field"><span class="deal-field-lbl">Etapa</span><span class="deal-field-val">Negociando</span></div>
+      </div>
+      <div class="deal-side-cta">
+       <button class="deal-side-cta-btn" type="button"><span class="ico">📤</span> Enviar Card de Apresentação</button>
+      </div>
+      <div class="deal-side-link">
+       <div class="deal-side-link-lbl">Link de convite</div>
+       <div class="deal-side-link-box"><span class="deal-side-link-url">https://chat.anova.app/g/87W5THYRL8pAs9plmgqjPg</span><button class="deal-side-link-copy" type="button">Copiar</button></div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ </div>
+ </div>
+ </div>
+ </div>
+</section>
+
+<!-- ═══ 07 · STATS ═══ -->
+<section class="section section-dark" data-chapter-num="05">
+ <div class="container">
+ <span class="eyebrow" data-reveal>O que muda quando a operação tem estrutura</span>
+ <div class="stats-grid" data-reveal="up" data-delay="1">
+ <div class="stat">
+ <div class="stat-num">+40%</div>
+ <div class="stat-lbl">mais continuidade comercial por oportunidade</div>
+ </div>
+ <div class="stat">
+ <div class="stat-num">−60%</div>
+ <div class="stat-lbl">de carga manual no time de vendas e suporte</div>
+ </div>
+ <div class="stat">
+ <div class="stat-num">0</div>
+ <div class="stat-lbl">oportunidades perdidas por falta de contexto</div>
+ </div>
+ <div class="stat">
+ <div class="stat-num">1</div>
+ <div class="stat-lbl">fluxo unificado do primeiro contato ao fechamento</div>
+ </div>
+ </div>
+ </div>
+</section>
+
+<!-- ═══ 08 · AGENTES ═══ -->
+<section id="agentes" class="section" data-chapter-num="06">
+ <div class="container">
+ <span class="eyebrow" data-reveal>Inteligência Operacional</span>
+ <h2 data-reveal="up" style="margin-top:var(--s4);max-width:24ch;"><strong>Cinco agentes.</strong><br>Uma operação que não para.</h2>
+ <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s5);max-width:62ch;">Originação, relacionamento, operação, governança e expansão cada agente especializado em uma etapa. A IA remove o peso operacional para que o time foque no que importa: a relação com o cliente.</p>
+ <div class="agents-grid">
+ <article class="agent-card" data-reveal="up"><div class="agent-num">AG · 01</div><h3>Agente de Originação</h3><p>Captura, qualifica e encaminha cada demanda corretamente desde a entrada.</p></article>
+ <article class="agent-card" data-reveal="up" data-delay="1"><div class="agent-num">AG · 02</div><h3>Agente de Relacionamento</h3><p>Monitora base, organiza follow-up, identifica silêncio e sustenta continuidade.</p></article>
+ <article class="agent-card" data-reveal="up" data-delay="2"><div class="agent-num">AG · 03</div><h3>Agente Operacional</h3><p>Acompanha etapas, status, prazos e execução com visibilidade clara.</p></article>
+ <article class="agent-card" data-reveal="up" data-delay="3"><div class="agent-num">AG · 04</div><h3>Agente de Governança</h3><p>Vigia trilha, regras, exceções e aprovações em pontos críticos.</p></article>
+ <article class="agent-card" data-reveal="up" data-delay="4"><div class="agent-num">AG · 05</div><h3>Agente de Expansão</h3><p>Identifica base ociosa, reativação e novas oportunidades de cross-sell.</p></article>
+ </div>
+ <div style="margin-top:var(--s7);"><a href="#contato" class="btn btn-primary">Conhecer os agentes <span class="arr">→</span></a></div>
+ </div>
+</section>
+
+<!-- ═══ 09 · DIFERENCIAL ═══ -->
+<section id="diferencial" class="section section-dark" data-chapter-num="07">
+ <div class="container">
+ <span class="eyebrow" data-reveal>Diferencial</span>
+ <h2 data-reveal="up" style="margin-top:var(--s4);color:var(--white);max-width:22ch;">Não é CRM.<br>Não é bot.<br><strong>É a operação acontecendo.</strong></h2>
+ <p class="lead" data-reveal="up" data-delay="1" style="margin-top:var(--s6);max-width:62ch;">A Anova não foi desenhada para registrar dados ou disparar mensagens. Foi desenhada para ser a camada que conecta conversa, processo, execução e visibilidade em um único sistema contínuo.</p>
+ <div class="differentials-list" data-reveal="up" data-delay="2">
+ <div class="differentials-item">conversa com contexto</div>
+ <div class="differentials-item">fluxo com continuidade</div>
+ <div class="differentials-item">operação com acompanhamento</div>
+ <div class="differentials-item">estrutura com controle</div>
+ <div class="differentials-item">escala com governança</div>
+ </div>
+ <div style="margin-top:var(--s7);"><a href="#como-funciona" class="btn btn-outline" style="border-color:rgba(255,255,255,.3);color:#FFF;">Ver como funciona <span class="arr">→</span></a></div>
+ </div>
+</section>
+
+<!-- ═══ 10 · PARA QUEM É ═══ -->
+<section id="para-quem" class="section section-alt" data-chapter-num="08">
+ <div class="container">
+ <span class="eyebrow" data-reveal>Para quem é</span>
+ <h2 data-reveal="up" style="margin-top:var(--s4);max-width:30ch;">Feita para operações que <strong>vendem em conversa</strong> e precisam crescer com estrutura.</h2>
+ <div class="forwhom-grid">
+ <article class="forwhom-card" data-reveal="up"><div class="forwhom-num">Comercial</div><h3>Equipes e redes comerciais</h3><p>Para estruturar pipeline, acompanhamento e cadência sem perder qualidade relacional em escala.</p></article>
+ <article class="forwhom-card" data-reveal="up" data-delay="1"><div class="forwhom-num">Distribuição</div><h3>Times distribuídos e redes de parceiros</h3><p>Para conectar ponta comercial, operação e visibilidade em um único fluxo rastreável.</p></article>
+ <article class="forwhom-card" data-reveal="up" data-delay="2"><div class="forwhom-num">Operação</div><h3>Empresas com suporte relevante</h3><p>Para unir simplicidade na ponta com controle interno e integração com parceiros.</p></article>
+ <article class="forwhom-card" data-reveal="up" data-delay="3"><div class="forwhom-num">WhatsApp-first</div><h3>Operações WhatsApp‑first</h3><p>Para transformar conversa em fluxo real de trabalho com contexto, continuidade e controle.</p></article>
+ <article class="forwhom-card" data-reveal="up" data-delay="4"><div class="forwhom-num">Franquias &amp; B2B</div><h3>Franquias e operações B2B</h3><p>Para manter padrão, visibilidade e disciplina operacional em times maiores ou regionais.</p></article>
+ </div>
+ </div>
+</section>
+
+<!-- ═══ 11 · ANTES E DEPOIS ═══ -->
+<section id="resultado" class="section" data-chapter-num="09">
+ <div class="container">
+ <span class="eyebrow" data-reveal>Resultado esperado</span>
+ <h2 data-reveal="up" style="margin-top:var(--s4);max-width:22ch;">O que <strong>muda</strong> na prática</h2>
+ <div class="ba-grid" data-reveal="up" data-delay="1">
+ <div class="ba-col ba-col--before">
+ <span class="ba-col-label">ANTES DA ANOVA</span>
+ <div class="ba-row">informação espalhada entre canais</div>
+ <div class="ba-row">atendimento inconsistente</div>
+ <div class="ba-row">follow-up dependente de memória</div>
+ <div class="ba-row">operação invisível para a gestão</div>
+ <div class="ba-row">pouca previsibilidade de receita</div>
+ <div class="ba-row">sem rastreabilidade da jornada</div>
+ </div>
+ <div class="ba-col ba-col--after">
+ <span class="ba-col-label">DEPOIS DA ANOVA</span>
+ <div class="ba-row">fluxo unificado de ponta a ponta</div>
+ <div class="ba-row">continuidade comercial garantida</div>
+ <div class="ba-row">priorização inteligente pelo agente</div>
+ <div class="ba-row">operação acompanhável em tempo real</div>
+ <div class="ba-row">mais previsibilidade de fechamento</div>
+ <div class="ba-row">governança e histórico real</div>
+ </div>
+ </div>
+ <p class="ba-close" data-reveal>Mais atendimento, mais conversão, mais visibilidade e menos desorganização.</p>
+ </div>
+</section>
+
+<!-- ═══ 12 · FAQ ═══ -->
+<section id="faq" class="section section-alt">
+ <div class="container">
+ <span class="eyebrow" data-reveal>FAQ</span>
+ <h2 data-reveal="up" style="margin-top:var(--s4);max-width:20ch;"><strong>Perguntas</strong> frequentes</h2>
+ <div class="faq" data-reveal="up" data-delay="1">
+ <div class="faq-item"><button class="faq-q">A Anova é um CRM?</button><div class="faq-a"><p>Não. A Anova é a camada que conecta relacionamento, operação e governança em fluxo contínuo. Vai além de registrar dados ela organiza a execução.</p></div></div>
+ <div class="faq-item"><button class="faq-q">A Anova substitui o vendedor?</button><div class="faq-a"><p>Não. Remove a carga operacional para que o vendedor foque no que importa: a relação com o cliente. A IA organiza; as pessoas decidem.</p></div></div>
+ <div class="faq-item"><button class="faq-q">Funciona só no WhatsApp?</button><div class="faq-a"><p>O WhatsApp é a camada central de experiência. A Anova integra operação interna, times e parceiros ao redor dessa conversa. A conversa é o canal; a Anova é a infraestrutura.</p></div></div>
+ <div class="faq-item"><button class="faq-q">Para quais negócios foi desenhada?</button><div class="faq-a"><p>Qualquer operação com alta carga relacional: equipes de vendas, redes de parceiros, franquias, distribuidoras, operações B2B qualquer negócio onde conversa e execução precisam andar juntas.</p></div></div>
+ <div class="faq-item"><button class="faq-q">Como garante controle e rastreabilidade?</button><div class="faq-a"><p>Com trilha por etapa, histórico de decisões, controle de acessos e governança operacional desde o primeiro contato.</p></div></div>
+ <div class="faq-item"><button class="faq-q">É só automação?</button><div class="faq-a"><p>Não. A automação é um meio. O núcleo é organizar a operação com contexto, continuidade e governança. A Anova usa IA para organizar e deixa os humanos decidir.</p></div></div>
+ </div>
+ </div>
+</section>
+
+<!-- ═══ 13 · CTA FINAL + FORMULÁRIO ═══ -->
+<section id="contato" class="section">
+ <div class="container">
+ <span class="eyebrow" data-reveal>Próximo passo</span>
+ <div class="cta-grid">
+ <div data-reveal="right">
+ <h2 style="margin-top:var(--s4);max-width:22ch;">Sua operação já acontece em conversa.<br>A pergunta é: ela está <strong>organizada como sistema?</strong></h2>
+ <p class="lead" style="margin-top:var(--s5);">Transforme atendimento, operação e visibilidade em um fluxo único com mais clareza para o time e mais controle para a gestão.</p>
+ <p style="margin-top:var(--s5);font-size:13px;color:var(--text-3);max-width:48ch;">Entenda em poucos minutos como a Anova se adapta à sua operação.</p>
+ <div style="margin-top:var(--s6);display:flex;flex-direction:column;gap:var(--s3);">
+ <a href="#anova-form" style="font-size:14px;font-weight:600;color:var(--text-1);">→ Solicitar demonstração</a>
+ <a href="https://wa.me/5511982647397" style="font-size:14px;font-weight:600;color:var(--text-1);">→ Falar com a Anova</a>
+ </div>
+ </div>
+ <form id="anova-form" class="form-card" data-reveal="left" data-delay="1">
+ <div class="field"><label class="field-label" for="f-nome">Nome completo</label><input class="input" id="f-nome" name="nome" type="text" required placeholder="Seu nome completo"></div>
+ <div class="field"><label class="field-label" for="f-email">E-mail</label><input class="input" id="f-email" name="email" type="email" required placeholder="voce@empresa.com.br"></div>
+ <div class="field"><label class="field-label" for="f-tel">Telefone / WhatsApp</label><input class="input" id="f-tel" name="tel" type="tel" placeholder="(00) 00000-0000"></div>
+ <div class="field"><label class="field-label" for="f-seg">Segmento</label><select class="select" id="f-seg" name="segmento"><option value="">Selecione</option><option>Equipes e redes comerciais</option><option>Times distribuídos / parceiros</option><option>Franquias / B2B</option><option>Operação WhatsApp-first</option><option>Outro</option></select></div>
+ <div class="field"><label class="field-label" for="f-msg">Mensagem</label><textarea class="textarea" id="f-msg" name="msg" rows="3" placeholder="Como podemos ajudar?"></textarea></div>
+ <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:var(--s3);">Solicitar demonstração <span class="arr">→</span></button>
+ </form>
+ </div>
+ </div>
+</section>
+
+<!-- ═══ FOOTER (injected by shell.js) ═══ -->
+<div id="anova-footer"></div>
+
+<!-- SCRIPTS -->
+<script src="js/shell.js?v=20260425b"></script>
+<script src="js/motion.js"></script>
+<script>
+/* ── WhatsApp anim (Tab 1) ── */
+(function(){
+ const root=document.getElementById('waAnim');if(!root)return;
+ const sub=document.getElementById('waSub'),
+  invite=document.getElementById('waInvite'),typing=document.getElementById('waTyping'),
+  m1=document.getElementById('waMsg1'),m2=document.getElementById('waMsg2'),m3=document.getElementById('waMsg3'),
+  label=document.getElementById('waLabel');
+ let timers=[],running=false;
+ function T(fn,d){timers.push(setTimeout(fn,d));}
+ function clearAll(){timers.forEach(clearTimeout);timers=[];}
+ function reset(){
+  invite.classList.remove('show');typing.classList.remove('show');
+  m1.classList.remove('show');m2.classList.remove('show');m3.classList.remove('show');
+  sub.textContent='criando grupo…';label.textContent='01 · grupo criado';
+ }
+ function play(){
+  reset();
+  T(()=>invite.classList.add('show'),400);
+  T(()=>{sub.textContent='4 participantes';},1600);
+  // 1. Originador apresenta o grupo
+  T(()=>{label.textContent='02 · originador apresenta';typing.classList.add('show');},2600);
+  T(()=>{typing.classList.remove('show');m1.classList.add('show');},3800);
+  // 2. Especialista entra
+  T(()=>{label.textContent='03 · especialista de crédito';typing.classList.add('show');},5600);
+  T(()=>{typing.classList.remove('show');m2.classList.add('show');},6800);
+  // 3. Cliente responde
+  T(()=>{label.textContent='04 · cliente no aguardo';m3.classList.add('show');},8600);
+  T(()=>{if(running)play();},12000);
+ }
+ const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+   if(e.isIntersecting && !running){running=true;play();}
+   else if(!e.isIntersecting){running=false;clearAll();}
+  });
+ },{threshold:.2});
+ io.observe(root);
+})();
+</script>
+<script>
+/* ── Kanban → Deal modal motion (Tab 3) ── */
+(function(){
+ const panel=document.querySelector('.tab-panel[data-panel="t3"]');
+ const card=document.getElementById('kbOpen');
+ const modal=document.getElementById('dealModal');
+ const label=document.getElementById('kbSceneLabel');
+ if(!panel||!card||!modal||!label)return;
+ let timers=[],running=false;
+ function T(fn,d){timers.push(setTimeout(fn,d));}
+ function clearAll(){timers.forEach(clearTimeout);timers=[];}
+ function reset(){
+  modal.classList.remove('is-open');
+  card.classList.remove('pl-card--highlight');
+  label.textContent='01 · central de atendimento';
+ }
+ function play(){
+  reset();
+  // 1. Pipeline visível (1.8s)
+  T(()=>{label.textContent='02 · card selecionado';card.classList.add('kb-card--highlight');},1800);
+  // 2. Card destacado → abre modal (900ms depois)
+  T(()=>{label.textContent='03 · detalhe do deal';modal.classList.add('is-open');},2700);
+  // 3. Modal aberto ~9s → fecha
+  T(()=>{modal.classList.remove('is-open');label.textContent='04 · volta ao pipeline';},11500);
+  T(()=>card.classList.remove('kb-card--highlight'),12200);
+  // Reinicia
+  T(()=>{if(running)play();},14000);
+ }
+ const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+   if(e.isIntersecting && panel.classList.contains('is-active') && !running){
+    running=true;play();
+   } else if(!e.isIntersecting){
+    running=false;clearAll();reset();
+   }
+  });
+ },{threshold:.3});
+ io.observe(panel);
+ // Reage quando usuário clica no tab 3
+ document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   setTimeout(()=>{
+    if(panel.classList.contains('is-active') && !running){running=true;play();}
+    else if(!panel.classList.contains('is-active')){running=false;clearAll();reset();}
+   },50);
+  });
+ });
+})();
+</script>
+<script>
+/* ── Form submit → WhatsApp ── */
+(function(){
+ var form=document.getElementById('anova-form');
+ if(!form)return;
+ form.addEventListener('submit',function(e){
+ e.preventDefault();
+ var data={nome:form.nome.value,email:form.email.value,tel:form.tel.value,segmento:form.segmento.value,msg:form.msg.value,page:'index',ts:new Date().toISOString()};
+ window.location.href='https://wa.me/5511982647397?text=Ol%C3%A1%2C%20vim%20do%20site%20da%20Anova%20e%20tenho%20interesse%20em%20saber%20mais%20sobre%20a%20AnovaOS';
+ });
+})();
+
+/* ── Tabs ── */
+(function(){
+ var btns=document.querySelectorAll('.tab-btn');
+ var panels=document.querySelectorAll('.tab-panel');
+ btns.forEach(function(b){
+ b.addEventListener('click',function(){
+ btns.forEach(function(x){x.classList.remove('is-active');});
+ panels.forEach(function(p){p.classList.remove('is-active');});
+ b.classList.add('is-active');
+ var t=b.dataset.tab;
+ var panel=document.querySelector('.tab-panel[data-panel="'+t+'"]');
+ if(panel) panel.classList.add('is-active');
+ });
+ });
+})();
+
+/* ── FAQ accordion ── */
+(function(){
+ var items=document.querySelectorAll('.faq-item');
+ items.forEach(function(item){
+ var btn=item.querySelector('.faq-q');
+ if(!btn)return;
+ btn.addEventListener('click',function(){
+ var isOpen=item.classList.contains('is-open');
+ items.forEach(function(i){i.classList.remove('is-open');});
+ if(!isOpen)item.classList.add('is-open');
+ });
+ });
+})();
+
+/* ── Video popup modal ── */
+(function(){
+ var modal = document.getElementById('video-modal');
+ var body = document.getElementById('video-modal-body');
+ var closeBtn = document.getElementById('video-modal-close');
+ if(!modal) return;
+
+ document.querySelectorAll('.dep-thumb[data-yt]').forEach(function(t){
+ t.addEventListener('click', function(){
+ var id = t.dataset.yt;
+ window.open('https://www.youtube.com/watch?v='+id, '_blank');
+ });
+ t.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') t.click(); });
+ });
+})();
+
+/* ── Board accordion opens/closes based on scroll position ── */
+(function(){
+ var cards=document.querySelectorAll('.board-card[data-board-idx]');
+ if(!cards.length)return;
+ function update(){
+ var vh=window.innerHeight;
+ cards.forEach(function(card){
+ var r=card.getBoundingClientRect();
+ var center=r.top+r.height/2;
+ if(center>vh*0.2&&center<vh*0.65){
+ card.classList.add('is-open');
+ } else {
+ card.classList.remove('is-open');
+ }
+ });
+ }
+ var pending=false;
+ window.addEventListener('scroll',function(){if(pending)return;pending=true;requestAnimationFrame(function(){update();pending=false;});},{passive:true});
+ update();
+})();
+
+/* ═══ TWEAKS ═══ */
+var TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+ "heroMode": "split",
+ "density": "spacious",
+ "mood": "light"
+}/*EDITMODE-END*/;
+var tw = Object.assign({}, TWEAK_DEFAULTS);
+
+function applyTweaks(){
+ var root = document.documentElement;
+ var heroGrid = document.querySelector('.hero .hero-grid');
+ var heroVisual = document.querySelector('.hero .hero-visual');
+ if(heroGrid && heroVisual){
+ if(tw.heroMode === 'centered'){
+ heroGrid.style.gridTemplateColumns = '1fr';
+ heroGrid.style.textAlign = 'center';
+ heroGrid.style.maxWidth = '780px';
+ heroGrid.style.margin = '0 auto';
+ heroVisual.style.display = 'none';
+ var rev = heroGrid.querySelector('[data-reveal]');
+ if(rev){rev.style.alignItems='center';rev.style.display='flex';rev.style.flexDirection='column';}
+ } else {
+ heroGrid.style.gridTemplateColumns = '1.3fr .7fr';
+ heroGrid.style.textAlign = '';
+ heroGrid.style.maxWidth = '';
+ heroGrid.style.margin = '';
+ heroVisual.style.display = '';
+ var rev2 = heroGrid.querySelector('[data-reveal]');
+ if(rev2){rev2.style.alignItems='';rev2.style.display='';rev2.style.flexDirection='';}
+ }
+ }
+ root.style.setProperty('--s10', tw.density === 'compact' ? '80px' : '128px');
+ if(tw.mood === 'dark'){
+ document.body.style.background='var(--onyx)';document.body.style.color='var(--white)';
+ root.style.setProperty('--bg','#0A0A0A');root.style.setProperty('--bg-alt','#151515');
+ root.style.setProperty('--border','rgba(255,255,255,.08)');
+ root.style.setProperty('--text-1','#FFFFFF');root.style.setProperty('--text-2','#BABABA');root.style.setProperty('--text-3','#767676');
+ root.style.setProperty('--surface','#0A0A0A');
+ document.querySelectorAll('.benefit-card,.how-step,.agent-card,.forwhom-card,.gov-item,.ba-col--before,.form-card').forEach(function(c){c.style.background='#151515';c.style.color='#FFF';});
+ document.querySelectorAll('.flow-node').forEach(function(n){n.style.color='#FFF';n.style.borderColor='#FFF';});
+ } else {
+ document.body.style.background='';document.body.style.color='';
+ root.style.setProperty('--bg','#FFFFFF');root.style.setProperty('--bg-alt','#F4F4F4');
+ root.style.setProperty('--border','rgba(0,0,0,.08)');
+ root.style.setProperty('--text-1','#0A0A0A');root.style.setProperty('--text-2','#4A4A4A');root.style.setProperty('--text-3','#767676');
+ root.style.setProperty('--surface','#FFFFFF');
+ document.querySelectorAll('.benefit-card,.how-step,.agent-card,.forwhom-card,.gov-item,.ba-col--before,.form-card').forEach(function(c){c.style.background='';c.style.color='';});
+ document.querySelectorAll('.flow-node').forEach(function(n){n.style.color='';n.style.borderColor='';});
+ }
+}
+
+(function(){
+ var p=document.createElement('div');p.id='tweaks-panel';
+ p.style.cssText='position:fixed;bottom:24px;right:24px;background:#FFF;border:1px solid rgba(0,0,0,.08);border-radius:24px;padding:24px;width:280px;z-index:999;display:none;font-family:var(--font);';
+ p.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;"><h4 style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);color:#767676;margin:0;">Tweaks</h4><button id="tw-close" style="background:none;border:1px solid rgba(0,0,0,.08);border-radius:6px;width:24px;height:24px;cursor:pointer;font-size:14px;color:#767676;display:flex;align-items:center;justify-content:center;">\u00d7</button></div>'
+ +'<div style="margin-bottom:16px;"><div style="font-size:12px;font-weight:600;color:#4A4A4A;margin-bottom:8px;">Hero layout</div><div style="display:flex;gap:6px;"><button class="tw-btn" data-key="heroMode" data-val="split" style="flex:1;padding:8px;border:1px solid rgba(0,0,0,.08);border-radius:10px;background:#FFF;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;">Diagrama</button><button class="tw-btn" data-key="heroMode" data-val="centered" style="flex:1;padding:8px;border:1px solid rgba(0,0,0,.08);border-radius:10px;background:#FFF;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;">Centralizado</button></div></div>'
+ +'<div style="margin-bottom:16px;"><div style="font-size:12px;font-weight:600;color:#4A4A4A;margin-bottom:8px;">Densidade</div><div style="display:flex;gap:6px;"><button class="tw-btn" data-key="density" data-val="spacious" style="flex:1;padding:8px;border:1px solid rgba(0,0,0,.08);border-radius:10px;background:#FFF;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;">Amplo</button><button class="tw-btn" data-key="density" data-val="compact" style="flex:1;padding:8px;border:1px solid rgba(0,0,0,.08);border-radius:10px;background:#FFF;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;">Compacto</button></div></div>'
+ +'<div><div style="font-size:12px;font-weight:600;color:#4A4A4A;margin-bottom:8px;">Atmosfera</div><div style="display:flex;gap:6px;"><button class="tw-btn" data-key="mood" data-val="light" style="flex:1;padding:8px;border:1px solid rgba(0,0,0,.08);border-radius:10px;background:#FFF;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;">Claro</button><button class="tw-btn" data-key="mood" data-val="dark" style="flex:1;padding:8px;border:1px solid rgba(0,0,0,.08);border-radius:10px;background:#FFF;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;">Escuro</button></div></div>';
+ document.body.appendChild(p);
+ function upd(){p.querySelectorAll('.tw-btn').forEach(function(b){var a=tw[b.dataset.key]===b.dataset.val;b.style.background=a?'#0A0A0A':'#FFF';b.style.color=a?'#FFF':'#0A0A0A';b.style.borderColor=a?'#0A0A0A':'rgba(0,0,0,.08)';});}
+ p.querySelectorAll('.tw-btn').forEach(function(b){b.addEventListener('click',function(){tw[b.dataset.key]=b.dataset.val;upd();applyTweaks();window.parent.postMessage({type:'__edit_mode_set_keys',edits:tw},'*');});});
+ document.getElementById('tw-close').addEventListener('click',function(){p.style.display='none';window.parent.postMessage({type:'__edit_mode_dismissed'},'*');});
+ window.addEventListener('message',function(e){if(e.data&&e.data.type==='__activate_edit_mode'){p.style.display='block';upd();}if(e.data&&e.data.type==='__deactivate_edit_mode'){p.style.display='none';}});
+ window.parent.postMessage({type:'__edit_mode_available'},'*');
+ upd();applyTweaks();
+})();
+</script>
+
+</body>
+</html>

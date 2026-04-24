@@ -249,6 +249,10 @@ h3{font-size:22px;letter-spacing:-.015em;line-height:1.2;}
 .footer-bot{padding-top:var(--s5);display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--s4);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--grey);}
 .footer-disclaimer{max-width:60ch;line-height:1.6;color:var(--grey);margin-top:var(--s5);font-size:11px;}
 
+/* ─── Footer Meta Tech Provider badge ───────────────────── */
+.footer-meta-badge{display:inline-flex;align-items:center;margin-top:var(--s4);padding:10px 14px;background:var(--white);border-radius:var(--r-md);max-width:fit-content;}
+.footer-meta-badge img{height:30px;width:auto;display:block;}
+
 /* ─── TRUST BAR ─────────────────────────────────────────── */
 .trust-bar{border-top:1px solid var(--border);padding:var(--s5) 0;}
 .trust-bar-inner{display:flex;gap:var(--s2);align-items:center;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--text-3);}
